@@ -1,12 +1,22 @@
 [
   {
     "content": {
+      "fr": "J'ai pu travailler aux côtés de Johan pendant plusieurs mois et cela a été une super expérience. Johan est très sympathique et prend le temps de bien comprendre les demandes et trouver des solutions adaptées. Il prend aussi le temps d'expliquer les démarches à suivre pour une bonne gestion de projet. Son code est de qualité car il maîtrise le JavaScript et React avec rigueur.",
+      "en": "I worked with Johan during several months and it was an awesome experience. Johan is very nice and takes time to deeply understand the requests to find the suitable solutions. He takes time to explain the process for a good project management. He develops high-standard code because he masters JavaScript and React "
+    },
+    "name": "Armand Sallé",
+    "avatar": "armand.jpeg",
+    "value": 5,
+    "published": true
+  },
+  {
+    "content": {
       "fr": "Nous avons eu un besoin de renfort sur une mission front-end/architecture pour notre client Creative Bot et avons fait appel à Johan. Son expertise et sa faculté d'adaptation ont permis de dépasser nos objectifs et de pleinement satisfaire le client. Le produit en sort grandi également, à la fois techniquement mais aussi d'un point de vue UX.",
       "en": "We had a need for reinforcement on a front-end / architecture mission for our client Creative Bot and we called  Johan on. His expertise and adaptability have made possible to exceed our objectives and fully satisfy the client. The product comes out grown, both technically but also from a UX point of view."
     },
     "name": "Pierre-Alexis NICOLAS",
     "avatar": "pan.jpg",
-    "value": 5,
+    "value": 4,
     "published": true
   },
   {
