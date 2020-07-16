@@ -5,6 +5,7 @@ import Container from 'components/Container'
 import { useIntl } from 'gatsby-plugin-intl'
 import Github from 'assets/icons/Github'
 import Twitter from 'assets/icons/Twitter'
+import Malt from 'assets/icons/Malt'
 
 const SocialLink: FC<{ href: string; label: string }> = ({ href, label, children }) => {
   return (
@@ -38,6 +39,9 @@ const Footer: FC<{}> = () => {
           </SocialLink>
           <SocialLink label="twitter" href="https://twitter.com/johansoulet">
             <Twitter />
+          </SocialLink>
+          <SocialLink label="malt" href="https://www.malt.fr/profile/johansoulet">
+            <Malt />
           </SocialLink>
         </p>
       </Container>
