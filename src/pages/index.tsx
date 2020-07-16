@@ -25,6 +25,10 @@ export const pageQuery = graphql`
           en
           fr
         }
+        position {
+          en
+          fr
+        }
         name
         value
       }

@@ -18,6 +18,7 @@ export function mapTestimonials(
       avatar: avatarImage?.childImageSharp.fixed ?? null,
       rating: testimonial.value,
       content: testimonial.content[locale],
+      position: testimonial.position?.[locale] ?? '',
     }
   })
 }

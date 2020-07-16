@@ -39,6 +39,7 @@ const Testimonials: FC<{
               avatar={testimonial.avatar}
               rating={testimonial.rating}
               content={testimonial.content}
+              position={testimonial.position}
             />
           )
         })}
