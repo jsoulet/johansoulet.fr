@@ -46,7 +46,7 @@ const ToggleLocale: FC<{ i18nLinks?: Ii18nLink[] }> = ({ i18nLinks, ...props }) 
             return null
           }
           return (
-            <Link css={linkStyle} key={link.locale} to={`${link.locale}${link.slug}`}>
+            <Link css={linkStyle} key={link.locale} to={`/${link.locale}${link.slug}`}>
               {formatMessage({ id: `nav.${link.locale}` })}
             </Link>
           )
