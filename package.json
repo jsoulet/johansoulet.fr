@@ -64,7 +64,7 @@
     "lint": "eslint ./",
     "start": "gatsby clean && gatsby develop",
     "develop": "gatsby develop",
-    "build": "npm run clean && gatsby build",
+    "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "rimraf .cache public",
     "format": "prettier --write '**/*.js'"
