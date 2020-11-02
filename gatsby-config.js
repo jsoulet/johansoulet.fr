@@ -88,7 +88,7 @@ module.exports = {
         path: `${__dirname}/config/i18n/messages`,
         languages: ['fr', `en`],
         defaultLanguage: `fr`,
-        redirect: true,
+        redirect: false,
       },
     },
     {
