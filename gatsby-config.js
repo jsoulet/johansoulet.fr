@@ -12,7 +12,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
-        exclude: ['*/mentions-legales', '/terms-conditions'],
+        excludes: ['*/mentions-legales', '/terms-conditions'],
       },
     },
     'gatsby-plugin-react-helmet',
@@ -110,6 +110,7 @@ module.exports = {
         allExtensions: true,
       },
     },
+    // Disabled because it checks node_modules and gatsby-plugin-intl raises an error
     // 'gatsby-plugin-typescript-checker',
     {
       resolve: `gatsby-alias-imports`,
@@ -122,12 +123,12 @@ module.exports = {
         },
       },
     },
+    'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sass',
     'gatsby-plugin-postcss',
     'gatsby-plugin-emotion',
-    'gatsby-plugin-sitemap',
     'gatsby-plugin-offline',
   ],
 }

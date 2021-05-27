@@ -3,92 +3,54 @@ import { graphql } from 'gatsby'
 import { useIntl } from 'gatsby-plugin-intl'
 import { MDXProvider } from '@mdx-js/react'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import { FluidObject } from 'gatsby-image'
+import { getSrc } from "gatsby-plugin-image";
 import Layout from 'components/Layout'
 import PageHero from 'components/PageHero'
 import Article from 'components/Article'
 import Button from 'components/Button'
 import Seo from 'components/Seo'
-
+import { PageInterface } from './types'
 import Image from './Image'
 
 const shortcodes = { Image, Button }
 
-export const pageQuery = graphql`
-  query PageQuery($id: String, $locale: String) {
-    mdx(id: { eq: $id }) {
-      id
-      body
-      excerpt
-      fileAbsolutePath
-      fields {
+export const pageQuery = graphql`query PageQuery($id: String, $locale: String) {
+  mdx(id: {eq: $id}) {
+    id
+    body
+    excerpt
+    fileAbsolutePath
+    fields {
+      slug
+    }
+    frontmatter {
+      title
+      lang
+      chapo
+      date(formatString: "DD MMMM YYYY", locale: $locale)
+      featuredImage {
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
+        }
+      }
+      i18n {
+        locale
         slug
       }
-      frontmatter {
-        title
-        lang
-        chapo
-        date(formatString: "DD MMMM YYYY", locale: $locale)
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        i18n {
-          locale
-          slug
-        }
-        noIndex
-        metaimage: featuredImage {
-          childImageSharp {
-            fixed(width: 1200, height: 630) {
-              src
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-interface IPage {
-  mdx: {
-    id: string
-    body: string
-    excerpt: string
-    fileAbsolutePath: string
-    fields: {
-      slug: string
-    }
-    frontmatter: {
-      title: string
-      lang: string
-      chapo: string
-      date: string
-      featuredImage: {
-        childImageSharp: {
-          fluid: FluidObject
-        }
-      }
-      i18n: {
-        locale: string
-        slug: string
-      }[]
-      noIndex?: boolean
-      metaimage?: {
-        childImageSharp: {
-          fixed: {
-            src: string
-          }
+      noIndex
+      metaimage: featuredImage {
+        childImageSharp {
+          gatsbyImageData(width: 1200, height: 630, placeholder: BLURRED, layout: FIXED)
         }
       }
     }
   }
 }
+`
 
-const MdxLayout: FC<{ data: IPage }> = ({ data }) => {
+
+
+const MdxLayout: FC<{ data: PageInterface }> = ({ data }) => {
   const { formatMessage } = useIntl()
   const filePath = data.mdx.fileAbsolutePath
   const breadcrumbCategoryLink: Array<{
@@ -103,12 +65,14 @@ const MdxLayout: FC<{ data: IPage }> = ({ data }) => {
       link: '/case-studies',
     })
   }
+  // @ts-ignore
+  const seoImage = getSrc(data.mdx.frontmatter.metaimage)
   return (
     <Layout i18nLinks={data.mdx.frontmatter.i18n} hideToogleLocale={!data.mdx.frontmatter.i18n}>
       <Seo
         title={data.mdx.frontmatter.title}
         description={data.mdx.frontmatter.chapo || data.mdx.excerpt}
-        image={data.mdx.frontmatter.metaimage?.childImageSharp.fixed.src}
+        image={seoImage}
         slug={data.mdx.fields.slug}
         noIndex={data.mdx.frontmatter?.noIndex}
       />
@@ -128,7 +92,7 @@ const MdxLayout: FC<{ data: IPage }> = ({ data }) => {
         </section>
       </Article>
     </Layout>
-  )
+  );
 }
 
 export default MdxLayout

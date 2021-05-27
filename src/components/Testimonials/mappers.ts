@@ -1,24 +1,25 @@
-import { ITestimonialSource, ITestimonial, ITestimonialAvatarsSource } from './types'
+import { ITestimonialSource, ITestimonial } from './types'
+import { GatsbyImageFile } from 'utils/types'
 
 export function mapTestimonials(
   nodes: ITestimonialSource[],
   locale: string,
-  avatars: ITestimonialAvatarsSource[] = []
+  avatars: GatsbyImageFile[] = []
 ): ITestimonial[] {
   return nodes.map(testimonial => {
-    let avatarImage = null
+    let avatarImage
     if (testimonial.avatar) {
       avatarImage = avatars.find(avatar =>
-        avatar.childImageSharp.fixed.src.includes(testimonial.avatar)
+        avatar.childImageSharp.gatsbyImageData.images.fallback?.src.includes(testimonial.avatar)
       )
     }
 
     return {
       author: testimonial.name,
-      avatar: avatarImage?.childImageSharp.fixed ?? null,
+      avatar: avatarImage,
       rating: testimonial.value,
       content: testimonial.content[locale],
       position: testimonial.position?.[locale] ?? '',
-    }
-  })
+    };
+  });
 }

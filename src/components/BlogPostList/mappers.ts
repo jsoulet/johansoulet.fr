@@ -8,7 +8,7 @@ export function mapBlogPostList(nodes: IBlogPostItemSource[]): IBlogPostItem[] {
       excerpt: post.frontmatter.chapo || post.excerpt,
       date: post.frontmatter.date,
       slug: post.fields.slug,
-      image: post.frontmatter.featuredImage.childImageSharp.fluid,
-    }
-  })
+      image: post.frontmatter.featuredImage,
+    };
+  });
 }

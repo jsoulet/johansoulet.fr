@@ -1,11 +1,12 @@
-import { FixedObject } from 'gatsby-image'
+import { IGatsbyImageData } from "gatsby-plugin-image";
+import { GatsbyImageFile } from 'utils/types'
 
 export interface ITestimonial {
   content: string
   author: string
   position: string
   rating: number
-  avatar: FixedObject | null
+  avatar?: GatsbyImageFile
 }
 
 export interface ITestimonialSource {
@@ -22,6 +23,6 @@ export interface ITestimonialSource {
 
 export interface ITestimonialAvatarsSource {
   childImageSharp: {
-    fixed: FixedObject
+    gatsbyImageData: IGatsbyImageData
   }
 }

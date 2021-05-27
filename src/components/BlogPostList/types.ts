@@ -1,10 +1,10 @@
-import { FluidObject } from 'gatsby-image'
+import { GatsbyImageFile } from "utils/types";
 export interface IBlogPostItem {
   id: string
   title: string
   date: string
   excerpt: string
-  image: FluidObject
+  image: GatsbyImageFile
   slug: string
 }
 
@@ -18,10 +18,6 @@ export interface IBlogPostItemSource {
     title: string
     chapo: string
     date: string
-    featuredImage: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
-    }
+    featuredImage: GatsbyImageFile
   }
 }

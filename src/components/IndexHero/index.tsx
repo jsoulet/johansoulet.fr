@@ -37,7 +37,7 @@ const Hero: FC<{}> = () => {
           <p css={[tw`leading-normal text-2xl mb-8`]}>{formatMessage({ id: 'index.baseline' })}</p>
           <div>
             <Button
-              onClick={(): void => {
+              onClick={() => {
                 const contactForm = document.getElementById('contact')
                 if (contactForm) {
                   contactForm.scrollIntoView({ behavior: 'smooth' })

@@ -1,9 +1,9 @@
-import { FluidObject } from 'gatsby-image'
+import { GatsbyImageFile } from 'utils/types'
 export interface ICaseStudyCard {
   id: string
   title: string
   category: string
-  image: FluidObject
+  image: GatsbyImageFile
   slug: string
 }
 
@@ -16,10 +16,6 @@ export interface ICaseStudySource {
     title: string
     category: string
     date: string
-    featuredImage: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
-    }
+    featuredImage: GatsbyImageFile
   }
 }

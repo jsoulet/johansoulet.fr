@@ -6,36 +6,36 @@ import Hero from 'components/PageHero'
 import Seo from 'components/Seo'
 import BlogPostList, { mapBlogPostList, IBlogPostItemSource } from 'components/BlogPostList'
 
-export const pageQuery = graphql`
-  query Blog($locale: String!) {
-    blogPosts: allMdx(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: {
-        fileAbsolutePath: { regex: "/content/posts/" }
-        frontmatter: { lang: { eq: $locale } }
+export const pageQuery = graphql`query Blog($locale: String!) {
+  blogPosts: allMdx(
+    sort: {order: DESC, fields: [frontmatter___date]}
+    filter: {fileAbsolutePath: {regex: "/content/posts/"}, frontmatter: {lang: {eq: $locale}}}
+  ) {
+    nodes {
+      id
+      excerpt(pruneLength: 200)
+      fields {
+        slug
       }
-    ) {
-      nodes {
-        id
-        excerpt(pruneLength: 200)
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "D MMMM YYYY", locale: $locale)
-          title
-          featuredImage {
-            childImageSharp {
-              fluid(maxHeight: 250, maxWidth: 530, fit: COVER, quality: 50) {
-                ...GatsbyImageSharpFluid
-              }
-            }
+      frontmatter {
+        date(formatString: "D MMMM YYYY", locale: $locale)
+        title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              height: 250
+              width: 530
+              quality: 50
+              transformOptions: {fit: COVER}
+              layout: CONSTRAINED
+            )
           }
-          chapo
         }
+        chapo
       }
     }
   }
+}
 `
 
 const Blog: FC<{

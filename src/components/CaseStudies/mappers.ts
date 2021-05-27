@@ -7,7 +7,7 @@ export function mapCaseStudies(nodes: ICaseStudySource[]): ICaseStudyCard[] {
       title: study.frontmatter.title,
       category: study.frontmatter.category,
       slug: study.fields.slug,
-      image: study.frontmatter.featuredImage.childImageSharp.fluid,
-    }
-  })
+      image: study.frontmatter.featuredImage,
+    };
+  });
 }
