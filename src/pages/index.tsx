@@ -9,12 +9,10 @@ import BlogPostList, { mapBlogPostList, IBlogPostItemSource } from 'components/B
 import Testimonials, {
   mapTestimonials,
   ITestimonialSource,
-  ITestimonialAvatarsSource,
 } from 'components/Testimonials'
 import ContactForm from 'components/ContactForm'
 import Button from 'components/Button'
 import Seo from 'components/Seo'
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { GatsbyImageFile } from 'utils/types'
 
 export const pageQuery = graphql`

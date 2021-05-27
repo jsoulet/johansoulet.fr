@@ -1,0 +1,46 @@
+.card {
+  margin: 0 auto;
+  background: white;
+  width: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid lightgrey;
+  color: rgb(54, 54, 54);
+  .image {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .content {
+    padding: 8px 12px 24px;
+  }
+  
+  .title {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 4px;
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    margin-bottom: 16px;
+    color: darkgrey;
+  }
+  
+  .desc {
+    color: rgb(54, 54, 54);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  
+  .button {
+    display: flex;
+    justify-content: center;
+  }
+}
+

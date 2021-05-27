@@ -64,17 +64,17 @@ module.exports = {
             },
           },
           'gatsby-remark-slug',
-          // 'gatsby-remark-autolink-headings',
-          // {
-          //   resolve: `gatsby-remark-prismjs`,
-          //   options: {
-          //     classPrefix: 'language-',
-          //     inlineCodeMarker: null,
-          //     aliases: {},
-          //     showLineNumbers: false,
-          //     noInlineHighlight: false,
-          //   },
-          // },
+          //'gatsby-remark-autolink-headings',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: false,
+              noInlineHighlight: true,
+            },
+          },
         ],
         plugins: [`gatsby-remark-images`],
         defaultLayouts: {
@@ -89,18 +89,6 @@ module.exports = {
         languages: ['fr', `en`],
         defaultLanguage: `fr`,
         redirect: false,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: config.manifestName,
-        short_name: config.manifestShortName,
-        start_url: config.pathPrefix || config.manifestStartUrl,
-        background_color: config.manifestBackgroundColor,
-        theme_color: config.manifestThemeColor,
-        display: config.manifestDisplay,
-        icon: config.manifestIcon, // This path is relative to the root of the site.
       },
     },
     {

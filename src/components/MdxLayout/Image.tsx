@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { css } from '@emotion/core'
 import { breakpoints } from 'utils/styles'
 
-interface IImage {
+interface ImageProps {
   alt?: string
   caption?: string
   className?: string
@@ -62,7 +62,7 @@ const style = css({
   },
 })
 
-const Image: FC<IImage> = ({
+const Image: FC<ImageProps> = ({
   children,
   caption = '',
   align = 'fit',
