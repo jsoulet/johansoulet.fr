@@ -1,6 +1,6 @@
-import { FixedObject } from 'gatsby-image'
+import { GatsbyImageFile } from 'utils/types'
 export interface ICard {
   title: string
   content: string
-  image?: FixedObject
+  image?: GatsbyImageFile
 }

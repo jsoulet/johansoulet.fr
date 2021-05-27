@@ -14,135 +14,122 @@ import Testimonials, {
 import ContactForm from 'components/ContactForm'
 import Button from 'components/Button'
 import Seo from 'components/Seo'
-import { FixedObject } from 'gatsby-image'
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { GatsbyImageFile } from 'utils/types'
 
 export const pageQuery = graphql`
-  query IndexPage($locale: String!) {
-    allTestimonialsJson(filter: { published: { eq: true } }) {
-      nodes {
-        avatar
-        content {
-          en
-          fr
-        }
-        position {
-          en
-          fr
-        }
-        name
-        value
+query IndexPage($locale: String!) {
+  allTestimonialsJson(filter: {published: {eq: true}}) {
+    nodes {
+      avatar
+      content {
+        en
+        fr
+      }
+      position {
+        en
+        fr
+      }
+      name
+      value
+    }
+  }
+  testimonialAvatars: allFile(filter: {relativePath: {regex: "/testimonials//"}}) {
+    nodes {
+      childImageSharp {
+        gatsbyImageData(height: 62, width: 62, quality: 80, layout: FIXED, placeholder: BLURRED)
       }
     }
-    testimonialAvatars: allFile(filter: { relativePath: { regex: "/testimonials//" } }) {
-      nodes {
-        childImageSharp {
-          fixed(height: 62, width: 62, quality: 80) {
-            ...GatsbyImageSharpFixed
+  }
+  blogPosts: allMdx(
+    sort: {order: DESC, fields: [frontmatter___date]}
+    filter: {fileAbsolutePath: {regex: "/content/posts/"}, frontmatter: {lang: {eq: $locale}}}
+    limit: 3
+  ) {
+    nodes {
+      id
+      excerpt(pruneLength: 225)
+      fields {
+        slug
+      }
+      frontmatter {
+        date(formatString: "D MMMM YYYY", locale: $locale)
+        title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              height: 250
+              width: 530
+              quality: 50
+              transformOptions: {fit: COVER}
+              layout: CONSTRAINED
+            )
           }
         }
+        chapo
       }
     }
-    blogPosts: allMdx(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: {
-        fileAbsolutePath: { regex: "/content/posts/" }
-        frontmatter: { lang: { eq: $locale } }
+  }
+  studies: allMdx(
+    sort: {order: DESC, fields: [frontmatter___date]}
+    filter: {fileAbsolutePath: {regex: "/content/studies/"}, frontmatter: {lang: {eq: $locale}}}
+    limit: 3
+  ) {
+    nodes {
+      id
+      fields {
+        slug
       }
-      limit: 3
-    ) {
-      nodes {
-        id
-        excerpt(pruneLength: 225)
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "D MMMM YYYY", locale: $locale)
-          title
-          featuredImage {
-            childImageSharp {
-              fluid(maxHeight: 250, maxWidth: 530, fit: COVER, quality: 50) {
-                ...GatsbyImageSharpFluid
-              }
-            }
+      frontmatter {
+        title
+        category
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              height: 600
+              width: 600
+              quality: 50
+              transformOptions: {fit: COVER}
+              layout: CONSTRAINED
+            )
           }
-          chapo
-        }
-      }
-    }
-    studies: allMdx(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: {
-        fileAbsolutePath: { regex: "/content/studies/" }
-        frontmatter: { lang: { eq: $locale } }
-      }
-      limit: 3
-    ) {
-      nodes {
-        id
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          category
-          featuredImage {
-            childImageSharp {
-              fluid(maxHeight: 600, maxWidth: 600, fit: COVER, quality: 50) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-      }
-    }
-    engineeringImage: file(relativePath: { regex: "/engineering/" }) {
-      childImageSharp {
-        fixed(height: 150, quality: 80) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    projectImage: file(relativePath: { regex: "/project/" }) {
-      childImageSharp {
-        fixed(height: 150, quality: 80) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    seoImage: file(relativePath: { regex: "/seo/" }) {
-      childImageSharp {
-        fixed(height: 150, quality: 80) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    learnImage: file(relativePath: { regex: "/learn/" }) {
-      childImageSharp {
-        fixed(height: 150, quality: 80) {
-          ...GatsbyImageSharpFixed
         }
       }
     }
   }
-`
-
-interface IFixedImage {
-  childImageSharp: {
-    fixed: FixedObject
+  engineeringImage: file(relativePath: {regex: "/engineering/"}) {
+    childImageSharp {
+      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+    }
+  }
+  projectImage: file(relativePath: {regex: "/project/"}) {
+    childImageSharp {
+      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+    }
+  }
+  seoImage: file(relativePath: {regex: "/seo/"}) {
+    childImageSharp {
+      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+    }
+  }
+  learnImage: file(relativePath: {regex: "/learn/"}) {
+    childImageSharp {
+      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+    }
   }
 }
+`
 
 const Index: FC<{
   data: {
     allTestimonialsJson: { nodes: ITestimonialSource[] }
-    testimonialAvatars: { nodes: ITestimonialAvatarsSource[] }
+    testimonialAvatars: { nodes: GatsbyImageFile[] }
     blogPosts: { nodes: IBlogPostItemSource[] }
     studies: { nodes: ICaseStudySource[] }
-    engineeringImage?: IFixedImage
-    projectImage?: IFixedImage
-    seoImage?: IFixedImage
-    learnImage?: IFixedImage
+    engineeringImage?: GatsbyImageFile
+    projectImage?: GatsbyImageFile
+    seoImage?: GatsbyImageFile
+    learnImage?: GatsbyImageFile
   }
 }> = ({ data }) => {
   const { formatMessage, locale } = useIntl()
@@ -155,8 +142,8 @@ const Index: FC<{
     return {
       title: formatMessage({ id: `index.services.${index + 1}.title` }),
       content: formatMessage({ id: `index.services.${index + 1}.details` }),
-      image: image?.childImageSharp.fixed,
-    }
+      image,
+    };
   })
   const testimonials = mapTestimonials(
     data?.allTestimonialsJson.nodes ?? [],

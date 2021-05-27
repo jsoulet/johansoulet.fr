@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import tw from 'twin.macro'
 import { Link } from 'gatsby-plugin-intl'
-import Img from 'gatsby-image'
+import { getImage, GatsbyImage } from "gatsby-plugin-image";
 import { css } from '@emotion/core'
 import { breakpoints } from 'utils/styles'
 import { H3 } from 'components/Text'
@@ -36,6 +36,8 @@ const csCardStyles = css({
 })
 
 const CSCard: FC<ICaseStudyCard> = ({ title, image, category, slug }) => {
+  // @ts-ignore: getImage accepts IGatsbyImageDataParent, which has the same shape as GatsbyImageFile
+  const cover = getImage(image)
   return (
     <div css={[tw`w-full sm:w-1/2 lg:w-1/3 px-4 mb-8`]}>
       <Link
@@ -45,19 +47,18 @@ const CSCard: FC<ICaseStudyCard> = ({ title, image, category, slug }) => {
           csCardStyles,
         ]}
       >
-        <Img
+         {cover && <GatsbyImage
+          image={cover}
           css={[tw`object-cover absolute w-full h-full left-0 transition duration-300 inset-0`]}
           style={{ position: 'absolute' }}
-          fluid={image}
-          alt=""
-        ></Img>
+          alt="" /> }
         <div css={[tw`z-10`]}>
           <H3 customCss={[tw`text-white opacity-100 transition duration-300`]}>{title}</H3>
           <p css={[tw`text-white opacity-75 transition duration-300`]}>{category}</p>
         </div>
       </Link>
     </div>
-  )
+  );
 }
 
 export default CSCard
