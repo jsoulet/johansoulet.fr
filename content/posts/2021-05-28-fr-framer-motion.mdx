@@ -3,6 +3,9 @@ date: '2021-05-28'
 title: "Comment animer un composant React à l'aide de la librairie Motion ?"
 featuredImage: '../images/2021-05-28-framer-motion/roller-coaster.jpeg'
 lang: fr
+i18n:
+  - locale: en
+    slug: /2021-05-28-en-framer-motion
 
 ---
 
@@ -26,7 +29,7 @@ export const cardProps = {
 
 </Image>
 
-Depuis quelques années, les micro-animations sont de plus en plus présentes dans les applications web et ne sont plus réservées uniquement aux applications natives. Parce qu'elles permettent d'accompagner l'internaute dans sa navigation ou de donner plus de profondeur au contenu, elles transforment une expérience utilisateur "qui fait le taf" en une expérience " qui fait wow". 
+Depuis quelques années, les micro-animations sont de plus en plus présentes dans les applications web et ne sont plus réservées uniquement aux applications mobiles natives. Parce qu'elles permettent d'accompagner l'internaute dans sa navigation ou de donner plus de profondeur au contenu, elles transforment une expérience utilisateur "qui fait le taf" en une expérience " qui fait wow". 
 
 Quand j'ai essayé de développer des animations nativement, en CSS et VanillaJS, sur des projets React, j'étais souvent bloqué par les mêmes problèmes récurrents : 
 
@@ -36,7 +39,7 @@ Quand j'ai essayé de développer des animations nativement, en CSS et VanillaJS
 
 Le résultat n'était pas fluide et ce n'était pas du tout rentable compte tenu du temps que je devais passer dessus.
 
-Récemment j'ai découvert Motion, développée par Framer, et même si je n'ai pas encore eu l'occasion d'expérimenter cette bibliothèque à son plein potentiel, elle a déjà pu me tirer quelques épines du pied. 
+Récemment j'ai découvert Motion, développée par Framer, et même si je n'ai pas encore eu l'occasion d'expérimenter cette bibliothèque à son plein potentiel, elle a déjà pu m'ôter quelques épines du pied. 
 
 Dans cet article, j'utiliserai comme illustration le composant Card ci dessous, le projet complet est quant à lui accessible sur [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
 
@@ -138,7 +141,7 @@ const bounceVariants = {
 
 On vient de voir comment animer un élément HTML, ce qui est très utile quand on a la main sur le code du composant. Or, le propre de React est de manipuler des composants réutilisables. Comment faire lorsque que celui que l'on souhaite animer est externe au projet, dans une librairie de composants (MaterialUI, Ant.design...) ou dans le design-system de votre organisation par exemple ?
 
-Dans cette configuration, l'utilitaire `motion()` peut aussi être utilisé comme fonction afin d'encapsuler le composant. Comme les composants réunis dans `motion` Ce nouveau composant animable se comportera comme d'habitude et aura hérité des props des composants Motion. 
+Dans cette configuration, l'utilitaire `motion()` peut aussi être utilisé comme fonction afin d'encapsuler le composant. Comme les composants réunis dans `motion`, ce nouveau composant animable se comportera comme d'habitude et aura hérité des props des composants Motion. 
 
 La surcharge des composants externes doit être faite à l'extérieur de la fonction de render des composants parents.
 
@@ -170,7 +173,7 @@ const Card = () => {
 
 Ce qu'on a fait jusque ici pouvait être fait en quelques lignes sous condition de connaître les keyframes de CSS3. 
 
-Pour pour animer les enfants de manière coordonnées, il faudrait faire les calculs des délais d'animation entre chaque composant. Si un composant Motion a des composants enfants, un changement dans la variante du parent sera propagé dans la variante de l'enfant, à condition que leurs identifiants soient les mêmes. Grâce à la propriété transition, on peut définir les propriétées supplémentaires pour orchester les animations entre elles
+Pour pour animer les enfants de manière coordonnées, il faudrait faire les calculs des délais d'animation entre chaque composant. Si un composant Motion a des composants enfants, un changement dans la variante du parent sera propagé dans la variante de l'enfant, à condition que leurs identifiants soient les mêmes. Grâce à la propriété `transition`, on peut définir les propriétées supplémentaires pour orchester les animations entre elles
 
 - *when*: défini si le composant doit être animé avant ses enfants (`beforeChildren`) ou après (`afterChildren`).
 - *childrenDelay* : le temps entre l'animation du parent et le début de l'animation des enfants
@@ -197,7 +200,7 @@ Au sein du composant, importer le hook `useInView` de react-intersection-observe
 
 `useAnimation` renvoie un objet `controls` qui permet de lancer programatiquement des variates d'animation.
 
-On utilise alors useEffect pour alterner entre les états visible et hidden en fonction de .
+On utilise alors useEffect pour alterner entre les états visible et hidden en fonction de la visiblité de la carte.
 
 ```bash
 const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
@@ -230,4 +233,4 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
 
 Motion m'a permi de mettre en place une suite d'animations orchestrée relativement facilement, sans avoir à calculer manuellement les intervalles entre chaque élément parent et enfants.
 
-Cette librairie regorge d'autres fonctionnalités, comme les animations au démontage du DOM, des helpers pour animer au hover, focus ou click, l'animation des SVG... En facilitant la création d'animations fluides, Motion élargi le cercle des possibles et rend envisageables la création d'une expérience utilisateur vivante à l'aide de micro-animations, même sur des projets à budget serré.
+Cette librairie regorge d'autres fonctionnalités, comme les animations au démontage du DOM, des helpers pour animer au hover, focus ou clic, l'animation des SVG... En facilitant la création d'animations fluides, Motion élargi le cercle des possibles et rend envisageables la création d'une expérience utilisateur vivante à l'aide de micro-animations, même sur des projets à budget serré.

@@ -1,0 +1,235 @@
+---
+date: '2021-05-28'
+title: "How to animate a React component with Motion librairy ?"
+featuredImage: '../images/2021-05-28-framer-motion/roller-coaster.jpeg'
+lang: en
+i18n:
+  - locale: fr
+    slug: /2021-05-28-fr-framer-motion
+
+---
+
+import Card0 from './2021-05-28-framer-motion/Card0.tsx'
+import Card1 from './2021-05-28-framer-motion/Card1.tsx'
+import Card2 from './2021-05-28-framer-motion/Card2.tsx'
+import Card3 from './2021-05-28-framer-motion/Card3.tsx'
+import Card4 from './2021-05-28-framer-motion/Card4.tsx'
+
+export const cardProps = {
+  image: "https://picsum.photos/id/442/1909/1262",
+  title: "Geo-caching",
+  category: "urban",
+  price: "€",
+  desc: "Get involved into an immersive treasure hunt to discover the hidden places of the city. You'll learn a lot, from historical gossips to hidden street art masterpieces. Suitable for children, groups, families... ",
+}
+
+<Image align="right" caption="Photo par Kevin Jarrett sur Unsplash">
+
+![](../images/2021-05-28-framer-motion/roller-coaster.jpeg)
+
+</Image>
+
+For a few years, micro-animations became more and more popular in web apps, and they are not only reserved for native mobile apps.
+
+Using them is a way to drive the user during his navigation, or to give some depth to the content, and that's why they will transform a user experience that simply "does the job" into an experience "that maks you wow"
+
+I have tried to develop native micro-animations, with CSS and VanillaJS, in the past to make my React projects more shiny. However, I've always been blocked by some reccurent problems : 
+- enter/leave animations are tricky to setup
+- a lot of code is duplicated from a component to another
+- orchestrating animations between several components is a nightmare
+
+The result I got was not fluid, and it didn't worth the time I spent developing it.
+
+Lately, I discovered Motion, an library developped by Framer, and even if I didn't got the occasion to test all of its options, it already got me out of a tricky situations.
+
+In this article, I'll illustrate my words with the Card component bellow and a complete preview can be found on [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
+
+```tsx
+import { FC } from "react";
+import styles from "./Card.module.scss";
+
+interface CardProps {
+  title: string;
+  desc: string;
+  category: string;
+  price: string;
+  image: string;
+}
+
+const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
+  return (
+    <div
+      className={styles.card}
+    >
+      <img src={image} className={styles.image} alt="" />
+      <div className={styles.content}>
+        <h2 className={styles.title}>{title}</h2>
+        <div className={styles.subtitle}>
+          {price} • {category}
+        </div>
+        <div className={styles.desc}>{desc}</div>
+      </div>
+    </div>
+  );
+};
+
+export default Card;
+```
+
+<Card0 {...cardProps}/>
+
+
+## Animate an HTML element
+
+Let's add  `framer-motion` to your ptoject.
+
+```bash
+yarn add framer-motion
+```
+
+Then import Motion into your component.
+
+```tsx
+import { motion } from 'framer-motion'
+```
+
+This helper will provide you an access to lots of Motion components (ie: motion.div, motion.span, motion.path...) : there's one for every HTML and SVG element. They can be used as standard native elements, and thay also accept props that are specific to Motion.
+
+`initial` et `animate` are props to define the initial state of the component and the values they will be animated to once it will be mounted into the DOM.
+
+By default, Motion will provide some default transitions depending on the props you animate, but you can obliousely define your own transitions.
+
+```tsx
+<motion.div
+  className={styles.card}
+  initial={{ opacity: 0, scale: 0.6 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ type: "spring", bounce: 0.5 }}
+>
+	{/* ... */} 
+</motion.div>
+```
+
+In order to make the animation reusable, Motion accepts a variant object that describe several animations. `initial` and `animate` will then need the key of the variant to use.
+
+```tsx
+const bounceVariants = {
+  hidden: { opacity: 0, scale: 0.6 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.5
+    }
+  }
+};
+
+<motion.div
+	className={styles.card}
+	initial="hidden"
+	animate="visible"
+	variants={bounceVariants}
+>
+	{/* ... */} 
+</motion.div>
+```
+
+<Card1 {...cardProps}/>
+
+
+## Overload a React comonent to animate it
+
+We have discover how to animate an HTML element, that is very usefull when you are able to edit its own code. However, React is by design made to manipulate reusable components. How to animate a component when you want to animate that is not part of the project, if it belongs to an external component librairy (MaterialUI, Ant.design...) or it lives into your organisation's design-system ?
+
+In this configuration, `motion()` helper will be a usefull function to encapsulate your component into an animable one.  Like other `motion` components, this new component will behave juste like you've been used to and it inherited to all the custom Motion props.
+
+This component overload should be done outesdide of the render fonction of the parent component.
+
+```tsx
+import { Button } from '@corp-designsystem/react'
+
+const AnimatedButton = mount(Button)
+
+const Card = () => {
+	return <div className={styles.button}>
+    <AnimatedButton
+      initial="hidden"
+      animate="visible"
+      variants={fadeUpVariants}
+    >
+      Book
+    </AnimatedButton>
+  </div>
+}
+```
+
+<Card2 {...cardProps}/>
+
+*Motion animation are played when the component is mounted. If you couldn't see this one, please refresh the page*
+
+**Warning** : this method will only work for component that are passing their ref to their root component using `React.forwardRef`. If it's not your case, a trade-off can be to wrapp the component into a `motion.div` container taht you will animate.
+
+## Cascade animations from a component to its children
+
+What we've dome yet only need a couple of lines if you're familiar with CSS3 keyframes.
+
+However, to coordinate animations between a component and its children, you'll need to calculate every delay between all your component's animations. A change a Motion component variant will be spread to its children variantson condition that their key identifiers are the same. Thats to the `transition` prop, it is then possible to define extra properties to orchestrate animations between the children.
+
+- *when*: define if a component should be animated before its children (`beforeChildren`) or after (`afterChildren`).
+- *childrenDelay* : the delay between a parent's animation and its children's 
+- *staggerChildren*: delay between every chilren
+- *staggerDirection*: if  staggerDirection equals 1, children will be animated from the first to the last in the DOM order, and the opposit if it equals -1.
+
+<Card3 {...cardProps}/>
+
+*Refresh the page if you coudn't see the animation.*
+
+## Control animations depending on external effects
+
+For now, the Card animations only get executed when the component is mouted on the DOM. If it is below the watterline, animation won't be seen by the user. That's why I used the Intersection Observer API tand a Motion hook called `useAnimation` to control it.
+
+```bash
+yarn add react-intersection-observer
+```
+
+Import `useInView` hook from react-intersection-observer and `useAnimation` from framer-motion.
+
+`useInView` is a small hook that is used to know if a given component is visible or not.
+
+`useAnimation` returns a `controls` qobject to programatically manipulate variant animations.
+
+I finally used useEffect to alternate betwwen the variant states, visible and hidden, 
+
+```bash
+const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
+  const { ref, inView } = useInView();
+  const controls = useAnimation();
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+    if (!inView) {
+      controls.start("hidden");
+    }
+  }, [inView, controls]);
+  return (
+    <motion.div
+      className={styles.card}
+      initial="hidden"
+      variants={bounceVariants}
+      animate={controls}
+      ref={ref}
+    ></motion.div>)
+}
+```
+
+<Card4 {...cardProps}/>
+
+*You can replay this animation by scrolling, to show/hide the card*
+
+## Conclusion
+
+Motion has been a great help to integrate some orchestrated animations easily, whithout the need to compute intervalls and delays betwwen every sigle element.
+
+This librairy as a lot of other features that I did'nt tried yet: animate on component unmount, helpers to animate on tap, focus or click, animate SVG... Motion will make my micro-animations more fluid, and I can now consider animating component to make my React apps alive, event if my client's budget is tight.
