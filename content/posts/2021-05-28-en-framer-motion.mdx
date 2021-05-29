@@ -42,7 +42,7 @@ The result I got was not fluid, and it didn't worth the time I spent developing 
 
 Lately, I discovered [Motion](https://www.framer.com/motion/), a library developped by Framer, and even if I didn't got the occasion to test all of its options, it already got me out of a tricky situations.
 
-In this article, I'll illustrate my words with the Card component bellow and a complete preview can be found on [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
+> 👉 In this article, I'll illustrate my words with the Card component bellow and a complete preview can be found on [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
 
 ```tsx
 import { FC } from "react";
@@ -168,7 +168,7 @@ const Card = () => {
 
 *Motion animation are played when the component is mounted. If you couldn't see this one, please refresh the page*
 
-**Warning** : this method will only work for component that are passing their ref to their root component using `React.forwardRef`. If it's not your case, a trade-off can be to wrapp the component into a `motion.div` container taht you will animate.
+> 💡  This method will only work for component that are passing their ref to their root component using `React.forwardRef`. If it's not your case, a trade-off can be to wrapp the component into a `motion.div` container that you will animate.
 
 ## Cascade animations from a component to its children
 

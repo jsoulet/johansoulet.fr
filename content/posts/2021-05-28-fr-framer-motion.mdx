@@ -29,19 +29,19 @@ export const cardProps = {
 
 </Image>
 
-Depuis quelques années, les micro-animations sont de plus en plus présentes dans les applications web et ne sont plus réservées uniquement aux applications mobiles natives. Parce qu'elles permettent d'accompagner l'internaute dans sa navigation ou de donner plus de profondeur au contenu, elles transforment une expérience utilisateur "qui fait le taf" en une expérience " qui fait wow". 
+Depuis quelques années, les micro-animations ne sont plus réservées uniquement aux applications mobiles natives et sont de plus en plus présentes dans les applications web. Parce qu'elles permettent d'accompagner l'internaute dans sa navigation ou de donner plus de profondeur au contenu, elles transforment une expérience utilisateur "qui fait le taf" en une expérience " qui fait wow". 
 
 Quand j'ai essayé de développer des animations nativement, en CSS et VanillaJS, sur des projets React, j'étais souvent bloqué par les mêmes problèmes récurrents : 
 
 - Les animations d'entrée/sortie étaient complexes à mettre en place
-- Beaucoup de code dupliqué d'un composant à l'autre
-- Difficile d'orchestrer les animations de plusieurs composants entre eux.
+- Beaucoup de code est dupliqué d'un composant à l'autre
+- L'ochestration des animations entre plusieurs composant est un cauchemards
 
 Le résultat n'était pas fluide et ce n'était pas du tout rentable compte tenu du temps que je devais passer dessus.
 
 Récemment j'ai découvert [Motion](https://www.framer.com/motion/), développée par Framer, et même si je n'ai pas encore eu l'occasion d'expérimenter cette bibliothèque à son plein potentiel, elle a déjà pu m'ôter quelques épines du pied. 
 
-Dans cet article, j'utiliserai comme illustration le composant Card ci dessous, le projet complet est quant à lui accessible sur [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
+> 👉 Dans cet article, j'utiliserai comme illustration le composant Card ci dessous, le projet complet est quant à lui accessible sur [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
 
 ```tsx
 import { FC } from "react";
@@ -167,7 +167,7 @@ const Card = () => {
 
 *Les animations Motion sont jouées au montage du composant. Raffraichissez la page si vous n'avez pas eu le temps de la voir.*
 
-**Attention** : cette méthode ne marchera que sur les composants qui ont transfèrent la ref à leur  racine à l'aide de `React.forwardRef`. Si ce n'est pas le cas, une alternative pourrait être d'encapsuler votre composant au sein d'un container `motion.div` , et c'est lui que vous animerez.
+> 💡  Cette méthode ne marchera que sur les composants qui ont transfèrent la ref à leur  racine à l'aide de `React.forwardRef`. Si ce n'est pas le cas, une alternative pourrait être d'encapsuler votre composant au sein d'un container `motion.div` , et c'est lui que vous animerez.
 
 ## Propager des animations en cascade sur un composant et ses enfants
 
