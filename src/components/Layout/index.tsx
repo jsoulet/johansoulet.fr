@@ -15,6 +15,7 @@ const layoutVariants = {
       duration: DURATION,
       delay: DURATION,
       when: "beforeChildren",
+      staggerChildren: 0.2
     },
   },
   exit: {
