@@ -14,7 +14,7 @@ const BlogPostItem: FC<IBlogPostItem> = ({ title, excerpt, image, date, slug }) 
     <Link
       to={slug}
       css={[
-        tw`w-full sm:w-3/4 md:w-3/4 lg:w-1/3 px-6 mb-12 mx-auto lg:mx-0 duration-300 transform hover:-translate-y-1`,
+        tw`duration-300 transform hover:-translate-y-1`,
         css({
           '&:hover h3': tw`text-green-500`,
         }),

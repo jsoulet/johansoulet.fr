@@ -4,6 +4,7 @@ import { Link } from 'gatsby'
 import { css } from '@emotion/core'
 import tw from 'twin.macro'
 
+import Logo from './Logo'
 import BurgerIcon from './BurgerIcon'
 import CrossIcon from './CrossIcon'
 import ToggleLocale from './ToggleLocale'
@@ -81,9 +82,10 @@ const Navbar: FC<{ i18nLinks?: Ii18nLink[]; hideToogleLocale?: boolean }> = ({
       ]}
     >
       <div css={[tw`flex flex-shrink-0 items-center flex-grow`]}>
-        <NavLink href="/" isLogo>
+        {/* <NavLink href="/" isLogo>
           Johan Soulet
-        </NavLink>
+        </NavLink> */}
+        <Link to="/"><Logo/></Link>
         {!hideToogleLocale && (
           <ToggleLocale i18nLinks={i18nLinks} css={[tw`flex-grow text-right px-4 py-2`]} />
         )}
