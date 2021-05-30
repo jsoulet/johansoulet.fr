@@ -27,20 +27,20 @@ const Footer: FC<{}> = () => {
     <footer css={[tw`text-center bg-gray-900 text-white py-24 text-sm`]}>
       <Container>
         <p css={[tw`mb-5`]}>
-          <Link css={[tw`underline`]} to={formatMessage({ id: 'footer.terms.link' })}>
+          <Link css={[tw`underline`]} to={formatMessage({ id: 'footer.terms.link' })} >
             {formatMessage({ id: 'footer.terms.label' })}
           </Link>{' '}
           - © Johan Soulet
         </p>
-        <p>{formatMessage({ id: 'footer.madeWithLove' })}</p>
+        <p aria-label={formatMessage({ id: 'footer.madeWithLove.a11y' })}>{formatMessage({ id: 'footer.madeWithLove' })}</p>
         <p css={[tw`flex items-center justify-center mt-5`]}>
-          <SocialLink label="github" href="https://github.com/jsoulet">
+          <SocialLink label="Github" href="https://github.com/jsoulet">
             <Github />
           </SocialLink>
-          <SocialLink label="twitter" href="https://twitter.com/johansoulet">
+          <SocialLink label="Twitter" href="https://twitter.com/johansoulet">
             <Twitter />
           </SocialLink>
-          <SocialLink label="malt" href="https://www.malt.fr/profile/johansoulet">
+          <SocialLink label="Malt" href="https://www.malt.fr/profile/johansoulet">
             <Malt />
           </SocialLink>
         </p>
