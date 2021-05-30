@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { GlobalStyles } from 'twin.macro'
 import Footer from 'components/Footer'
 import Seo from 'components/Seo'
 import Navbar, { Ii18nLink } from 'components/Navbar'
@@ -33,7 +34,7 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
   return (
     <>
       <Seo />
-      
+      <GlobalStyles />
       <div>
         <Navbar i18nLinks={i18nLinks} hideToogleLocale={hideToogleLocale} />
         <motion.main variants={layoutVariants} initial="hidden" animate="visible" exit="exit">

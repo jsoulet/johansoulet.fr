@@ -162,11 +162,14 @@ const Index: FC<{
       <CaseStudies
         title={formatMessage({ id: 'index.caseStudies.title' })}
         caseStudies={caseStudies}
-      ></CaseStudies>
+        bottom={
+          <Button to="/case-studies">{formatMessage({ id: 'index.caseStudies.seeAllButtonLabel' })}</Button>
+        }
+      />
       <Testimonials
         title={formatMessage({ id: 'index.testimonials.title' })}
         testimonials={testimonials}
-      ></Testimonials>
+      />
       <BlogPostList
         title={formatMessage({ id: 'index.posts.title' })}
         posts={blogPosts}

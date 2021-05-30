@@ -1,17 +1,18 @@
 import React, { FC, ReactElement } from 'react'
 import Section from 'components/Section'
-import Row from 'components/Row'
 import CSCard from './CSCard'
 import { ICaseStudyCard } from './types'
+import tw from 'twin.macro'
 
 const CaseStudies: FC<{
   caseStudies: ICaseStudyCard[]
   title?: string
   head?: ReactElement | string
-}> = ({ caseStudies, head, title }) => {
+  bottom?: ReactElement | string
+}> = ({ caseStudies, head, title, bottom }) => {
   return (
-    <Section title={title} head={head}>
-      <Row stretch>
+    <Section title={title} head={head} bottom={bottom}>
+      <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-8`}>
         {caseStudies.map(study => {
           return (
             <CSCard
@@ -24,7 +25,7 @@ const CaseStudies: FC<{
             />
           )
         })}
-      </Row>
+      </div>
     </Section>
   )
 }

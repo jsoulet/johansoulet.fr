@@ -1,0 +1,86 @@
+---
+date: '2020-01-03'
+title: "Gatsby vs Next.js"
+featuredImage: '../images/2020-01-03-gatsby-vs-nextjs/fight.png'
+lang: en
+i18n:
+  - locale: fr
+    slug: /2020-01-03-gatsby-vs-nextjs
+---
+
+<Image align="right" caption="Photo by Stephen Wheeler on Unsplash">
+
+![](../images/2020-01-03-gatsby-vs-nextjs/fight.png)
+
+</Image>
+
+
+Last year, I was given the opportunity to work with [Gatsby](https://www.gatsbyjs.org/) and [Next.js](https://nextjs.org/). Both of those frameworks are based on ReactJS and they offer a normalised architecture to quickly create websites and give them superpowers improving accessibility, SEO and performances.
+
+They have more or less the same popularity: Gatsby has 41.9k stars on Github and Next.js has 43k.
+
+## 🤝 Their similarities
+
+Before opposing the two solutions, let's look at the similarities between Next.js and Gatsby.
+
+<Image isSmall>
+
+![](https://media.giphy.com/media/CHmwA02GQ6aTS/giphy.gif)
+
+</Image>
+
+### The learning curve
+
+For an developer who created several ReactJS apps, setuping a Gatsby or a Next.js won't be difficult. Their documentation is very precise and lots of blog posts or videos exist to help you.
+
+Thanks to static hosting platforms like Nelify, Gitlab Pages, Now.sh..., it will be even more easy to deploy your app. Within some hours you'll be able to create your own static website and make it available worldwide.
+
+### The development tools
+
+Creating an app only with ReactJS can lead to anoying headaches : configure Webpack, add Babel to use Javascript ES7, create minified production builds, setup live-reload for the development environment... All of those difficulties are by default handled by the integrated development tools.
+
+Because the setup of Gatsby and Next.js is fast and efficient, they let the developers focus on their real added-value: developing the business code.
+
+### Generating pages automatically
+
+Next.js and Gatsby have a `/src/pages` folder where the stored components are transformed into pages and served by the framework.
+
+Therefore, `/src/pages/index.js` can be accessed at `/` and `/src/pages/about.js` will be available at `/about`. The file tree can also handle multiple levels pages so `/src/pages/posts/post-1.js` is visible at `/posts/post-1`.
+
+### Integrated routing
+
+The 2 frameworks have their own routing system with internal links management. Fun fact is that they are both based on [@reach/router](https://github.com/reach/router) by Ryan Florence.
+
+Because they handle the routing themselfes, they offer link-prefetching which creates a greate user experience by reducing loading times.
+
+## ⚔️ How are they different ?
+
+<Image isSmall>
+
+![](https://media.giphy.com/media/Dea0leKapJzJC/giphy.gif)
+
+</Image>
+
+### Pre-rendering VS server-side rendering
+
+Event if there is no big difference for the end users, it is something huge on the developer point of view. All Gatsby pages are static, because the data they are feed from are downloaded on the build time (we'll come back to this specifi point later). That's why for every content modification, a new build process is required.
+
+Wheras Next.js offers server-rendering. It means that pages are computed by a NodeJS server when the client request is made, and the HTML result is then send to the client. When it is downloaded, a JavaScript overlay transform the content to make it dynamic.
+
+### Data management
+
+On build time, Gatsby will fetch all data from the various endpoints that are setup (database, API, Headless CMS, local files...) and exposes them to the pages thanks to a graphQL Gateway API. The community is huge and there are a lot of plugin that makes data fetching easier.
+
+Next.js overloads the standard React components so every page has an async `getInitialProps` method. It will be executer before the first render to feed the component with some initial data. In this method you'll need to implement the calls to external services, but contrary to Gatsby everything as to be done from scratch.
+
+### Dynamic routing
+
+Since v9 that came out during spring 2019, Next.js has integrated a dynamic routing system that uses the file tree and a file-name pattern. Thereby, for a file named `pages/post/[slug].js`, Next.js will automatically match the URL `/posts/my-post-slug` to the component inside this file. The slug value will be accessible via the first parameter of the `getInitialProps` method.
+
+As to Gatsby, dynamic page building remains quite tricky. `gatsby-node.js` file can overload standard build functions to create new GraphQL nodes or pages. Fortunately, the [documentation website](https://www.gatsbyjs.org/docs/api-files/) is very complete and can help you in the process.
+
+## When to use them ?
+
+If your website content doesn't need a constant update, (ie: a blog or an institutionnal website), I would advise you to choose Gatsby, becasue it will lead you to a faster website. But if you need a constant update, with synamic user input, (ie: newsfeed), that whould be simpler to use Next.js.
+
+Howerver, don't forget that both of your Gatsby and Next.js apps are based on React, which means you can still plug asynchronous API, a redux architecture, an Apollo Client... to call to third party services during client rendereing. 

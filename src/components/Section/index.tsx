@@ -30,7 +30,7 @@ const Section: FC<{
           {head && <p css={[tw`text-gray-600`]}>{head}</p>}
         </div>
         <div css={[tw`mt-12 mb-3`]}>{children}</div>
-        {bottom && <div css={[tw`text-center md:w-3/5 mx-auto text-gray-600 mb-10`]}>{bottom}</div>}
+        {bottom && <div css={[tw`text-center md:w-3/5 mx-auto text-gray-600 my-10`]}>{bottom}</div>}
       </Container>
     </section>
   )

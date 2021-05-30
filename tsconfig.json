@@ -19,5 +19,5 @@
     },
     "plugins": [{ "name": "typescript-plugin-tw-template" }]
   },
-  "exclude": ["node_modules", "public", ".cache"]
+  "exclude": ["node_modules", "public", ".cache"],
 }
