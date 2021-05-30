@@ -1,6 +1,6 @@
 ---
 date: '2021-05-28'
-title: "Comment animer un composant React à l'aide de la librairie Motion ?"
+title: "Comment animer un composant React à l'aide de Framer Motion ?"
 featuredImage: '../images/2021-05-28-framer-motion/roller-coaster.jpeg'
 lang: fr
 i18n:
@@ -39,7 +39,7 @@ Quand j'ai essayé de développer des animations nativement, en CSS et VanillaJS
 
 Le résultat n'était pas fluide et ce n'était pas du tout rentable compte tenu du temps que je devais passer dessus.
 
-Récemment j'ai découvert [Motion](https://www.framer.com/motion/), développée par Framer, et même si je n'ai pas encore eu l'occasion d'expérimenter cette bibliothèque à son plein potentiel, elle a déjà pu m'ôter quelques épines du pied. 
+Récemment j'ai découvert [Framer Motion](https://www.framer.com/motion/), une librairie pour React qui permet de créer des animations fliudes, et même si je n'ai pas encore eu l'occasion d'expérimenter cette bibliothèque à son plein potentiel, elle a déjà pu m'ôter quelques épines du pied. 
 
 > 👉 Dans cet article, j'utiliserai comme illustration le composant Card ci dessous, le projet complet est quant à lui accessible sur [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
 
@@ -234,3 +234,5 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
 Motion m'a permi de mettre en place une suite d'animations orchestrée relativement facilement, sans avoir à calculer manuellement les intervalles entre chaque élément parent et enfants.
 
 Cette librairie regorge d'autres fonctionnalités, comme les animations au démontage du DOM, des helpers pour animer au hover, focus ou clic, l'animation des SVG... En facilitant la création d'animations fluides, [Motion](https://www.framer.com/motion/) élargi le cercle des possibles et rend envisageables la création d'une expérience utilisateur vivante à l'aide de micro-animations, même sur des projets à budget serré.
+
+> 🛼 Pour continuer mon expérimentation avec Framer Motion, j'ai commencé à ajouter des animations dans ce site web. Les avez-vous remarquées ?
