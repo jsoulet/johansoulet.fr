@@ -8,7 +8,7 @@ import CaseStudies, { mapCaseStudies, ICaseStudySource } from 'components/CaseSt
 import BlogPostList, { mapBlogPostList, IBlogPostItemSource } from 'components/BlogPostList'
 import Testimonials, {
   mapTestimonials,
-  ITestimonialSource,
+  TestimonialSource,
 } from 'components/Testimonials'
 import ContactForm from 'components/ContactForm'
 import Button from 'components/Button'
@@ -120,7 +120,7 @@ query IndexPage($locale: String!) {
 
 const Index: FC<{
   data: {
-    allTestimonialsJson: { nodes: ITestimonialSource[] }
+    allTestimonialsJson: { nodes: TestimonialSource[] }
     testimonialAvatars: { nodes: GatsbyImageFile[] }
     blogPosts: { nodes: IBlogPostItemSource[] }
     studies: { nodes: ICaseStudySource[] }

@@ -1,7 +1,7 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
 import { GatsbyImageFile } from 'utils/types'
 
-export interface ITestimonial {
+export interface Testimonial {
   content: string
   author: string
   position: string
@@ -9,7 +9,7 @@ export interface ITestimonial {
   avatar?: GatsbyImageFile
 }
 
-export interface ITestimonialSource {
+export interface TestimonialSource {
   name: string
   avatar: string
   value: number
@@ -18,11 +18,5 @@ export interface ITestimonialSource {
   }
   position: {
     [key: string]: string | null
-  }
-}
-
-export interface ITestimonialAvatarsSource {
-  childImageSharp: {
-    gatsbyImageData: IGatsbyImageData
   }
 }

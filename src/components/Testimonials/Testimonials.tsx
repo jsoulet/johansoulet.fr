@@ -3,7 +3,7 @@ import Section, { backgroundColors } from 'components/Section'
 import Slider from 'react-slick'
 import TestimonialSlide from './TestimonialSlide'
 import { css } from '@emotion/core'
-import { ITestimonial } from './types'
+import { Testimonial } from './types'
 
 const style = css({
   '.slick-track': {
@@ -24,7 +24,7 @@ const settings = {
 }
 
 const Testimonials: FC<{
-  testimonials: ITestimonial[]
+  testimonials: Testimonial[]
   title?: string
   head?: string | ReactElement
 }> = ({ testimonials, title, head }) => {

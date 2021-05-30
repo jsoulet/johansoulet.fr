@@ -52,7 +52,7 @@ const boxVariants = {
   }
 }
 
-function Logo() {
+function AnimatedLogo() {
   const {pathname} = useLocation()
   return (
     <motion.svg variants={containerVariants} initial={pathname === '/' && "hidden"} animate="visible" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -67,4 +67,4 @@ function Logo() {
 
 
 
-export default Logo;
+export default AnimatedLogo;

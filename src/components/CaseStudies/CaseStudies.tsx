@@ -3,6 +3,7 @@ import Section from 'components/Section'
 import CSCard from './CSCard'
 import { ICaseStudyCard } from './types'
 import tw from 'twin.macro'
+import {motion} from 'framer-motion'
 
 const CaseStudies: FC<{
   caseStudies: ICaseStudyCard[]
@@ -12,7 +13,7 @@ const CaseStudies: FC<{
 }> = ({ caseStudies, head, title, bottom }) => {
   return (
     <Section title={title} head={head} bottom={bottom}>
-      <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-8`}>
+      <motion.div css={tw`grid grid-cols-1 md:grid-cols-3 gap-8`}>
         {caseStudies.map(study => {
           return (
             <CSCard
@@ -25,7 +26,7 @@ const CaseStudies: FC<{
             />
           )
         })}
-      </div>
+      </motion.div>
     </Section>
   )
 }

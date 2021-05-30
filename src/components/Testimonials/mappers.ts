@@ -1,11 +1,11 @@
-import { ITestimonialSource, ITestimonial } from './types'
+import { TestimonialSource, Testimonial } from './types'
 import { GatsbyImageFile } from 'utils/types'
 
 export function mapTestimonials(
-  nodes: ITestimonialSource[],
+  nodes: TestimonialSource[],
   locale: string,
   avatars: GatsbyImageFile[] = []
-): ITestimonial[] {
+): Testimonial[] {
   return nodes.map(testimonial => {
     let avatarImage
     if (testimonial.avatar) {
