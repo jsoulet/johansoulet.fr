@@ -38,6 +38,7 @@ export const pageQuery = graphql`query PageQuery($id: String, $locale: String) {
         slug
       }
       noIndex
+      canonicalUrl
       metaimage: featuredImage {
         childImageSharp {
           gatsbyImageData(width: 1200, height: 630, placeholder: BLURRED, layout: FIXED)
@@ -75,6 +76,7 @@ const MdxLayout: FC<{ data: PageInterface }> = ({ data }) => {
         image={seoImage}
         slug={data.mdx.fields.slug}
         noIndex={data.mdx.frontmatter?.noIndex}
+        canonicalUrl={data.mdx.frontmatter.canonicalUrl}
       />
       <PageHero
         title={data.mdx.frontmatter.title}

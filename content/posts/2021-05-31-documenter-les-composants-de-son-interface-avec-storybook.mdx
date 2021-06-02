@@ -1,0 +1,201 @@
+---
+date: '2021-05-31'
+title: "Documenter les composants de son interface avec Storybook"
+featuredImage: '../images/2021-05-31-storybook/book-shelves.jpeg'
+lang: fr
+canonicalUrl: https://slash.troopers.agency/article/documenter-les-composants-de-son-interface-avec-storybook
+
+---
+
+> Article publié originellement sur le blog de [Troopers Web Republic](https://slash.troopers.agency/article/documenter-les-composants-de-son-interface-avec-storybook)
+
+Storybook propose aux développeurs front-end un environnement pour développer en isolation mais fournit aussi aux acteurs externes une interface pour manipuler les composants du système, en consulter les différents états et ce dans de multiples résolutions.
+
+Jusqu’à récemment, ce projet restait relativement complexe à mettre en place, il fallait installer de nombreux plugins, re-configurer finement webpack... Il était donc réservé aux entreprises qui avaient les moyens d’investir beaucoup de temps dans la formalisation de son design system.
+
+Mais les dernières releases en ont considérablement simplifié l’utilisation, et [Storybook](https://storybook.js.org/) se configure désormais (presque) tout seul !
+
+## Installer Storybook
+
+```bash
+ npx sb init
+```
+
+En une commande, Storybook s’installe au sein d’un projet existant. Il est capable de détecter quel est le framework que vous utilisez (React, Vue ou Angular) afin d’installer les dépendances adéquates, et est compatible avec Javascript mais aussi Typescript.
+
+Quelques stories de démo seront aussi créées afin que vous puissiez vous en inspirer pour écrire les vôtres.
+… et c’est tout !
+
+## Documentation les composants et leurs variations sous forme de Story
+Pour chaque composant, il faudra maintenant créer un fichier `ComponentName.stories.js` qui agrègera toutes les stories associées à ce composant.
+
+Ces fichiers peuvent être créés n’importe où dans votre projet (la configuration webpack de base ira chercher tous les fichiers nommés *.stories.js). Mais pour faciliter l’organisation du code, il reste préférable de les créer juste à côté du composant auquel elles font référence.
+
+Passons maintenant au côté pratique avec l’exemple d’un composant Avatar : il affiche la photo de profil d’un utilisateur et si la photo n’est pas définie, il affichera les initiales.
+
+```jsx
+// Avatar.js
+
+const Avatar = ({ src, firstname, lastname }) => {
+	if (!picture) {
+		const initials = getInitials(firstname, lastname)
+		return <div className="avatar empty">{ initials }</div>
+	}
+	return <div className="avatar">
+		<img src={src} alt={`${firstname} ${lastname}`}/>
+	</div>
+}
+
+Avatar.propTypes = {
+	src: PropTypes.string,
+	firstname: PropTypes.string.isRequired,
+	lastname: PropTypes.string.isRequired
+}
+
+export default Avatar
+```
+
+Il est important d'écrire une story pour chacun des état du composant, ainsi les différentes parties prenantes (designer·euse·s, developpeur·euse·s, PO, sponsors…) pourront découvrir l'ensemble des variations qu'il offre, les remettre en question, les corriger, les faire évoluer...
+
+Les équipes de développement de Storybook ont normalisé le format d’une story, appelé [Component Story Format (CSF)](https://storybook.js.org/docs/react/api/csf) : 
+-  l’export par défaut du module retourne les méta-données de la story
+-  chaque export nommé retourne une déclinaison du composant que l'on souhaite documenter.
+
+En suivant [la doc officielle](https://storybook.js.org/docs/react/writing-stories/introduction) et les [articles Médium de l’équipe](https://medium.com/storybookjs/component-story-format-66f4c32366df), vous pourrez découvrir plus en détails la philosophie derrière le CSF et les nombreuses options qu'il offre.
+
+```jsx
+// Avatar.stories.js
+import Avatar from './Avatar'
+
+export default {
+	title: 'Components/Avatar',
+	component: Avatar
+}
+
+const Template = args => <Avatar {...args} />
+Template.args = {
+	firstname: 'Anakin',
+	lastname: 'Skywalker'
+}
+
+export const withPicture = Template.bind({})
+withPicture.args = {
+	...Template.args,
+	src: 'https://theoldrepublic.space/anakin-skywalker.jpeg'
+}
+
+export const withoutPicture = Template.bind({})
+
+```
+
+Dans la version 6, la notion d' *args* a été introduite. Alors qu’avant il fallait installer un add-on en option ([knobs](https://www.npmjs.com/package/@storybook/addon-knobs)), Storybook installe à présent automatiquement l'add-on [Controls](https://storybook.js.org/docs/react/essentials/controls) pour modifier à la volée les arguments passés à nos stories. Cela rend le composant manipulable directement depuis l’interface de Storybook et chacun·e est ainsi capable tester le composant et ses comportements dans les cas limites.
+
+> Comment s’affichera l’avatar si Yoda (qui n’a pas de nom de famille) n’a pas encore renseigné sa photo de profil ?
+
+<Image isSmall>
+
+![Gif extrait du film Star Wars, l'Empire Contre Attaque : Yoda utilise la Force](https://media.giphy.com/media/26tPgV8ceZTSxH9zG/giphy.gif)
+
+</Image>
+
+## Des pages éditoriales en MDX
+Dans le futur, on s’attardera surement dans blog sur les design tokens et comment les utiliser pour concevoir une UI consistante . En attendant, je vous invite à consulter [la présentation de ce concept](https://spectrum.adobe.com/page/design-tokens/) dans la documentation de Spectrum, le design system d’Adobe.
+Pour qu’ils puissent être utilisés par l’ensemble des acteurs du projet, il faut qu’ils soient facilement consultables. Or, ils ne sont pas des composants indépendants et ne peuvent avoir une story propre.
+
+Le MDX est un format de document qui permet de formatter du texte en Markdown, mais aussi d’interpréter le JSX utilisé pour l’écriture des composants React.
+Storybook étant capable d’interpréter ce format, il pourra alors être utilisé pour créer des pages éditoriales qui servirons par exemple à documenter les design tokens utilisés par l'interface.
+
+```mdx
+// DesignTokens.stories.mdx
+import { Meta, Canvas } from '@storybook/addon-docs'
+import Color from './Color'
+
+<Meta title="Foundation/DesignTokens" />
+
+# DESIGN TOKENS
+
+## Sizes
+
+### Fonts
+
+| Name   | Value |
+|--------|-------|
+| small  | 12px  |
+| base   | 16px  |
+| large  | 20px  |
+| header | 32px  |
+
+### Spacings
+
+| Name | Value |
+|------|-------|
+| m-1  | 4px   |
+| m-2  | 8px   |
+| m-3  | 12px  |
+| m-4  | 16px  |
+| m-5  | 20px  |
+| m-6  | 24px  |
+
+## Colors
+
+<Canvas>
+	<Color name='primary' value='#00FFFF' />
+	<Color name='secondary' value='#00FF00' />
+	<Color name='black' value='#000000' />
+	<Color name='white' value='#FFFFFF' />
+	<Color />
+</Canvas>
+```
+
+Le composant Color est un exemple de composant externe, créé dans le but de pre-visualiser une couleur hexadécimale et de rendre notre documentation encore plus pratique. Il sera importé et utilisé dans le document de la même manière que ce qui aurait été fait dans un fichier JavaScript.
+
+D’autres cas d’utilisation des pages MDX pourraient être de présenter le “tone of voice” du produit, de faire des liens externes vers les composants Figma de référence, de présenter le processus de contribution au design-system… les possibilités sont infinies !
+
+## Déployer Storybook sur Gitlab Pages
+Maintenant que la documentation de notre UI présente l’ensemble des composants et est étoffée des contenus éditoriaux, il faut la rendre accessible à toute votre organisation. S'il faut demander à votre collègue designer·euse ou product owner de cloner le projet, et compiler Storybook avant de pouvoir y accéder en local, vous pouvez être sûr que jamais iels ne vont l’utiliser, et tout votre travail de documentation sera vain.
+
+Pour éviter cela, on va utiliser l’intégration continue offerte par Gitlab qui est de très grande qualité. Elle se configure au sein même du projet, dans un fichier .gitlab-ci.yml. Voici la base que nous utilisons pour nos projets. Il faudra ensuite l’adapter en fonction de la configuration de votre propre projet.
+
+```yaml
+# .gitlab-ci.yml
+pages:
+  image: node:14
+  stage: .post
+  cache:
+    key: '$CI_BUILD_NAME'
+    untracked: true
+    paths:
+      - node_modules
+  script:
+    - yarn install
+    - rm -r public
+    - yarn build-storybook
+  artifacts:
+    paths:
+      - public
+  only:
+    - develop
+```
+ 
+Avec cette configuration, votre Storybook sera re-buildé à chaque merge sur la branche develop et déployé sur https://your-organisation.gitlab.com/your-project-name.
+
+## Mais qui doit payer pour la mise en place de Storybook ?
+Cette question n’a pas lieu d’être si vous développez votre propre projet : mettez en place Storybook dès le début, votre vous du futur vous remerciera !
+
+<Image isSmall>
+
+![Gif extrait du film Retour vers le Futur : Marty lève ses lunettes de soleil et lance un clin d'oeil à la caméra](https://media.giphy.com/media/mvH93rThQkSe4/giphy.gif)
+
+</Image>
+
+En revanche, pour une agence qui travaille sur des projets externes, chaque heure travaillée doit être re-facturée au client final. On peut donc s’interroger si la mise en place d’un Storybook est pertinente quand les fonds de nos clients ne sont pas illimités.
+
+Vous avez vu qu'il est maintenant possible d’installer et déployer Storybook rapidement et donc pour un coût très réduit. Tout comme vous êtes intransigeant sur la mise en place de tests pour sécuriser votre code, vous pouvez à présent être intransigeant sur la mise en place de Storybook pour créer une UI consistante et pérenne.
+
+J’espère que cet article vous a mis l’eau à la bouche. Pour voir plus en détail en quoi consiste Storybook, vous pouvez consulter ceux mis en place par Lonely Planet pour leur design system [BackpackUI](https://lonelyplanet.github.io/backpack-ui/), IBM pour [Carbon](https://react.carbondesignsystem.com/), ou encore Salesforce pour [Lightning](https://design-system-react-components.herokuapp.com/). Ils utilisent les pages éditoriales pour présenter les concepts ou les designs tokens et des pages de composants pour visualiser les différents états. On notera qu’aucun des exemples précédents n’utilise pour l’instant Storybook v6 et ils ont recours au l’addon Knobs, mentionné plus haut, pour manipuler le contenu des composants.
+
+Ne prenez pas peur en voyant le grand nombre de stories de ces exemples, en vous disant que votre client et/ou PO ne vous laissera jamais prendre le temps de le mettre en place. L’étape la plus importante reste la mise en place d’un Storybook vide, de sa CI et de l’écriture de la première story. Vous pourrez ensuite créer les stories des composants au fur et à mesure que retravaillez dessus.
+
+C’est la philosophie que nous avons adopté chez [Troopers](https://troopers.agency) pour la UI de notre client [Amnesty International France](https://amnesty.fr). Initié en décembre 2019, ce chantier est toujours en cours mais la documentation est de plus en plus complète, car nous profitons de chaque sprint pour rajouter au fil de l'eau les composants que l'on crée ou édite.
+
+![Screenshot du Storybook d'Amnesty International France](../images/2021-05-31-storybook/storybook-aif.png)

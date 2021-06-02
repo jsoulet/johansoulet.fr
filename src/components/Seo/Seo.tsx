@@ -12,13 +12,16 @@ interface ISiteMetadata {
   siteUrl: string
 }
 
-const Seo: FC<{
+interface SeoProps {
   title?: string
   description?: string
   image?: string
   slug?: string
   noIndex?: boolean
-}> = ({ title, image, description, slug, noIndex }) => {
+  canonicalUrl?: string
+}
+
+const Seo: FC<SeoProps> = ({ title, image, description, slug, noIndex, canonicalUrl }) => {
   const intl = useIntl()
   const locale = intl.locale
   const { metadata }: ILocaleConfig = get(locales, locale, locales.fr)
@@ -57,7 +60,7 @@ const Seo: FC<{
         <meta key="0" name="image" content={`${site.siteMetadata.siteUrl}${image}`} />,
         <meta key="1" property="og:image" content={`${site.siteMetadata.siteUrl}${image}`}></meta>,
       ]}
-      {slug && <link rel="canonical" href={`${site.siteMetadata.siteUrl}/${locale}${slug}`} />}
+      {slug && <link rel="canonical" href={canonicalUrl || `${site.siteMetadata.siteUrl}/${locale}${slug}`} />}
       {noIndex && <meta name="robots" content="noindex, nofollow"></meta>}
     </Helmet>
   )

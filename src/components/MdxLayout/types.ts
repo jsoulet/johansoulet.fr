@@ -14,6 +14,7 @@ export interface PageInterface {
       lang: string
       chapo: string
       date: string
+      canonicalUrl?: string
       featuredImage: GatsbyImageFile
       i18n: {
         locale: string
