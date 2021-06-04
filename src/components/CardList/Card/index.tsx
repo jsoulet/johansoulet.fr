@@ -21,29 +21,19 @@ const Service: FC<ServiceProps> = ({
   return (
     <div
       css={[
-        tw`rounded-xl hover:bg-white hover:shadow-lg px-4 py-8 transition duration-500 h-full flex`,
-        css({
-          '&:hover img': {
-            filter: 'grayscale(0)',
-          },
-        }),
+        tw`rounded-xl hover:bg-white hover:shadow-lg p-8 transition duration-500 h-full flex flex-col md:flex-row items-center`,
       ]}
     >
       {illustration && (
         <GatsbyImage
           image={illustration}
           css={[
-            css({
-              maxHeight: 150,
-              marginInlineEnd: 'auto',
-              filter: 'grayscale(1)',
-            }),
-            tw`transition-all duration-300 flex-shrink-0 mr-4`,
+            tw`md:mr-4 object-contain flex-shrink-0`,
           ]}
           alt="" />
       )}
-      <div>
-        <H3 customCss={[tw`mr-5`]}>{title}</H3>
+      <div css={tw`text-center md:text-left`}>
+        <H3>{title}</H3>
         <p css={[tw`text-gray-600`]}>{content}</p>
       </div>
     </div>

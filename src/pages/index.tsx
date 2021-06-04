@@ -97,22 +97,22 @@ query IndexPage($locale: String!) {
   }
   engineeringImage: file(relativePath: {regex: "/engineering/"}) {
     childImageSharp {
-      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+      gatsbyImageData(height: 200, quality: 80, layout: FIXED)
     }
   }
   projectImage: file(relativePath: {regex: "/project/"}) {
     childImageSharp {
-      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+      gatsbyImageData(height: 200, quality: 80, layout: FIXED)
     }
   }
   seoImage: file(relativePath: {regex: "/seo/"}) {
     childImageSharp {
-      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+      gatsbyImageData(height: 200, quality: 80, layout: FIXED)
     }
   }
   learnImage: file(relativePath: {regex: "/learn/"}) {
     childImageSharp {
-      gatsbyImageData(height: 150, quality: 80, layout: FIXED)
+      gatsbyImageData(height: 200, quality: 80, layout: FIXED)
     }
   }
 }

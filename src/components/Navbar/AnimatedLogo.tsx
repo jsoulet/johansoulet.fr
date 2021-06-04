@@ -17,9 +17,11 @@ const pathVariants = {
     
   },
   visible: {
-    pathLength: 1,
+    pathLength: [0, 1, 0],
+    opacity: [1, 0.8, 0],
     transition: {
       duration: 1.5,
+      times: [0, 0.8, 1],
       ease: "easeInOut",
     }
   }
@@ -32,7 +34,7 @@ const fillVariants = {
   visible: {
     fill: '#FFF',
     transition: {
-      delay: 1,
+      delay: 0,
       duration: 2,
       ease: "easeInOut",
     }
