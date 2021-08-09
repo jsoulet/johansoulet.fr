@@ -3,6 +3,9 @@
 const config = require('./config')
 
 module.exports = {
+  flags: {
+    FAST_DEV: false
+  },
   pathPrefix: config.pathPrefix,
   siteMetadata: {
     author: `@JohanSoulet`,
