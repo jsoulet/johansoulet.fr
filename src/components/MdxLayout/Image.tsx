@@ -30,13 +30,14 @@ const style = css({
   },
   '&.left': {
     float: 'left',
+    margin: '0 2em 2em 0',
   },
   '&.right ': {
     float: 'right',
+    margin: '0 0 2em 2em',
   },
   '&.left, &.right': {
     width: '40%',
-    margin: '0 2em 2em 0',
     top: '0.25em',
     img: {
       width: 'auto',
