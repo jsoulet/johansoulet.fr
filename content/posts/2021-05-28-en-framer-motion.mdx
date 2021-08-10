@@ -20,7 +20,7 @@ export const cardProps = {
   title: "Geo-caching",
   category: "urban",
   price: "€",
-  desc: "Get involved into an immersive treasure hunt to discover the hidden places of the city. You'll learn a lot, from historical gossips to hidden street art masterpieces. Suitable for children, groups, families... ",
+  desc: "Get involved in an immersive treasure hunt to discover the hidden places of the city. You'll learn a lot, from historical gossips to hidden street art masterpieces. Suitable for children, groups, families... ",
 }
 
 <Image align="right" caption="Photo par Kevin Jarrett sur Unsplash">
@@ -31,16 +31,16 @@ export const cardProps = {
 
 For a few years, micro-animations became more and more popular in web apps, and they are not only reserved for native mobile apps.
 
-Using them is a way to drive the user during his navigation, or to give some depth to the content, and that's why they will transform a user experience that simply "does the job" into an experience "that maks you wow"
+Using them is a way to drive the user during his navigation or to give some depth to the content, and that's why they will transform a user experience that simply "does the job" into an experience "that makes you wow"
 
-I have tried to develop native micro-animations, with CSS and VanillaJS, in the past to make my React projects more shiny. However, I've always been blocked by some reccurent problems : 
+I have tried to develop native micro-animations, with CSS and VanillaJS, in the past to make my React projects shinier. However, I've always been blocked by some recurrent problems : 
 - enter/leave animations are tricky to setup
 - a lot of code is duplicated from a component to another
 - orchestrating animations between several components is a nightmare
 
 The result I got was not fluid, and it didn't worth the time I spent developing it.
 
-Lately, I discovered [Framer Motion](https://www.framer.com/motion/), a React librairy to create smooth animations, and even if I didn't got the occasion to test all of its options, it already got me out of a tricky situations.
+Lately, I discovered [Framer Motion](https://www.framer.com/motion/), a React library to create smooth animations, and even if I didn't get the occasion to test all of its options, it already got me out of tricky situations.
 
 > 👉 In this article, I'll illustrate my words with the Card component bellow and a complete preview can be found on [CodeSandbox](https://codesandbox.io/s/clever-water-o8wzp?file=/src/Card.tsx)
 
@@ -81,7 +81,7 @@ export default Card;
 
 ## Animate an HTML element
 
-Let's add  `framer-motion` to your ptoject.
+Let's add  `framer-motion` to your project.
 
 ```bash
 yarn add framer-motion
@@ -93,11 +93,11 @@ Then import Motion into your component.
 import { motion } from 'framer-motion'
 ```
 
-This helper will provide you an access to lots of Motion components (ie: motion.div, motion.span, motion.path...) : there's one for every HTML and SVG element. They can be used as standard native elements, and thay also accept props that are specific to Motion.
+This helper will provide you access to lots of Motion components (ie: motion.div, motion.span, motion.path...) : there's one for every HTML and SVG element. They can be used as standard native elements, and they also accept props that are specific to Motion.
 
 `initial` et `animate` are props to define the initial state of the component and the values they will be animated to once it will be mounted into the DOM.
 
-By default, Motion will provide some default transitions depending on the props you animate, but you can obliousely define your own transitions.
+By default, Motion will provide some default transitions depending on the props you animate, but you can obviously define your own transitions.
 
 ```tsx
 <motion.div
@@ -110,7 +110,7 @@ By default, Motion will provide some default transitions depending on the props 
 </motion.div>
 ```
 
-In order to make the animation reusable, Motion accepts a variant object that describe several animations. `initial` and `animate` will then need the key of the variant to use.
+In order to make the animation reusable, Motion accepts a variant object that describes several animations. `initial` and `animate` will then need the key of the variant to use.
 
 ```tsx
 const bounceVariants = {
@@ -138,13 +138,13 @@ const bounceVariants = {
 <Card1 {...cardProps}/>
 
 
-## Overload a React comonent to animate it
+## Overload a React component to animate it
 
-We have discover how to animate an HTML element, that is very usefull when you are able to edit its own code. However, React is by design made to manipulate reusable components. How to animate a component when you want to animate that is not part of the project, if it belongs to an external component librairy (MaterialUI, Ant.design...) or it lives into your organisation's design-system ?
+We discovered how to animate an HTML element, which is very useful when you are able to edit your own code. However, React is by design made to manipulate reusable components. How to animate a component when you want to animate that is not part of the project, if it belongs to an external component library (MaterialUI, Ant.design...) or it lives into your organization's design system?
 
-In this configuration, `motion()` helper will be a usefull function to encapsulate your component into an animable one.  Like other `motion` components, this new component will behave juste like you've been used to and it inherited to all the custom Motion props.
+In this configuration, `motion()` helper will be a useful function to encapsulate your component into an animable one.  Like other `motion` components, this new component will behave just like you've been used to, and it is inherited to all the custom Motion props.
 
-This component overload should be done outesdide of the render fonction of the parent component.
+This component overload should be done outside of the render function of the parent component.
 
 ```tsx
 import { Button } from '@corp-designsystem/react'
@@ -166,28 +166,28 @@ const Card = () => {
 
 <Card2 {...cardProps}/>
 
-*Motion animation are played when the component is mounted. If you couldn't see this one, please refresh the page*
+*Motion animation is played when the component is mounted. If you couldn't see this one, please refresh the page*
 
-> 💡  This method will only work for component that are passing their ref to their root component using `React.forwardRef`. If it's not your case, a trade-off can be to wrapp the component into a `motion.div` container that you will animate.
+> 💡  This method will only work for components that are passing their ref to their root component using `React.forwardRef`. If it's not your case, a trade-off can be to wrap the component into a `motion.div` container that you will animate.
 
 ## Cascade animations from a component to its children
 
-What we've dome yet only need a couple of lines if you're familiar with CSS3 keyframes.
+What we've done yet only need a couple of lines if you're familiar with CSS3 keyframes.
 
-However, to coordinate animations between a component and its children, you'll need to calculate every delay between all your component's animations. A change a Motion component variant will be spread to its children variantson condition that their key identifiers are the same. Thats to the `transition` prop, it is then possible to define extra properties to orchestrate animations between the children.
+However, to coordinate animations between a component and its children, you'll need to calculate every delay between all your component's animations. A change a Motion component variant will be spread to its children variants on conditions that their key identifiers are the same. That's to the `transition` prop, it is then possible to define extra properties to orchestrate animations between the children.
 
 - *when*: define if a component should be animated before its children (`beforeChildren`) or after (`afterChildren`).
 - *childrenDelay* : the delay between a parent's animation and its children's 
-- *staggerChildren*: delay between every chilren
-- *staggerDirection*: if  staggerDirection equals 1, children will be animated from the first to the last in the DOM order, and the opposit if it equals -1.
+- *staggerChildren*: delay between every child
+- *staggerDirection*: if  *staggerDirection* equals 1, children will be animated from the first to the last in the DOM order, and the opposite if it equals -1.
 
 <Card3 {...cardProps}/>
 
-*Refresh the page if you coudn't see the animation.*
+*Refresh the page if you couldn't see the animation.*
 
 ## Control animations depending on external effects
 
-For now, the Card animations only get executed when the component is mouted on the DOM. If it is below the watterline, animation won't be seen by the user. That's why I used the Intersection Observer API tand a Motion hook called `useAnimation` to control it.
+For now, the Card animations only get executed when the component is mounted on the DOM. If it is below the waterline, animations won't be seen by the user. That's why I used the Intersection Observer API and a Motion hook called `useAnimation` to control it.
 
 ```bash
 yarn add react-intersection-observer
@@ -197,7 +197,7 @@ Import `useInView` hook from react-intersection-observer and `useAnimation` from
 
 `useInView` is a small hook that is used to know if a given component is visible or not.
 
-`useAnimation` returns a `controls` qobject to programatically manipulate variant animations.
+`useAnimation` returns a `controls` object to programmatically manipulate variant animations.
 
 I finally used useEffect to alternate betwwen the variant states, visible and hidden, 
 
@@ -226,12 +226,12 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
 
 <Card4 {...cardProps}/>
 
-*You can replay this animation by scrolling, to show/hide the card*
+*You can replay this animation when scrolling, to show/hide the card*
 
 ## Conclusion
 
-Motion has been a great help to integrate some orchestrated animations easily, whithout the need to compute intervalls and delays betwwen every sigle element.
+Motion has been a great help to integrate some orchestrated animations easily, without the need to compute intervals and delays between every single element.
 
-This librairy as a lot of other features that I did'nt tried yet: animate on component unmount, helpers to animate on tap, focus or click, animate SVG... [Motion](https://www.framer.com/motion/) will make my micro-animations more fluid, and I can now consider animating component to make my React apps alive, event if my client's budget is tight.
+This library has a lot of other features that I didn't tried yet: animate on component unmount, some helpers to animate on tap, focus or click, animate SVG... [Motion](https://www.framer.com/motion/) will make my micro-animations more fluid, and I can now consider animating component to make my React apps alive, even if my client's budget is tight.
 
-> 🛼 To continue my expriments with Framer Motion, I added some animations into this website. Did you notice them?
+> 🛼 To continue my experiments with Framer Motion, I added some animations to this website. Did you notice them?
