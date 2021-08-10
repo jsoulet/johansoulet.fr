@@ -3,9 +3,9 @@ date: '2021-08-09'
 title: "Retrouver foi en Redux à l’aide des React hooks"
 featuredImage: '../images/2021-08-09-redux-hooks/climbing.jpeg'
 lang: fr
-# i18n:
-#   - locale: en
-#     slug: /2021-05-31-document-your-ui-components-with-storybook
+i18n:
+  - locale: en
+    slug: /2021-08-09-restore-faith-in-redux-with-react-hooks
 
 ---
 
@@ -15,7 +15,7 @@ lang: fr
 
 </Image>
 
-Redux est une librairie formidable qui permet de gérer un state centralisé pour son application en appliquant les principes de l’architecture Flux. Parce qu’elle était très bien conçue et facile à prendre en main, elle est très rapidement devenue incontournable dans l’écosystème React.
+Redux est une librairie formidable qui permet de gérer un state centralisé pour son application en appliquant les principes de l’architecture Flux. Depuis [sa présentation par Dan Abramov à ReactEurop 2015](https://www.youtube.com/watch?v=xsSnOQynTHs), elle est rapidement devenue incontournable, tant et si bien qu'on a pu se demander si coder une application React sans Redux était concevable.
 
 Chez [Troopers](https://troopers.agency), les apps et sites web développés avec Redux représentaient en juin dernier 85% de nos réalisations, qu’elles aient été initiées par nous ou que nous ayons repris du code existant.
 
@@ -28,7 +28,7 @@ Beaucoup d’applications React ont mis en place Redux. Le state global, qui ét
 
 </Image>
 
-Les reducers, actions-creators et sélecteurs sont regroupés par domaine, mais ils n’ont bien souvent pas été redécoupés dans des sous-stores quand c’était nécessaire. Parfois même, ces trois types de données sont définies dans un seul et même fichier qui atteint rapidement plusieurs centaines de lignes et devient difficile à analyser.
+Les reducers, actions-creators et sélecteurs sont regroupés par domaine, mais ils n’ont bien souvent pas été redécoupés dans des sous-stores quand c’était nécessaire. Parfois même, ces trois types d'utilitaires sont définies dans un seul et même fichier qui atteint rapidement plusieurs centaines de lignes et devient difficile à analyser.
 
 On a aussi constaté que bien souvent les opérations sur le state, telles que .map ou .filter, n’étaient pas mémoïsées. Ce qui entraine des re-render des composants React à chaque changement de state, même s’il ne sont pas concernés par les données modifiées.
 
@@ -36,18 +36,20 @@ Mal utilisé, Redux deviendra donc un boulet à votre application : de moins en 
 
 ## La context API et les hooks à la rescousse
 
-Sortis respectivement en mars 2018 et février 2019, la Context API et les hooks ont largement permis de repenser la façon dont sont développées les applications. Ces fonctionnalités, natives à React, permettent de partager un state complexe à travers une application. Nous ne nous attarderons pas ici sur les façons d’implémenter ces mécanismes, mais pour ceux que ça intéresse Kent C Dodds a fait un article très complet pour présenter la méthode.
+Sortis respectivement en mars 2018 et février 2019, la Context API et les hooks ont largement permis de repenser la façon dont sont développées les applications. Ces fonctionnalités, natives à React, permettent de partager un state complexe à travers une application. Nous ne nous attarderons pas ici sur les façons d’implémenter ces mécanismes, mais pour ceux que ça intéresse [Kent C Dodds a écrit un article complet pour présenter la méthode](https://kentcdodds.com/blog/application-state-management-with-react)..
 
-### Dois-je re-développer la gestion de mon state ?
-`tl,dr`: NON !
+## Dois-je re-développer la gestion de mon state ?
+**tl,dr: NON !**
+
+
 
 Si votre app a été développée avec Redux et vous en êtes satisfaits, ne perdez pas de temps et d’argent à re-développer quelque chose qui fonctionne. Ça n’aurait pas de bénéfice pour vos utilisateurs finaux et reviendrait à jeter de l’argent par les fenêtre.
 
-En revanche, vous pouvez appliquer [la règle du boy scout](https://biratkirat.medium.com/step-8-the-boy-scout-rule-robert-c-martin-uncle-bob-9ac839778385) et retoucher les modules sur lesquelles vous intervenez pour créer des hooks personnalisés basées sur ceux proposés par react-redux et améliorer localement votre code base (#AméliorationContinue, #Agile, #Kaizen).
+En revanche, vous pouvez appliquer [la règle du boy scout](https://biratkirat.medium.com/step-8-the-boy-scout-rule-robert-c-martin-uncle-bob-9ac839778385) et retoucher les modules sur lesquelles vous intervenez pour créer des hooks personnalisés basées sur ceux proposés par `react-redux` et améliorer localement votre code base (#AméliorationContinue, #Agile, #Kaizen).
 
 <Image isSmall>
 
-![Russel du film Là Haut!](../images/2021-08-09-redux-hooks/russel.png)
+![Russel, le petit scout du film Là Haut!](../images/2021-08-09-redux-hooks/russel.png)
 
 </Image >
 
@@ -161,3 +163,9 @@ Dans l’exemple ci-dessus, on va donc récupérer l’utilisateur depuis le sta
 Par défaut, je préfère éviter de mettre Redux par défaut dans mes projets React. D’ailleurs, depuis que j'ai pris le temps de questionner sur la pertinence de cette bibliothèque avec mon équipe, nous ne l’avons pas ajouté aux nouvelles applications.
 
 En revanche, nous avons toujours des projets utilisant Redux à maintenir. Grâce à ce genre de hooks personnalisés, il nous est possible de moderniser nos code-bases pour gagner en performances et en lisibilité.
+
+<Image>
+
+![](../images/2021-08-09-redux-hooks/jesus.jpeg)
+
+</Image>

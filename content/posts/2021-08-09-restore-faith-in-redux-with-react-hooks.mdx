@@ -1,0 +1,175 @@
+---
+date: '2021-08-09'
+title: "Restore faith in Redux thanks to React hooks"
+featuredImage: '../images/2021-08-09-redux-hooks/climbing.jpeg'
+lang: en
+i18n:
+  - locale: fr
+    slug: /2021-08-09-retrouver-foi-en-redux-a-laide-des-hooks
+
+---
+
+<Image align="right" caption="Photo by Daniel Jiménez on Unsplash">
+
+![](../images/2021-08-09-redux-hooks/climbing.jpeg)
+
+</Image>
+
+Redux is a formidable library that applies the [Flux architecture principles](/en/2016-10-04-modern-frontend-architecture/) to manage a centralized data store for your app. Since [Dan Abramov presented it at ReactEurope 2015](https://www.youtube.com/watch?v=xsSnOQynTHs), it quickly becomes one of the main libraries of React ecosystem, so that we could have wonder if it was conceivable to write a React app without Redux.
+
+Last June, 85% of the React apps and websites we maintain at [Troopers](https://troopers.agency) were using Redux.
+
+## Redux problems
+Lots of React developers have installed Redux into their React app because they think it was the standard way of doing it. The global state, which was simple at the beginning of the product, became a complete spaghetti bowl when the app grows up.
+
+<Image isSmall>
+
+![Young kid eating spaghetti with his hand](https://media.giphy.com/media/qhN1dx3gJq4b6/giphy.gif) 
+
+</Image>
+
+Reducers, action-creators, selectors get usually grouped by domain, but they're not split into several sub-stores when it could be required. From time to time, those three types of utils get defined into an only file that grows fastly to hundreds of lines and becomes complex to analyze.
+
+We also noted that operations on the state (ie: `.map` or `.filter`) get not memoized. It leads to over rendering React components on each state change, even though they aren't concerned by the state that has changed.
+
+A misused Redux can become an anchor to your app: less and less effective and more and more complex to debug. Back in November 2016, Dan Abramov already warned that Redux was not a prerequisite for every React project, in his article called [You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
+
+
+## The Context API and Hooks to the rescue
+
+Since they came out (respectively in March 2018 and February 2019), Context API and Hooks helped to reconsider how we develop React apps. Those features come natively with React and they are a solution to share a complex state all over an application. This article is not about that pattern, but if you're interested into digging into it, [Kent C Dodds wrote a complete article the present the method](https://kentcdodds.com/blog/application-state-management-with-react).
+
+
+
+## Should I re-write the way my state is managed?
+
+**tl,dr: NO!**
+
+If your app has been developed with Redux and you're satisfied with it, don't loose time and money to re-devlop something that's working. It would have no impact for your end used and it would be much like throwing money out of the window.
+
+However, you can apply [the boy scout rule](https://biratkirat.medium.com/step-8-the-boy-scout-rule-robert-c-martin-uncle-bob-9ac839778385) to create custom hooks based on those offered by `react-redux` to gradually improve your code base (#ContinuousImprovement, #Agile, #Kaizen).
+
+<Image isSmall>
+
+![Russel, boy scout from the movie Up!](../images/2021-08-09-redux-hooks/russel.png)
+
+</Image >
+
+## How to use react-redux Hooks ?
+### useSelector
+
+useSelector requires a selector function, which, just like `mapStateToProps`, would recieve as first parameter the global state of the app. It can then return any value extracted from the state.
+
+```tsx
+import { useSelector } from 'react-redux'
+
+const Avatar: React.FC<AvatarProps> = ({ userId }) => {
+  const avatar : useSelector((state) => {
+    const currentUser = state.users.find(user => user.id === userId)
+    return currentUser?.avatar
+  })
+
+  return <img src={avatar} alt="" />
+}
+```
+
+If the result from useSelector differ from the previous render, React will trigger a sub-components re-render. However, the basic comparaison function uses strict equality (ie: `===`), which can lead to unnecessary re-render is the selector returns a new object or array for every run. React-redux offers 2 solutions to solve this problem:
+- use `reselect` to create memoized selectors
+- add a 2nd parameter to useSelector to define a custom comparaison function (ex: shallow-compare from react-redux, _.isEqual…)
+
+```tsx
+import { useSelector, shallowEqual } from 'react-redux'
+
+const UserFollorwers: React.FC<UserFollorwersProps> = ({ userId }) => {
+	const followrers = useSelector(state => {
+		const currentUser = state.users.find(user => user.id === userId)
+		return state.users.map(user => currentUser.followerIds.includes(user.id))
+	}, shallowEqual)
+
+	return <UserList users={followers}/>
+}
+```
+
+
+### useDispatch
+
+useDispatch returns a reference to dispatch method to trigger an event in the event bus.
+
+```tsx
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+
+const UserFollorwers: React.FC<UserFollorwersProps> = ({ userId }) => {
+
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch({
+			type: 'FETCH_USERS_REQUEST'
+		})
+	}, [])
+
+	/*
+		...
+	*/
+}
+```
+
+
+## Create custom hooks for mode reusability
+Combining useSelector and useDispatch into a custom hook is a solution to simplify components. The code will be easier to read and more digest to the maintainers.
+
+```tsx
+// useUser.ts
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+
+const useUser: User | undefined  = (userId: number) => {
+	const dispatch = useDispatch()
+	
+	useEffect(({
+		type: 'FETCH_USER_REQUEST',
+		payload: {
+			userId
+		}
+	}), [userId])
+
+	const user = useSelector((state) => {
+		return state.users.find(user => user.id === userId)
+	}, shallowEqual)
+
+	return user
+}
+
+// UserProfile.tsx
+const UserProfile: React.FC<UserProfileProps> => ({ userId }) => {
+	const user = useUser(userId)
+	return <div>
+		<span>{user.firstname} {user.lastname}</span>
+		<button onClick={logout}>Logout</button>
+	</div>
+}
+
+// ClientInfo.tsx
+const ClientInfo: ReactFC<ClientInfoProps> = ({ clientId })  => {
+	const client = useUser(userId)
+	return {!!client && <div>
+			<div>{client.firstname}</div>
+			<div>{client.lastname}</div>
+			<div>{client.email}</div>
+			<div>{client.address}</div>
+			<div>{client.phone}</div>
+		</div>}
+}
+```
+
+In the example above, we will search for a user into the global state and return it if we find it. Simultaneously, we'll perform an API call to fetch the user. If it changes, the sub-components will get re-renderd and updated with fresher data.
+
+## In the end
+
+I prefer to avoid adding Redux in the new React projects I bootstrap. Beside, since I decided to question this lib's appropriateness with my team, we didn't add them into our new apps.
+
+However, we still need to maintain projects with Redux. Thanks to those kind of custom hooks, we can modernize our code-bases, optimize the performance and improve readability.
+
+<Image>
+
+![](../images/2021-08-09-redux-hooks/jesus.jpeg)
+
+</Image>
