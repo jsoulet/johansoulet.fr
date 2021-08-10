@@ -12,11 +12,11 @@ i18n:
 
 > This article has originally been published into [Troopers Web Republic](https://slash.troopers.agency/article/documenter-les-composants-de-son-interface-avec-storybook)'s blog
 
-Storybook offers the front-end developers an isolated development environment, but it also provides everyone an interface to manipulate the system's components, to check all theur states for multiple screen resolutions.
+Storybook offers the front-end developers an isolated development environment, but it also provides everyone an interface to manipulate the system's components, to check all their states for multiple screen resolutions.
 
-Until recently, this project was quite complex to setup : you needed to install variious plugins by and, finely re-configure Webpack... Only enterprises that could afford investing a lot of time into their design-system. 
+Until recently, this project was quite complex to setup: you needed to install various plugins, finely tune Webpack... Only enterprises that could afford to invest a lot of time into their design system. 
 
-However, the last release simplified the process a lot and [Storybook](https://storybook.js.org/) can now (almost) be setup in one line !
+However, the last release simplified the process a lot and [Storybook](https://storybook.js.org/) can now (almost) be setup in one line!
 
 ## Install Storybook into an existing project
 
@@ -24,10 +24,9 @@ However, the last release simplified the process a lot and [Storybook](https://s
  npx sb init
 ```
 
-This one line is yhe only thing you need when you want to install Storybook into an existing project. It can detext which framework you use (React, Vue, Angular...) to install the requireed dependancies. It is compatible for both JavaScript end TypeScript.
+This one line is the only thing you need when you want to install Storybook into an existing project. It can detect which framework you use (React, Vue, Angular...) to install the required dependencies. It is compatible with both JavaScript end TypeScript.
 
-Some stories samples are also created so you can get inspired to write you awns.
-... and that's all !
+Some story samples get also created so you can get inspired to write your owns... and that's all!
 
 <Image isSmall>
 
@@ -39,9 +38,9 @@ Some stories samples are also created so you can get inspired to write you awns.
 
 For every component, you now need a `ComponentName.stories.js` file. It will be used to aggregate the stories of the given component.
 
-This files can be created anywhere in your project : the default Storybook config will understand all files named `*.stories.js` as Storybook story. beut for maintenance purpouse, and to keen your code well organised, it ts advised to keep the Stories juste next too the component they refer.
+These files can be created anywhere in your project: the default Storybook config will understand all files named `*.stories.js` as Storybook story. But for maintenance purposes and to keep your code well organized, it is recommended to keep the Stories just next to the component they refer to.
 
-Let's try to apply this concept with an Avatar component : is should display the photo of a user, and if the photo is not defined, it should only display the contact initials.
+Let's try to apply this concept with an Avatar component. It should display the photo of a user and, if the picture is not defined, it should only show the contact initials.
 
 ```jsx
 // Avatar.js
@@ -65,13 +64,13 @@ Avatar.propTypes = {
 export default Avatar
 ```
 
-It is important to write a Story for every state of the component, so that all stakeholders can discover the variants it offers, question them, fix them, evolve them....
+It is important to write a Story for every state of the component so that all stakeholders can discover the variants it offers, questions them, fixes them, evolve them....
 
-Storybook development teams have normalized the way a story should be formatted, and called it [Component Story Format (CSF)](https://storybook.js.org/docs/react/api/csf) : 
+Storybook development teams have normalized the way a story should be formatted and called it [Component Story Format (CSF)](https://storybook.js.org/docs/react/api/csf) : 
 - module default export contains the meta-data (title, description, decorators...)
-- each named export is a story that should appears in the documentation.
+- each named export is a story that should appear in the documentation.
 
-If you want to dig deeper into about CSF philosophy and learn about all of its options, you can read [the official documentation](https://storybook.js.org/docs/react/writing-stories/introduction) or [some Meduim articles the team wrote](https://medium.com/storybookjs/component-story-format-66f4c32366df).
+If you want to dig deeper into CSF philosophy and learn about all of its options, you can read [the official documentation](https://storybook.js.org/docs/react/writing-stories/introduction) or [some Medium articles the team wrote](https://medium.com/storybookjs/component-story-format-66f4c32366df).
 
 ```jsx
 // Avatar.stories.js
@@ -98,21 +97,21 @@ export const withoutPicture = Template.bind({})
 
 ```
 
-6th version introduced the *args* notion. Before it, you needed to install an optional add-on called [knobs](https://www.npmjs.com/package/@storybook/addon-knobs). Now, [Controls add-on](https://storybook.js.org/docs/react/essentials/controls) is installed by default and let you edit the story property on the fly. Therefore the component becomes editable right from the Storybook interface and everyone is able to test its behaviors and edge cases.
+6th version introduced the *args* notion. Before it, you needed to install an optional add-on called [knobs](https://www.npmjs.com/package/@storybook/addon-knobs). Now, [Controls add-on](https://storybook.js.org/docs/react/essentials/controls) is installed by default and let you edit the story property on the fly. Therefore the component becomes editable right from the Storybook interface, and everyone is able to test its behaviors and edge cases.
 
-> How will the Avatar look if for Yoda (who has no lastname) don't have a profile picture yet.
+> How will the Avatar look if Yoda (who has no lastname) don't have a profile picture yet.
 
 <Image isSmall>
 
-![Gif from  Star Wars, the Empire Strikes Back : Yoda is using the force](https://media.giphy.com/media/26tPgV8ceZTSxH9zG/giphy.gif)
+![Gif from  Star Wars, the Empire Strikes Back: Yoda is using the force](https://media.giphy.com/media/26tPgV8ceZTSxH9zG/giphy.gif)
 
 </Image>
 
 ## Editorial pages in MDX
-In a near future, we'll certainly talk in this blog about design tokens and how to use them to build a consistent UI. Meanwhile, you can have a look at [this presentation](https://spectrum.adobe.com/page/design-tokens/) from Spectrum, by Adobe.
-In order to be used by every member of the project, design tokens need to be easily iscoverable. As they're not independant component they can't have their own story.
+In the near future, we'll certainly talk in this blog about design tokens and how to use them to build a consistent UI. Meanwhile, you can have a look at [this presentation](https://spectrum.adobe.com/page/design-tokens/) from Spectrum, by Adobe.
+In order to be used by every member of the project, design tokens need to be easily discoverable. As they're not independent components, they can't have their own story.
 
-MDX is a document format to write Markdown text, and interpreet JSX that is used to integrate React components. Storybook is able to read and display documents in this format. Therefore it can be used to create editorial pages that will document the design tokens defind in our product.
+MDX is a document format to write Markdown text and interpret JSX that is used to integrate React components. Storybook is able to read and display documents in this format. Therefore it can be used to create editorial pages that will document the design tokens defined in our product.
 
 ```mdx
 // DesignTokens.stories.mdx
@@ -156,15 +155,15 @@ import Color from './Color'
 </Canvas>
 ```
 
-The Color component is an example of extenral componant that have been created only to preview hexadecimal color and make our documentation convinient. It is imported and used in the document the same way we use components in JavaScript.
+The Color component is an example of an external component that has been created only to preview hexadecimal color and make our documentation convenient. It is imported and used in the document the same way we use components in JavaScript.
 
-Other usecase for MDX mages can be documenting the tone of voice of the product, link to external Figma component, present the contribution process of a design-system... Opportunities are endless !
+Another use case for MDX mages can be documenting the tone of voice of the product, link to external Figma components, present the contribution process of a design system... Opportunities are endless!
 
 ## Deploy Storybook 
 
-Now Storybook contains uoir UI's components and it has been enriched by some editorial contents, it needs to be reachable by everyone in the organisation. If you have to ask your colleague to clone the project and compile Storybook before they can view it on their local computer, you're sure they will never use it and all of your documentation work will be vain.
+Now Storybook contains your UI's components, and it has been enriched by some editorial contents, it needs to be reachable by everyone in the organization. If you have to ask your colleague to clone the project and compile Storybook before they can view it on their local computer, you're sure they will never use it, and all of your documentation work will be vain.
 
-That's why we'll use the high-quality CI offered by Gitlab. It can be configured in the project's repository, in a single file `gitlab-ci.yml.`.  Here is the base we use in our own project. You now need to adapt it form your owns.
+That's why we'll use the high-quality CI offered by Gitlab. It can be configured in the project's repository, in a single file `gitlab-ci.yml.`.  Here is the base we use in our own project. Now, you need to adapt it from your own.
 
 ```yaml
 # .gitlab-ci.yml
@@ -187,26 +186,26 @@ pages:
     - develop
 ```
  
-With this configuration, Storybook will be rebuilt efter each merge on develop and deployed to https://your-organisation.gitlab.com/your-project-name.
+With this configuration, Storybook will be rebuilt after each merge on `develop` and deployed to https://your-organisation.gitlab.com/your-project-name.
 
 ## Who should pay for Storybook?
 
-If your're developing your own project, this is not a question : setup a Storybook from the beginning and your future you will thank you !
+If you're developing your own project, this is not a question: setup a Storybook from the beginning and your future you will thank you!
 
 <Image isSmall>
 
-![Gif from Back To The Future : Marty raises his sunglasses and winks](https://media.giphy.com/media/mvH93rThQkSe4/giphy.gif)
+![Gif from Back To The Future: Marty raises his sunglasses and winks](https://media.giphy.com/media/mvH93rThQkSe4/giphy.gif)
 
 </Image>
 
 However, for an agency that's working on external projects, every working hour have to be billed to the final client. That's why we can wonder if it worth the cost as our client money is not illimited.
 
-You've seen that you can install and deploy Storybook for practically nothing. Like you're inflexible on testing your code for security purpouse, you can now be instransigent in setuping Storybook to create a concistent and persistent UI.
+You've seen that you can install and deploy Storybook for practically nothing. Like you're inflexible on testing your code for security purposes, you can now be intransigent in setup Storybook to create a consistent and persistent UI.
 
-I hope this article made your mouth water. For a brighter view of what Storybook looks like, you should check at those of Lonely Planet for their design system called [BackpackUI](https://lonelyplanet.github.io/backpack-ui/), IBM for [Carbon](https://react.carbondesignsystem.com/), or even Salesforce for [Lightning](https://design-system-react-components.herokuapp.com/). They use editorial prages to present general concepts, design token and component pages to visualize several component states. You'll notice that they're not using Storybook v6 for now and the 3 of them has Knob add-on to manipulate cmponent contents.
+I hope this article made your mouth water. For a brighter view of what Storybook looks like, you should check at those of Lonely Planet for their design system called [BackpackUI](https://lonelyplanet.github.io/backpack-ui/), IBM for [Carbon](https://react.carbondesignsystem.com/), or even Salesforce for [Lightning](https://design-system-react-components.herokuapp.com/). They use editorial pages to present general concepts, design tokens, and component pages to visualize several component states. You'll notice that they're not using Storybook v6 for now, and the three of them have Knob add-on to manipulate component contents.
 
-Don't be scared seeing all the stories in the examples above, and wondering how your PO/client will let you enought time to setup everything. The cruxial step is to create an empty Storybook, setup the CI and create the first story. You'll then be able to add stories when you'll work and refactor components.
+Don't be scared when discovering all the stories in the examples above, and wondering how your PO/client will let you enough time to setup everything. The crucial step is to create an empty Storybook, setup the CI, and create the first story. You'll then be able to add stories when you'll work and refactor components.
 
-AThis is the philosophy we've adopted at [Troopers](https://troopers.agency) for ou client [Amnesty International France](https://amnesty.fr). The Storybook has been initialized in December 2019 and it's a project that is still going one. We benefit every sprint to feed it with the component we develop or edit.
+This is the philosophy we've adopted at [Troopers](https://troopers.agency) for our client [Amnesty International France](https://amnesty.fr). The Storybook has been initialized in December 2019, and it's a project that is still going on. We benefit from every sprint to feed it with the component we develop or edit.
 
 ![Storybook of Amnesty International France](../images/2021-05-31-storybook/storybook-aif.png)

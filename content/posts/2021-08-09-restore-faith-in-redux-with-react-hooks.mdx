@@ -37,7 +37,7 @@ A misused Redux can become an anchor to your app: less and less effective and mo
 
 ## The Context API and Hooks to the rescue
 
-Since they came out (respectively in March 2018 and February 2019), Context API and Hooks helped to reconsider how we develop React apps. Those features come natively with React and they are a solution to share a complex state all over an application. This article is not about that pattern, but if you're interested into digging into it, [Kent C Dodds wrote a complete article the present the method](https://kentcdodds.com/blog/application-state-management-with-react).
+Since they came out (respectively in March 2018 and February 2019), Context API and Hooks helped to reconsider how we develop React apps. Those features come natively with React and they are a solution to share a complex state all over an application. This article is not about that pattern, but if you're interested in digging into it, [Kent C Dodds wrote a complete article the present the method](https://kentcdodds.com/blog/application-state-management-with-react).
 
 
 
@@ -45,20 +45,20 @@ Since they came out (respectively in March 2018 and February 2019), Context API 
 
 **tl,dr: NO!**
 
-If your app has been developed with Redux and you're satisfied with it, don't loose time and money to re-devlop something that's working. It would have no impact for your end used and it would be much like throwing money out of the window.
+If your app has been developed with Redux and you're satisfied with it, don't lose time and money to re-develop something that's working. It would have no impact for your end-user, and it would be much like throwing money out of the window.
 
-However, you can apply [the boy scout rule](https://biratkirat.medium.com/step-8-the-boy-scout-rule-robert-c-martin-uncle-bob-9ac839778385) to create custom hooks based on those offered by `react-redux` to gradually improve your code base (#ContinuousImprovement, #Agile, #Kaizen).
+However, you can apply [the boy scout rule](https://biratkirat.medium.com/step-8-the-boy-scout-rule-robert-c-martin-uncle-bob-9ac839778385) to create custom hooks based on those offered by `react-redux` to gradually improve your codebase (#ContinuousImprovement, #Agile, #Kaizen).
 
 <Image isSmall>
 
-![Russel, boy scout from the movie Up!](../images/2021-08-09-redux-hooks/russel.png)
+![Russel, the boy-scout from the movie Up!](../images/2021-08-09-redux-hooks/russel.png)
 
 </Image >
 
 ## How to use react-redux Hooks ?
 ### useSelector
 
-useSelector requires a selector function, which, just like `mapStateToProps`, would recieve as first parameter the global state of the app. It can then return any value extracted from the state.
+useSelector requires a selector function, which would receive as the first parameter the global state of the app just like `mapStateToProps`,. It can then return any value extracted from the state.
 
 ```tsx
 import { useSelector } from 'react-redux'
@@ -73,9 +73,9 @@ const Avatar: React.FC<AvatarProps> = ({ userId }) => {
 }
 ```
 
-If the result from useSelector differ from the previous render, React will trigger a sub-components re-render. However, the basic comparaison function uses strict equality (ie: `===`), which can lead to unnecessary re-render is the selector returns a new object or array for every run. React-redux offers 2 solutions to solve this problem:
+If the result from useSelector differs from the previous render, React will trigger a sub-components re-render. However, the basic comparison function uses strict equality (ie: `===`), which can lead to unnecessary re-render if the selector returns a new object or array for every run. React-redux offers two solutions to solve this problem:
 - use `reselect` to create memoized selectors
-- add a 2nd parameter to useSelector to define a custom comparaison function (ex: shallow-compare from react-redux, _.isEqual…)
+- add a 2nd parameter to useSelector to define a custom comparison function (ex: shallow-compare from react-redux, _.isEqual…)
 
 ```tsx
 import { useSelector, shallowEqual } from 'react-redux'
