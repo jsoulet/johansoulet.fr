@@ -1,6 +1,20 @@
 [
   {
     "content": {
+      "fr": "Je recommande vivement Johan. La proposition commerciale était claire et le projet a été défini avec précision. La communication était régulière et Johan était à l'écoute des évolutions nécessaires au cours du projet. La mise en oeuvre a été rapide et efficace. Excellente prestation en tout point.",
+      "en": "I highly recommend Johan. The commercial proposal was clear and the project was defined with accuracy. Communication was regular and Johan was attentive to the necessary changes throughout the project. Implementation was quick and efficient. An excellent performance in every aspect."
+    },
+    "name": "Jérôme Fouchard",
+    "avatar": "jeromefouchard.jpeg",
+    "position": {
+      "fr": "Responsable pédagogique, EFM",
+      "en": "Educational Manage, EFM"
+    },
+    "value": 5,
+    "published": true
+  },
+  {
+    "content": {
       "fr": "Johan a travaillé sur l'intégration de nouvelles fonctionnalités côté front de notre plateforme applicative Yunow. Il s'agissait de fonctionnalités permettant l'utilisation de notre plateforme dans le cadre de la création d'audioguides. L'ensemble est développé en PREACT / JS. Johan a été très efficace et a su prendre en main rapidement la plateforme et le code existant. Le résultat est à la hauteur de nos attentes, merci Johan 👍 !",
       "en": "Johan worked on integrating new features for the frontend side of our plateform named Yunow. Those features are meant to make our plateform ready for creating audio-guides. They have been developed using PREACT/JS. Johan has been very efficient and was able to quickly onboard into the plateform and into the existing codebase. The result match our expectations, thank you Johan 👍!"
     },
