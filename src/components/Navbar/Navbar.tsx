@@ -111,6 +111,7 @@ const Navbar: FC<{ i18nLinks?: Ii18nLink[]; hideToogleLocale?: boolean }> = ({
           </NavLink>
           <NavLink href="/blog">{formatMessage({ id: 'nav.blog' })}</NavLink>
           <NavLink href="/case-studies">{formatMessage({ id: 'nav.caseStudies' })}</NavLink>
+          <NavLink href="/search">{formatMessage({ id: 'nav.search' })}</NavLink>
           <NavLink href="/#contact">{formatMessage({ id: 'nav.contact' })}</NavLink>
         </div>
       </div>

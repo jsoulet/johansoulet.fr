@@ -5,6 +5,7 @@ const blogPostsQuery = `query Blog($locale: String!) {
   ) {
     nodes {
       id
+      excerpt(pruneLength: 200)
       internal {
         contentDigest
       }
@@ -20,9 +21,13 @@ const blogPostsQuery = `query Blog($locale: String!) {
         lang
         featuredImage {
           childImageSharp {
-            original {
-              src
-            }
+            gatsbyImageData(
+              height: 250
+              width: 530
+              quality: 50
+              transformOptions: {fit: COVER}
+              layout: CONSTRAINED
+            )
           }
         }
       }
