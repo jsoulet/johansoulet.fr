@@ -16,7 +16,7 @@ const breadcrumbLink = css({
 
 const Breadcrumb: FC<{ links: BreadcrumbLink[] }> = ({ links }) => {
   return (
-    <div>
+    <nav>
       {links.map(({ link, label }, index, array) => {
         if (link) {
           return (
@@ -33,7 +33,7 @@ const Breadcrumb: FC<{ links: BreadcrumbLink[] }> = ({ links }) => {
           </span>
         )
       })}
-    </div>
+    </nav>
   )
 }
 

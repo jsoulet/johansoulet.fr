@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/camelcase */
 const config = require('./config')
+require('dotenv').config();
 
 module.exports = {
   flags: {
@@ -127,6 +128,14 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+      appId: process.env.GATSBY_ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_ADMIN_KEY,
+      queries: require('./algolia/queries'),
+      },
+    },      
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',

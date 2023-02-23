@@ -49,9 +49,11 @@
     "nav.about.link": "/en/about-me",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
+    "nav.search": "Search",
     "nav.fr": "Français",
     "nav.en": "English",
     "nav.caseStudies": "Portfolio",
+    "nav.goToContent": "Go to content",
     "breadcrumb.blog": "Blog",
     "breadcrumb.home": "Home",
     "breadcrumb.caseStudies": "Portfolio",
@@ -63,5 +65,12 @@
     "terms.goBackHome.label": "Go back home",
     "404.title": "Page not found",
     "404.goBackHome": "Go back home",
-    "404.notFound": "Oops! The page you are looking for has been removed or relocated."
+    "404.notFound": "Oops! The page you are looking for has been removed or relocated.",
+    "search.searchbar.button.label": "Search",
+    "search.searchbar.results": "{numResults, plural,=0 {No result}=1 {One result}other {# results}}",
+    "search.pagination.pages": "Page {current} of {total}",
+    "search.pagination.nextPage": "Go to next page",
+    "search.pagination.previousPage": "Go to previous page",
+    "search.searchbar.input.label": "What are you looking for?",
+    "search.disclaimer": "For now, only blog posts are searchable"
 }

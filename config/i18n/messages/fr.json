@@ -50,8 +50,10 @@
     "nav.caseStudies": "Portfolio",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
+    "nav.search": "Rechercher",
     "nav.fr": "Français",
     "nav.en": "English",
+    "nav.goToContent": "Aller au contenu",
     "breadcrumb.blog": "Blog",
     "breadcrumb.home": "Accueil",
     "breadcrumb.caseStudies": "Portfolio",
@@ -63,5 +65,12 @@
     "terms.goBackHome.label": "Retour à l'accueil",
     "404.title": "Page inaccessible",
     "404.goBackHome": "Retour à l'accueil",
-    "404.notFound": "Oups! La page que vous recherchez a été supprimée ou déplacée."
+    "404.notFound": "Oups! La page que vous recherchez a été supprimée ou déplacée.",
+    "search.searchbar.button.label": "Rechercher",
+    "search.searchbar.results": "{numResults, plural,=0 {Aucun résultat}=1 {Un résultat}other {# résultats}}",
+    "search.pagination.pages": "Page {current} sur {total}",
+    "search.pagination.nextPage": "Aller à la page suivante",
+    "search.pagination.previousPage": "Aller à la page précédente",
+    "search.searchbar.input.label": "Que souhaitez vous rechercher ?",
+    "search.disclaimer": "Pour le moment, seuls les articles de blog sont disponibles dans la recherche"
 }

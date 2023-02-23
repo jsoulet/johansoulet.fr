@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
-import { GlobalStyles } from 'twin.macro'
+import tw, { GlobalStyles } from 'twin.macro'
 import Footer from 'components/Footer'
 import Seo from 'components/Seo'
 import Navbar, { Ii18nLink } from 'components/Navbar'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useIntl } from 'gatsby-plugin-intl'
 
 const DURATION = 0.5
 const layoutVariants = {
@@ -31,13 +32,19 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
   i18nLinks,
   hideToogleLocale,
 }) => {
+  const {formatMessage} = useIntl()
   return (
     <>
       <Seo />
       <GlobalStyles />
       <div>
+        <a
+          css={tw`transition transform left-0 bg-white border-2 border-green-600 text-green-600 absolute p-3 m-3 -translate-y-16 rounded uppercase font-bold opacity-0 focus:opacity-100 focus:translate-y-0`}
+          href="#main">
+          {formatMessage({ id: 'nav.goToContent' })}
+        </a>
         <Navbar i18nLinks={i18nLinks} hideToogleLocale={hideToogleLocale} />
-        <motion.main variants={layoutVariants} initial="hidden" animate="visible" exit="exit">
+        <motion.main variants={layoutVariants} initial="hidden" animate="visible" exit="exit" id="main">
           {children}
         </motion.main>
         <Footer />
@@ -47,3 +54,4 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
 }
 
 export default Layout
+
