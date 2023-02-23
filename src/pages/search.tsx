@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql } from 'gatsby'
 import { useIntl } from 'gatsby-plugin-intl'
 import Layout from 'components/Layout'
@@ -11,9 +11,12 @@ import tw from 'twin.macro'
 
 const Search = () => {
   const { formatMessage } = useIntl()
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const { q } = Object.fromEntries(urlSearchParams.entries());
-  const [query, setQuery] = useState(q || '')
+  const [query, setQuery] = useState('')
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window?.location.search || '');
+    const { q } = Object.fromEntries(urlSearchParams.entries());
+    setQuery(q)
+  }, [])
   return (
     <Layout>
       <Seo slug={'/search'} />
