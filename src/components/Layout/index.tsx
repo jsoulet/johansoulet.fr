@@ -39,7 +39,7 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
       <GlobalStyles />
       <div>
         <a
-          css={tw`transition left-0 bg-white border-2 border-green-600 text-green-600 absolute p-3 m-3 -translate-y-16 rounded uppercase font-bold opacity-0 focus:opacity-100`}
+          css={tw`transition transform left-0 bg-white border-2 border-green-600 text-green-600 absolute p-3 m-3 -translate-y-16 rounded uppercase font-bold opacity-0 focus:opacity-100 focus:translate-y-0`}
           href="#main">
           {formatMessage({ id: 'nav.goToContent' })}
         </a>
