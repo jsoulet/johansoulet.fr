@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { motion } from 'framer-motion'
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 import * as styles from "./Card.module.scss";
 
 interface CardProps {

@@ -11,7 +11,7 @@ import Testimonials, {
   TestimonialSource,
 } from 'components/Testimonials'
 import ContactForm from 'components/ContactForm'
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 import Seo from 'components/Seo'
 import { GatsbyImageFile } from 'utils/types'
 

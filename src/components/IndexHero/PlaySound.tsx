@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 import tw from 'twin.macro'
 import SoundOn from 'assets/icons/SoundOn'
 

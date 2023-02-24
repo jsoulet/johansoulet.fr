@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import tw from 'twin.macro'
 import { useIntl } from 'gatsby-plugin-intl'
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 
 const SendButton: FC<{ disabled?: boolean; label: string; hasError?: boolean }> = ({
   disabled,

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 import * as styles from "./Card.module.scss";
 
 interface CardProps {

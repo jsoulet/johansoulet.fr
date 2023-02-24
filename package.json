@@ -11,6 +11,7 @@
     "email": "johan@soulet.email"
   },
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@emotion/react": "^11.4.0",
     "@mdx-js/mdx": "^1.6.5",
     "@mdx-js/react": "^1.6.5",
@@ -21,6 +22,7 @@
     "@types/react-helmet": "^5.0.16",
     "@types/react-slick": "^0.23.4",
     "algoliasearch": "^4.14.3",
+    "babel-plugin-twin": "^1.1.0",
     "classnames": "^2.2.6",
     "dotenv": "^16.0.3",
     "framer-motion": "^4.1.17",
@@ -76,12 +78,24 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "rimraf .cache public",
-    "format": "prettier --write '**/*.js'"
+    "format": "prettier --write '**/*.js'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^11.3.0",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.3.0",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^6.0.0",

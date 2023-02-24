@@ -7,7 +7,7 @@ import { getSrc } from "gatsby-plugin-image";
 import Layout from 'components/Layout'
 import PageHero from 'components/PageHero'
 import Article from 'components/Article'
-import Button from 'components/Button'
+import Button from 'components/Button/Button'
 import Seo from 'components/Seo'
 import { PageInterface } from './types'
 import Image from './Image'
