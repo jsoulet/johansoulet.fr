@@ -1,0 +1,109 @@
+---
+date: '2023-02-28'
+title: "How to structure a Storybook instance?"
+featuredImage: '../images/2023-02-storybook/foundations.jpg'
+lang: en
+i18n:
+  - locale: fr
+    slug: /2023-02-28-comment-structurer-une-instance-storybook
+excerpt: "Discover how Storybook can take your UI development to the next level. Despite its power, some frontend teams are still hesitant to integrate it into their workflow. In this series of articles, we'll explore how to setup Storybok so it can help you to achieve your business goals faster."
+
+---
+
+<Image align="right" caption="Photo by Ivan Bandura">
+
+![](../images/2023-02-storybook/foundations.jpg)
+
+</Image>
+
+# Intro
+
+Storybook is an application that helps front-end developers build UI components and pages in isolation. It can be thought of as a catalog of "stories," which are live instances of the UI blocks.
+
+I have been using Storybook for years and believe it is a powerful tool for creating interfaces. I wrote a series of articles to introduce some of its key principles and help you get the most out of it.
+
+Please note that all of the points of view in these articles are based on my own experience and are meant to be open to challenge. I welcome the opportunity to discuss any opposing arguments, so feel free to reach out to me.
+
+One potential challenge for beginners is that Storybook is a non-opinionated tool. If you decide that it would be beneficial to include it in your development toolbox, you may wonder how to set it up.
+
+# What types of components should be included in Storybook?
+
+tl;dr:
+
+ALL OF THEM… almost!
+
+Most of us agree that basic components such as buttons, inputs, and headings should be documented in Storybook. However, it can be beneficial to go even deeper.
+
+## **Business components**
+
+Storybook is a great place to showcase business components. In a web app, you may create components that are only used in one place, for a specific use case. These components are often aggregations of smaller, more atomic components.
+
+You may wonder why it is necessary to create a specific story for these types of components.
+
+First of all, you cannot predict that they will only be used once. As front-end developers, we create visual elements, and stories are a way to document how components should render and respond to user interactions. When your team grows, it becomes more complex to keep track of what is being developed by others. Proper documentation will make it more likely for other developers to reuse and enhance the components you create, improving collective ownership of the codebase and making the team more efficient overall.
+
+Creating stories for business components is also a good way to structure your development process. Instead of immediately implementing them into your app, you can start by creating pure components directly in Storybook. This method, which I call Storybook Driven Development, helps you focus on building the smallest functioning elements possible.
+
+Once the components are visually acceptable, you can add wrappers to connect them to your app's logic.
+
+In my experience, it is acceptable for business components to have internal states (e.g. a menu with an open/closed state) or to transform the data they receive from their arguments (e.g. formatting a date). They can also rely on a global context injected by a wrapper around all the stories, such as your app's theme or i18n context. However, it is best to keep external dependencies to a minimum and avoid the need for a global data store. The way you handle data in your app should not interfere with the way you create your UI.
+
+## Pages and complex components
+
+In popular front-end frameworks (such as React, Angular, and Vue), everything is a component, from small UI elements to entire pages. When adopting Storybook, you may wonder whether these types of components should have their own isolated stories. My answer is, "it depends."
+
+I believe complex components like forms, filterable lists, and multi-step modals can be included in Storybook to help designers and stakeholders review the product experience without having to navigate deep into the app.
+
+To integrate them correctly, you should follow the same process as with business components:
+
+- have limited internal states
+- avoid high-level contexts
+- extract complexity into external services
+
+Only when these conditions are met should you integrate the component into the app.
+
+The arguments for these components will often be raw data, mocked from your data stores or API. If the code becomes too large and hard to read, consider placing it in separate JSON files. Your unit and integration tests may also be based on these files.
+
+As for pages, I have tried creating them directly in Storybook in the past, but I encountered several issues. Pages often rely on high-level API calls or global contexts (such as authentication or routing) that need to be mocked to display the page correctly. They may also be loaded by backend frameworks that you do not want to modify.
+
+Therefore, making pages Storybook-friendly can be costly, difficult to maintain, and may not provide much value, especially if you have already integrated complex components.
+
+However, this is not the only way to approach the matter. I know other teams that have successfully created and maintained pages and templates in Storybook. There are articles on this topic from the **[Storybook team](https://storybook.js.org/docs/react/writing-stories/build-pages-with-storybook)** and from **[Brad Frost, the inventor of the Atomic Design taxonomy](https://bradfrost.com/blog/post/atomic-design-and-storybook/)**.
+
+## Design tokens
+
+Storybook is also a good place to showcase your app's design tokens. As a reminder, design tokens are the smallest level in the atomic design taxonomy. They represent design decisions in your system, such as colors, fonts, spacings, and icons, but they are not tangible elements, so it can be difficult to present them.
+
+With Storybook, you can create specific components that are used only to display your design decisions and make them explicit across your company.
+
+# What types of stories should a component have?
+
+The answer to this question will often depend on the users your Storybook targets.
+
+## **One basic story**
+
+This first story should provide the component with minimal arguments, only the required ones. This is generally how the components will be most commonly rendered in the app.
+
+Having an overview of what the component looks like and knowing immediately if this is the documentation page for the component you need is useful when browsing the Storybook.
+
+# Which kind of stories does a component need?
+
+How you answer this question will often depend on the users your Storybook will have.
+
+## One basic story
+
+This first story will provide the component with minimal arguments, only the required ones. This is generally the way the components will get renders the most in the app.
+
+When browsing the Storybook, it will be useful to have an overview of what the component looks like, and immediately know, from the documentation page, if it's the one you need.
+
+## **A playground**
+
+One of the biggest benefits of Storybook is the ability to change a component's arguments without any technical background. That’s why you need at least one story to enable the **[Controls addon](https://storybook.js.org/docs/react/essentials/controls)** so anyone can play with the component's arguments and see how it renders in different situations: what happens if the product card has a very long name? what happens if its price is negative instead of positive? what happens if a table has thousands of entries or none?
+
+## One story per variant
+
+In addition to the two stories above, I like to add specific stories to showcase my components when they have specific variants: empty lists, form fields with error states, disabled product cards, etc.
+
+I once had a meeting with a client who was browsing the Storybook I started to develop. His first feedback was "It's nice, but why did you put text in Latin." After a moment of hesitation, I understood he was referring to the *Lorem ipsum* content I used to fill text blocks. That’s why I realised stories need to be easy to understand for non-technical users and since then I tend to provide components with data that looks like what your business uses on a daily basis, rather than fake data.
+
+In short, most of the components in your app can find a place in your Storybook, and you can even create custom ones just to present design tokens. It's a good idea to create one story per variant, plus a playground, to experiment with how the edge cases are handled.
