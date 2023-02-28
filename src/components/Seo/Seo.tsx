@@ -62,6 +62,7 @@ const Seo: FC<SeoProps> = ({ title, image, description, slug, noIndex, canonical
       ]}
       {slug && <link rel="canonical" href={canonicalUrl || `${site.siteMetadata.siteUrl}/${locale}${slug}`} />}
       {noIndex && <meta name="robots" content="noindex, nofollow"></meta>}
+      <script defer id="fairlytics-id-ajcu6jd9k7ysd6" data-fairlyticskey="2f033ce33631cc9fbf3389bde75dbaa6" src="https://app.fairlytics.tech/tag/tag.js"/>
     </Helmet>
   )
 }
