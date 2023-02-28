@@ -11,6 +11,7 @@ import Button from 'components/Button'
 import Seo from 'components/Seo'
 import { PageInterface } from './types'
 import Image from './Image'
+import tw from 'twin.macro'
 
 const shortcodes = { Image, Button }
 
@@ -88,6 +89,7 @@ const MdxLayout: FC<{ data: PageInterface }> = ({ data }) => {
       />
       <Article>
         <section>
+          {data.mdx.frontmatter.chapo && <div css={tw`text-lg font-bold mb-8 italic`}>{data.mdx.frontmatter.chapo}</div>}
           <MDXProvider components={shortcodes}>
             <MDXRenderer>{data.mdx.body}</MDXRenderer>
           </MDXProvider>
