@@ -24,7 +24,7 @@ const style = css({
     margin: 0,
   },
   'img, .gatsby-resp-image-wrapper': {
-    borderRadius: 3,
+    borderRadius: 4,
     overflow: 'hidden',
     display: 'block',
   },
@@ -53,13 +53,13 @@ const style = css({
     },
   },
   '&.small': {
-    img: {
+    '& > *': {
       width: '75%',
       margin: '0 auto',
       [breakpoints.md]: {
         width: '50%',
       },
-    },
+    }
   },
 })
 

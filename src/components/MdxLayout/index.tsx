@@ -13,7 +13,9 @@ import { PageInterface } from './types'
 import Image from './Image'
 import tw from 'twin.macro'
 
-const shortcodes = { Image, Button }
+const shortcodes = { 
+  Image,
+  Button }
 
 export const pageQuery = graphql`query PageQuery($id: String, $locale: String) {
   mdx(id: {eq: $id}) {
