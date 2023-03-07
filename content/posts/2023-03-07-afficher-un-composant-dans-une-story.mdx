@@ -1,0 +1,206 @@
+---
+date: '2023-03-07'
+title: "Afficher un composant dans une story et en rendre ses arguments modifiables à la volée"
+featuredImage: '../images/2023-02-storybook/knot.jpg'
+lang: fr
+i18n:
+  - locale: en
+    slug: /2023-03-07-display-a-component-story
+chapo: "Dans ce deuxième article de la série sur Storybook, c'est l'heure de mettre les mains dans le code pour découvrir comment créer concrètement une story à l'aide du standard CSF-2 et en personnaliser les paramètres pour qu'elle soit utilisables par toutes les parties prenantes de votre organisation."
+
+---
+L'objectif principal de Storybook est de créer un catalogue de "stories" de composants. Chaque story représente le rendu d'un composant dans un de ses états.
+
+# Component Story Format : un standard ouvert pour écrire des stories
+
+Les implémentations récentes des stories sont basées sur un format ouvert et agnostique appelé "Component Story Format", abrégé CSF. Même si l'équipe principale de Storybook en est le principal contributeur, le fait qu'elle ne soit pas seule est encourageant. Cela signifie que nous pouvons réutiliser ce que nous avons développé au-delà de Storybook, afin d'intégrer les stories dans d'autres outils de la stack, comme Cypress ou Testing Library.
+
+Cependant, malgré l'ouverture de CSF, d'autres environnements de développement de composants ([Styleguidist](https://react-styleguidist.js.org/), [Docz](https://www.docz.site/), [React Cosmos](https://reactcosmos.org/)...) n'ont pas adopté le format. Ils ont préféré leur propre format propriétaire.
+
+Essentiellement, le CSF fonctionne comme ceci : un export par défaut pour les métadonnées, et un export pour chaque story du composant. Chaque story est une fonction qui renvoie un composant.
+
+## Args sont les nouvelles props
+
+Si vous venez du développement React, vous avez probablement l'habitude d'utiliser `props` pour personnaliser le comportement ou l’affichage d'un composant en fonction de données provenant de son parent.
+
+Storybook a conservé cette logique, mais pour rester agnostique au framework, il l'a renommée "arguments" (ou `args`). Les arguments sont définis en tant que propriété de la fonction de story.
+
+```tsx
+
+export const WithoutName = () => <HelloWorld />
+export const WithName = (args) => <HelloWorld {...args} />
+WithName.args = {
+	name: 'David'
+}
+```
+
+Les arguments sont des objets JavaScript standards, vous pouvez donc définir les valeurs par défaut de toutes les manières imaginables par le langage. Les pratiques peuvent donc varier en fonction de la librairie de composants ou de l'équipe qui la maintient.
+
+```tsx
+
+// Default props as an external object
+const DEFAULT_PROPS = {
+	label: 'Click me'
+	onClick: () => console.log('clicked')
+}
+
+export const Default = (args) => <Button {...args} />
+Default.args = DEFAULT_PROPS
+
+export const Disabled = (args) => <Button {...args} />
+Disabled.args = {
+	...DEFAULT_PROPS,
+	disabled: true
+}
+
+export const WithEmojiLabel = (args) => <Button {...args} />
+WithEmojiLabel.args = {
+	...DEFAULT_PROPS,
+	label: 'Click me 😎'
+}
+
+// ----------------------------------------
+// Default props defined in the first story
+
+export const Default = (args) => <Button {...args} />
+Default.args = {
+	label: 'Click me'
+	onClick: () => console.log('clicked')
+}
+
+export const Disabled = (args) => <Button {...args} />
+Disabled.args = {
+	...Default.args,
+	disabled: true
+}
+
+export const WithEmojiLabel = (args) => <Button {...args} />
+WithEmojiLabel.args = {
+	...Default.args,
+	label: 'Click me 😎'
+}
+```
+
+Bien qu'il existe différentes méthodes, je recommande d’en choisir une pour toutes les stories et de maintenir un code cohérent. Cela améliorera l'expérience de développement et facilitera les contributions.
+
+Les recommendations conseillent d’utiliser les métadonnées CSF pour stocker les propriétés par défaut. Storybook intégrera automatiquement la propriété `args` à partir des métadonnées et surchargera la variante si sa propriété `args` est définie.
+
+```tsx
+export default {
+	args: {
+		label: 'Click me'
+		onClick: () => console.log('clicked')
+  }
+}
+
+export const Default = (args) => <Button {...args} />
+export const Disabled = (args) => <Button {...args} />
+Disabled.args = {
+	disable: true
+}
+export const WithEmojiLabel = (args) => <Button {...args} />
+WithEmojiLabel.args = {
+	label: 'Click me 😎'
+}
+```
+
+## Un Template pour les gouverner tous
+
+Le CSF est déclaratif, mais écrire une fonction différente pour chaque scénario sera répétitif et difficile à maintenir à long terme. C'est pourquoi il est recommandé de commencer par une story template qui sera dupliquée et modifiée pour chaque scénario.
+
+```tsx
+const Template = (args) => <Button {...args} />
+
+const Default = Template.bind({})
+
+const WithEmojiLabel = Template.bind({})
+WithEmojiLabel.args = {
+	label: 'Click me 😎'
+}
+```
+
+Pour des variants simples, il semblera inutile de créer et dupliquer une fonction de template. Cependant, dès que vous ajoutez des histoires plus complexes, il sera bénéfique d’avoir un composant de base que vous pouvez personnaliser en fonction du scénario que vous documentez.
+
+De plus, n’oublions pas que l'équipe de développement front-end n'est pas le seul utilisateur de Storybook. Les visiteurs pourront plus facilement comprendre comment interagir avec le composant si toutes ses story se ressemblent.
+
+# Contrôler les arguments passés à la story
+
+Storybook bénéficie d'une interface utilisateur composable qui peut être améliorée par une variété d'add-ons. L'un des plus populaires s'appelle "Controls" : il offre un panneau additionnel où les arguments passés à la story peuvent être édités à l'aide de champs de formulaire. Il facilite le processus de test en permettant à tout visiteur de vérifier comment le composant se comporte dans de multiples situations.
+
+L'add-on créera automatiquement les champs de formulaire en fonction de la définition des PropTypes (pour les composants JavaScript) et de l'interface Props (pour les composants TypeScript).
+
+Par exemple :
+
+- champ de texte pour les chaines de caractères
+- toggle pour les booléens
+- boutons radio ou select pour les enums
+
+<Image>
+
+![La Story d’un bouton et addon Control](../images/2023-02-storybook/buttonstory.png)
+_La Story d’un bouton et son addon Control_
+</Image>
+
+## Personnaliser les champs d'argument
+
+En tant que développeur de composants, la définition automatique est très pratique, mais vous pouvez aller encore plus loin et personnaliser les champs pour optimiser l'expérience de vos utilisateurs.
+
+### Contrôler les contrôles
+
+Techniquement, chaque fichier de story recevra un paramètre `argTypes`, dont la valeur est inférée à partir des props du composant. L'add-on Controls utilise cette valeur pour générer le formulaire. C'est pourquoi il est possible d'éditer l'apparence du panneau Controls en modifiant les `argTypes`, au niveau du fichier ou de la story.
+
+```tsx
+export default {
+	argTypes: {
+		// some metadata
+	},    
+}
+
+export Default = Template.bind({})
+Default.argTypes = { /* other metadata */ }
+```
+
+### Filtrer les champs
+
+Pour aller encore plus loin dans la personnalisation, vous pouvez éditer les métadonnées de l'add-on en utilisant le paramètre `controls`. Pour une présentation complète de ce qui est offert, je vous recommande de jeter un coup d'œil à la page de [documentation](https://storybook.js.org/docs/react/essentials/controls) sur le site de Storybook.
+
+Les paramètres que j'utilise le plus souvent sont `include` et `exclude`, qui filtrent les champs dans le panneau Controls. Ils sont utiles lorsque votre composant hérite de nombreuses props de son parent, mais que vous n'avez besoin de rendre modifiables que quelques props spécifiques dans Storybook, ou que vous devez masquer tous les handlers d'événements et callbacks.
+
+```tsx
+export default {
+	title: 'Button',
+	component: Button,
+	{
+		// *do not show the controls for props starting with "on"
+		// usually onChange, onBlur, onSubmit...*
+		{ controls: { exclude: /^on.*/ } }
+	}
+}
+
+export Disabled = Template.bind({})
+Disabled.parameters = {
+		controls: {
+			// the only control visible will be the one for the *"disabled"* props
+			{ controls: { include: ['disabled'] } }
+		}
+	}
+```
+
+# Créer des wrappers autour des composants
+
+Il est rare que tous vos composants soient des fonctions parfaitement pures et reçoivent toutes leurs dépendances par injection de props. Les frameworks front-end modernes bénéficient souvent de l'injection de contexte pour améliorer l'expérience du développeur. Voici quelques exemples de contextes qui pourraient être injectés :
+
+- les données d'un store Redux
+- le thème de styled-components
+- les traductions du contexte i18n
+- ...
+
+Vous pouvez ajouter des wrappers de contexte autour des composants en utilisant la fonction de template, mais une approche plus propre consiste à utiliser la propriété `decorators`.
+
+De cette façon, la logique de la story est séparée de la logique du wrapper, ce qui augmente la lisibilité de la documentation et sa maintenabilité. Point bonus : avoir les conteneurs de contexte déclarés dans les décorateurs les rend plus faciles à extraire dans des fichiers séparés pour une meilleure réutilisabilité à travers l’ensemble des stories de Storybook si nécessaire.
+
+# Conclusion
+
+Storybook est un catalogue de composants interactif qui peut être utilisé par des utilisateurs techniques et non techniques. Les développeurs doivent être en mesure de rechercher des composants existants et de comprendre rapidement comment ils sont censés être utilisés, tandis que les profils non techniques peuvent utiliser la sandbox pour vérifier ce qui a été développé par les ingénieurs et comment le composant peut être adapté à un nouveau contexte. Il est important que les stories soient explicites et faciles à maintenir afin de servir ces utilisateurs.
+
+Nous avons vu que le format de story par composant (CSF) est le format par défaut utilisé pour décrire le comportement d'une histoire, mais saviez-vous que vous pouvez également utiliser [Markdown](https://storybook.js.org/docs/react/api/mdx) pour plus de flexibilité dans la documentation ? La syntaxe CSF présentée dans cet article est la version 2.0. La version 3.0 a été annoncée l'année dernière et devrait réduire le code redondant et éliminer le besoin de `Template.bind({})`. Personnellement, je suis impatient de l'adopter.
