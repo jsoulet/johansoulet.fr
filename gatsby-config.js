@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/camelcase */
 const config = require('./config')
+const locales = require('./config/i18n/locales')
+const rss = require('./rss')
 require('dotenv').config();
 
 module.exports = {
   flags: {
-    FAST_DEV: false
+    FAST_DEV: false,
+    FAST_REFRESH: true
   },
   pathPrefix: config.pathPrefix,
   siteMetadata: {
@@ -143,5 +146,29 @@ module.exports = {
     'gatsby-plugin-postcss',
     'gatsby-plugin-emotion',
     'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query:rss.metaDataQuery,
+        feeds: [
+          {
+            serialize: rss.serialize,
+            query: rss.blogPostsQueryFR,
+            output: "/rss.xml",
+            title: locales.fr.metadata.defaultTitle,
+            description: locales.fr.metadata.description,
+            language: "fr"
+          },
+          {
+            serialize: rss.serialize,
+            query: rss.blogPostsQueryEN,
+            output: "/rss_en.xml",
+            title: locales.en.metadata.defaultTitle,
+            description: locales.en.metadata.description,
+            language: "en"
+          },
+        ],
+      },
+    }
   ],
 }

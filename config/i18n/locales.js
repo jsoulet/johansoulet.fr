@@ -8,7 +8,7 @@ module.exports = {
       imageBaseUrl: 'https://johansoulet.fr',
       titleTemplate: '%s | Johan Soulet',
       defaultTitle: 'Johan Soulet | Développeur JavaScript freelance à Nantes',
-      description: `Développeur freelance senior à Nantes, spécialisé dans le développement d'applications métier complexe avec JavaScript, React et NodeJS`,
+      description: `Développeur freelance senior à Nantes, spécialisé dans le développement d'applications métier complexes avec JavaScript, React et NodeJS`,
     },
   },
   en: {
