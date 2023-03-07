@@ -157,7 +157,8 @@ module.exports = {
             output: "/rss.xml",
             title: locales.fr.metadata.defaultTitle,
             description: locales.fr.metadata.description,
-            language: "fr"
+            language: "fr",
+            icon: "/favicon-32x32.png"
           },
           {
             serialize: rss.serialize,
@@ -165,7 +166,8 @@ module.exports = {
             output: "/rss_en.xml",
             title: locales.en.metadata.defaultTitle,
             description: locales.en.metadata.description,
-            language: "en"
+            language: "en",
+            icon: "/favicon-32x32.png"
           },
         ],
       },
