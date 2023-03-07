@@ -43,6 +43,8 @@
     "footer.copyright": "Johan Soulet",
     "footer.madeWithLove": "Made with ❤️ in Nantes",
     "footer.madeWithLove.a11y": "Made with love in Nantes",
+    "footer.rss.label": "RSS feed",
+    "footer.rss.link": "/rss_en.xml",
     "nav.menu": "Menu",
     "nav.home": "Home",
     "nav.about": "About me",
