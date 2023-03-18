@@ -1,6 +1,6 @@
 ---
 date: '2023-03-14'
-title: "Grader Storybook à jour en créant une stratégie de tests basée sur vos Stories"
+title: "Garder Storybook à jour en créant une stratégie de tests basée sur vos Stories"
 featuredImage: '../images/2023-02-storybook/microscope.jpg'
 lang: fr
 i18n:
@@ -12,7 +12,7 @@ chapo: "Comme toute application métier, Storybook doit être testé pour évite
 
 # Pourquoi faut-il tester vos stories ?
 
-Au premier abord, il peut sembler contre-intuitif de tester les stories. Si votre processus de développement implique de commencer par Storybook et de créer des composants isolés qui sont ensuite ajoutés à l'application web, il peut sembler qu'il n'y ait pas besoin de tester les histoires, puiqu’elles seront toujours fonctionnelles. Cependant, ce n'est pas toujours le cas.
+Au premier abord, il peut sembler contre-intuitif de tester les stories. Si votre processus de développement implique de commencer par Storybook et de créer des composants isolés qui sont ensuite ajoutés à l'application web, il peut sembler qu'il n'y ait pas besoin de tester les stories, puiqu’elles seront toujours fonctionnelles. Cependant, ce n'est pas toujours le cas.
 
 Au fur et à mesure que votre équipe se développe, vous aller embaucher de nouveaux coéquipiers qui ne sont pas habitués à développer avec Storybook. Lorsqu'ils ont besoin de mettre à jour un composant existant, ils vont vérifier que l'intégration avec le code de l’application métier répond aux nouvelles spécifications et mettre à jour les tests, que vous aurez automatisés dans la CI. Cependant, s'ils effectuent un changement majeur, comme la modification d'un nom ou du type d’une props, ils ne vont pas nécessairement se rendre compte que les stories existantes ne fonctionnent plus. Et si le composant est utilisé comme bloc pour la composition d'autres composants de plus haut niveau, ces stories peuvent également être bugguées. Petit à petit, c’est donc toute votre système de documentation qui sera inutilisable.
 
@@ -30,7 +30,7 @@ Même si vous vous efforcez de sensibiliser vos coéquipiers aux avantages de l'
 
 Il y a quelques années, nous n'avions pas les outils nécessaire pour intégrer ce workflow dans votre process de développement. Cependant, depuis la sortie de CSF 2.0, des outils externes ont intégré le format et il est désormais possible d'adopter cette philosophie sans trop de difficultés.
 
-# Les principaux avantages de baser les tests sur les histoires
+# Les principaux avantages de baser les tests sur les stories
 
 ## Ne pas dupliquer les scénarios
 
