@@ -9,7 +9,7 @@ i18n:
 chapo: "Like any business app, Storybook must be tested to avoid regressions. The CSF 2.0 format allows interfacing with Jest and Testing Library so that Stories become the entry point for the testing strategy, and component updates can be made with peace of mind."
 
 ---
-# Why should you test your stories?
+## Why should you test your stories?
 
 At first glance, it may seem counter intuitive to test stories. If your development process involves starting with Storybook and creating isolated components that are later added to the web app, it may seem like there is no need to test stories. However, this is not always the case.
 
@@ -19,7 +19,7 @@ Even if you make an effort to educate your teammates about the benefits of using
 
 <Image isSmall>
 
-![](../images/2023-02-storybook/test-schema.png)
+![GATSBY_EMPTY_ALT](../images/2023-02-storybook/test-schema.png)
 
 </Image>
 
@@ -29,7 +29,7 @@ Even if you make an effort to educate your teammates about the benefits of using
 
 A few years ago, we didn't have the required technology to smoothly integrate this flow into your process. However, since the release of CSF 2.0, external tools have integrated the format and it is now possible to adopt this philosophy without too much trouble.
 
-# Key advantages of basing tests on stories
+## Key advantages of basing tests on stories
 
 ### Avoid duplicating scenarios
 
@@ -49,13 +49,13 @@ Complex components often require external contexts like routing, data stores, an
 
 If you have two separate mechanisms for documenting and testing components, you will have to set up and create these wrappers twice. By using stories as the source of truth, you can avoid this extra work and only need to provide the required contexts once.
 
-# How to test stories using Jest?
+## How to test stories using Jest?
 
 If you're still reading, I hope you've been convinced of the importance of using storybook scenarios as the foundation of your tests. Here are the steps you need to follow to implement this technically:
 
 To keep this article simple, I'll assume you are already familiar with [Testing Library](https://testing-library.com/) and that you have a running Storybook instance with stories based on [CSF 2.0](https://storybook.js.org/docs/react/api/csf).
 
-## Install the required plugin
+### Install the required plugin
 
 First of all, you need to install the Storybook plugins that are compatible with your development stack. For example, if you are a React developer like me, you can install `@storybook/testing-react`. Alternatively, if you are working in an Angular or Vue environment, you can install `@storybook/testing-angular` or `@storybook/testing-vue`, respectively.
 
@@ -63,7 +63,7 @@ First of all, you need to install the Storybook plugins that are compatible with
 yarn add @storybook/testing-react
 ```
 
-## Use stories into the test file
+### Use stories into the test file
 
 A simple testing file usually looks like the following:
 
@@ -119,7 +119,7 @@ test('<Toggle />', () => {
 })
 ```
 
-# Conclusion
+## Conclusion
 
 In conclusion, testing stories using Jest is a crucial step in ensuring that your Storybook components are functioning correctly over time. The examples presented above are based on testing-library, but using Enzyme to test your stories is similar.
 

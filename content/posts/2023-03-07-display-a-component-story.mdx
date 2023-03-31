@@ -11,7 +11,7 @@ chapo: "In this second article of the Storybook series, it's time to get your ha
 ---
 The main purpose of Storybook is to create a catalog of component "stories." Each story represents how a component will render in one of its specific states. 
 
-# Component Story Format: an open standard to write stories
+## Component Story Format: an open standard to write stories
 
 Recent stories implementations are based on an open and technology-agnostic format called “Component Story Format”, abbreviated CSF. Even if the Storybook core team is part of its contributor, the fact they’re not alone is precious. It means, we can re-use what we’ve developed beyond Storybook, in order to integrate the stories into other tools of the stack, like Cypress or Testing Library.
 
@@ -32,7 +32,7 @@ export const WithName = () => <HelloWorld name={"David"} />
 
 Since stories are live components, they can handle all user interactions that the web standard allows: clicks, hover, focus, changing browser size or color scheme, etc. This is why Storybook is a powerful tool for documenting a component and its interactions, even for non-developers.
 
-## Args are the new props
+### Args are the new props
 
 If you come from React development, you are likely used to using `props` to customize a component's behavior based on external inputs.
 
@@ -117,7 +117,7 @@ WithEmojiLabel.args = {
 }
 ```
 
-## One Template to rule them all
+### One Template to rule them all
 
 The CSF is declarative, but writing a different function for each scenario can be repetitive and difficult to maintain in the long run. This is why it is recommended to start with a template story that can be duplicated and modified for each scenario.
 
@@ -136,7 +136,7 @@ For simple variations, it may seem unnecessary to create and duplicate a templat
 
 Additionally, the front-end development team is not the only user of a Storybook. Visitors will be able to more easily understand how they are expected to interact with the component if all its stories look similar.
 
-# Control the arguments passed to the story
+## Control the arguments passed to the story
 
 Storybook benefits from a composable UI that can be enhanced by a variety of add-ons. One of the most popular is named "Controls": it offers a side panel where arguments passed to the story can be edited using form fields. It makes the testing process smooth by allowing any visitor to check how the component behaves in multiple situations.
 
@@ -156,11 +156,11 @@ _The story of a Button component and its Controls panel_
 
 
 
-## Customizing the argument fields
+### Customizing the argument fields
 
 As a component developer, the automatic definition is very convenient, but you can go even further and customize the fields to optimize the experience for your visitors.
 
-### Control the controls
+#### Control the controls
 
 Technically speaking, each story file will receive an `argTypes` parameter, whose value is inferred from the component's props. The Controls add-on uses this value to generate the form. That's why it is possible to edit how the Controls panel will look by editing the `argTypes`, at the file level or at the story level.
 
@@ -175,7 +175,7 @@ export Default = Template.bind({})
 Default.argTypes = { /* other metadata */ }
 ```
 
-### Filter the fields
+#### Filter the fields
 
 To go even deeper into customization, you can edit the metadata of the add-on using the `controls` parameter. For a comprehensive presentation of what is offered, I recommend you to have a look at the [documentation](https://storybook.js.org/docs/react/essentials/controls) page on the Storybook website.
 
@@ -202,7 +202,7 @@ Disabled.parameters = {
 
 ```
 
-# Create wrappers around the components
+## Create wrappers around the components
 
 It is rare to have all your components totally pure functions and receive all of their dependencies from props injection. Modern front-end frameworks often benefit from context injection to improve the developer experience. Some examples of contexts that might be injected include:
 
@@ -244,7 +244,7 @@ WithAPhoto.decorators = [
 
 This way will keep the story logic separated from the wrapper logic, which increases the story file's legibility and increases its maintainability. Bonus point: having the context containers declared in the decorators makes them easier to be extracted into separated files for better reusability across the stories if needed.
 
-# Conclusion
+## Conclusion
 
 Storybook is an interactive component catalogue that can be used by both technical and non-technical users. Developers need to be able to search for existing components and understand quickly how they are supposed to be used, while non-technical profiles can use the sandbox to check what has been developed previously and how the component can be adapted to a new context. It is important for stories to be explicit and easy to maintain in order to serve these users.
 

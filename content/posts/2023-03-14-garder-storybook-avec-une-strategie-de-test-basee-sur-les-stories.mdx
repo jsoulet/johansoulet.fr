@@ -10,7 +10,7 @@ chapo: "Comme toute application métier, Storybook doit être testé pour évite
 
 ---
 
-# Pourquoi faut-il tester vos stories ?
+## Pourquoi faut-il tester vos stories ?
 
 Au premier abord, il peut sembler contre-intuitif de tester les stories. Si votre processus de développement implique de commencer par Storybook et de créer des composants isolés qui sont ensuite ajoutés à l'application web, il peut sembler qu'il n'y ait pas besoin de tester les stories, puiqu’elles seront toujours fonctionnelles. Cependant, ce n'est pas toujours le cas.
 
@@ -20,7 +20,7 @@ Même si vous vous efforcez de sensibiliser vos coéquipiers aux avantages de l'
 
 <Image isSmall>
 
-![](../images/2023-02-storybook/test-schema.png)
+![GATSBY_EMPTY_ALT](../images/2023-02-storybook/test-schema.png)
 
 </Image>
 
@@ -30,37 +30,37 @@ Même si vous vous efforcez de sensibiliser vos coéquipiers aux avantages de l'
 
 Il y a quelques années, nous n'avions pas les outils nécessaire pour intégrer ce workflow dans votre process de développement. Cependant, depuis la sortie de CSF 2.0, des outils externes ont intégré le format et il est désormais possible d'adopter cette philosophie sans trop de difficultés.
 
-# Les principaux avantages de baser les tests sur les stories
+## Les principaux avantages de baser les tests sur les stories
 
-## Ne pas dupliquer les scénarios
+### Ne pas dupliquer les scénarios
 
 Il est recommandé de créer une story pour chaque cas d'utilisation d'un composant, afin de documenter toutes ses variants. Il est également recommandé de créer un test par cas d'utilisation pour s'assurer que le composant continue de fonctionner correctement au fil du temps.
 
 En basant les tests sur les story, vous éviderez ainsi de dupliquer le scénario et pourrez l’utiliser à la fois à des fins de documentation et de test.
 
-## Créer un aperçu visuel des tests Jest
+### Créer un aperçu visuel des tests Jest
 
 Les tests Jest reposent sur un rendu headless et peuvent être difficiles à interpréter lorsqu'ils buguent. Lorsque vous rencontrez des problèmes inattendus, vous devez souvent logguer le HTML dans la console pour essayer de comprendre ce qui se passe. Cela peut être particulièrement fastidieux lorsqu’il s’agit de prévisualiser des composants complexes ou des pages entières.
 
 En commençant par la story, vous pouvez prévisualiser comment le composant sera affiché dans un vrai navigateur, en fonction de ses données (props et state) et de la façon dont l'utilisateur peut interagir avec lui. Cela va faciliter la compréhension et le débogage de tout problème que vous rencontrerez lors de l’écriture de vos tests.
 
-## Fournir uniquement les contextes requis une seule fois
+### Fournir uniquement les contextes requis une seule fois
 
 Les composants complexes nécessitent souvent des contextes externes tels que le router, les data stores et l'internationalisation pour fonctionner correctement. Même les plus petits composants peuvent nécessiter des contextes, comme pour le thème de l’application par exemple.
 
 Si vous avez deux mécaniques distinctes pour la documentation et les tests des composants, vous devrez configurer et créer ces wrappers deux fois. En utilisant les stories comme source de vérité, vous aller éviter ce travail supplémentaire et ne définir les contextes requis une seule fois.
 
-# Comment tester les stories avec Jest?
+## Comment tester les stories avec Jest?
 
 Si vous êtes toujours en train de lire, j'espère que vous avez été convaincu de l'importance d'utiliser les scénarios Storybook comme fondement de vos tests de composants. Voici les étapes à suivre pour mettre en œuvre cela techniquement :
 
 Pour simplifier cet article, je vais supposer que vous êtes déjà familier avec [Testing Library](https://testing-library.com/) et que vous avez une instance Storybook active avec des stories basées sur [CSF 2.0](https://storybook.js.org/docs/react/api/csf).
 
-## Installez le plugin de test
+### Installez le plugin de test
 
 Tout d’abord, vous devrez installer le plugin Storybook compatible avec votre stack de développement. Par exemple, si comme moi vous développez avec React, vous pourrez installer `@storybook/testing-react`. De la même facon, si vous travaillez avec Angular ou Vue, vous devrez installer `@storybook/testing-angular` ou `@storybook/testing-vue`.
 
-## Utiliser des stories dans le fichier de test
+### Utiliser des stories dans le fichier de test
 
 Un fichier de test simple ressemble généralement à ceci :
 
@@ -116,7 +116,7 @@ test('<Toggle />', () => {
 })
 ```
 
-# Conclusion
+## Conclusion
 
 En conclusion, tester les stories à l'aide de Jest est une étape cruciale pour garantir que vos composants Storybook fonctionnent correctement sur le long terme. Les exemples présentés ci-dessus sont basés sur Testing-Library, mais l'utilisation d'Enzyme pour tester vos stories est similaire.
 

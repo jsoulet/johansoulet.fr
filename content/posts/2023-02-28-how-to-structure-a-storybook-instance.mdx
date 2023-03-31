@@ -16,7 +16,7 @@ chapo: "Storybook can take your UI development to the next level. But despite it
 
 </Image>
 
-# Intro
+## Intro
 
 Storybook is an application that helps front-end developers build UI components and pages in isolation. It can be thought of as a catalog of "stories," which are live instances of the UI blocks.
 
@@ -26,7 +26,7 @@ Please note that all of the points of view in these articles are based on my own
 
 One potential challenge for beginners is that Storybook is a non-opinionated tool. If you decide that it would be beneficial to include it in your development toolbox, you may wonder how to set it up.
 
-# What types of components should be included in Storybook?
+## What types of components should be included in Storybook?
 
 tl;dr:
 
@@ -34,7 +34,7 @@ ALL OF THEM… almost!
 
 Most of us agree that basic components such as buttons, inputs, and headings should be documented in Storybook. However, it can be beneficial to go even deeper.
 
-## **Business components**
+### **Business components**
 
 Storybook is a great place to showcase business components. In a web app, you may create components that are only used in one place, for a specific use case. These components are often aggregations of smaller, more atomic components.
 
@@ -48,7 +48,7 @@ Once the components are visually acceptable, you can add wrappers to connect the
 
 In my experience, it is acceptable for business components to have internal states (e.g. a menu with an open/closed state) or to transform the data they receive from their arguments (e.g. formatting a date). They can also rely on a global context injected by a wrapper around all the stories, such as your app's theme or i18n context. However, it is best to keep external dependencies to a minimum and avoid the need for a global data store. The way you handle data in your app should not interfere with the way you create your UI.
 
-## Pages and complex components
+### Pages and complex components
 
 In popular front-end frameworks (such as React, Angular, and Vue), everything is a component, from small UI elements to entire pages. When adopting Storybook, you may wonder whether these types of components should have their own isolated stories. My answer is, "it depends."
 
@@ -70,37 +70,37 @@ Therefore, making pages Storybook-friendly can be costly, difficult to maintain,
 
 However, this is not the only way to approach the matter. I know other teams that have successfully created and maintained pages and templates in Storybook. There are articles on this topic from the **[Storybook team](https://storybook.js.org/docs/react/writing-stories/build-pages-with-storybook)** and from **[Brad Frost, the inventor of the Atomic Design taxonomy](https://bradfrost.com/blog/post/atomic-design-and-storybook/)**.
 
-## Design tokens
+### Design tokens
 
 Storybook is also a good place to showcase your app's design tokens. As a reminder, design tokens are the smallest level in the atomic design taxonomy. They represent design decisions in your system, such as colors, fonts, spacings, and icons, but they are not tangible elements, so it can be difficult to present them.
 
 With Storybook, you can create specific components that are used only to display your design decisions and make them explicit across your company.
 
-# What types of stories should a component have?
+## What types of stories should a component have?
 
 The answer to this question will often depend on the users your Storybook targets.
 
-## **One basic story**
+### **One basic story**
 
 This first story should provide the component with minimal arguments, only the required ones. This is generally how the components will be most commonly rendered in the app.
 
 Having an overview of what the component looks like and knowing immediately if this is the documentation page for the component you need is useful when browsing the Storybook.
 
-# Which kind of stories does a component need?
+## Which kind of stories does a component need?
 
 How you answer this question will often depend on the users your Storybook will have.
 
-## One basic story
+### One basic story
 
 This first story will provide the component with minimal arguments, only the required ones. This is generally the way the components will get renders the most in the app.
 
 When browsing the Storybook, it will be useful to have an overview of what the component looks like, and immediately know, from the documentation page, if it's the one you need.
 
-## **A playground**
+### **A playground**
 
 One of the biggest benefits of Storybook is the ability to change a component's arguments without any technical background. That’s why you need at least one story to enable the **[Controls addon](https://storybook.js.org/docs/react/essentials/controls)** so anyone can play with the component's arguments and see how it renders in different situations: what happens if the product card has a very long name? what happens if its price is negative instead of positive? what happens if a table has thousands of entries or none?
 
-## One story per variant
+### One story per variant
 
 In addition to the two stories above, I like to add specific stories to showcase my components when they have specific variants: empty lists, form fields with error states, disabled product cards, etc.
 

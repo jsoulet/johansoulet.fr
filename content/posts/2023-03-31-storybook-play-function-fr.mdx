@@ -1,0 +1,159 @@
+---
+date: '2023-03-31'
+title: "D'une documentation statique à des tests interactifs avec la fonction Play de Storybook"
+featuredImage: '../images/2023-02-storybook/filming.jpg'
+lang: fr
+i18n:
+  - locale: en
+    slug: /2023-03-31-storybook-play-function
+chapo: "La nouvelle fonctionnalité Play est la clé pour apporter de l'interactivité à votre Storybook. Apprenez comment l'intégrer dans votre documentation et vos scénarios de test."
+
+---
+> Une interface utilisateur riche est déterminée non seulement par les données de ses props et states, mais aussi par les actions de l'utilisateur telles que les clics ou les événements clavier.
+
+## Introduction
+
+Jusqu’ici, l'objectif principal de Storybook était de présenter les composants et de rendre leurs arguments modifiables. Cela pouvait avoir tendance de pousser les développeurs de composants à traduire tous les états possibles en props modifiables. Par exemple:
+
+```tsx
+<Component isInitialState />
+<Component isIntermediateState />
+<Component isFinalState />
+```
+
+Bien que cette pratique puisse être utile pendant la phase de développement, cela peut poser des problèmes lorsque plusieurs valeurs d'arguments sont définies sur `true`. Des solutions telles que l'utilisation d'une énumération de chaînes ou d'une interface TypeScript pour empêcher cela peuvent être mises en œuvre, mais elles ne tiennent pas compte du point de vue de l'utilisateur, selon lequel le composant devrait toujours progresser de l'état initial à l'état final, en passant par l'état intermédiaire.
+
+Il est important de se rappeler qu'une interface utilisateur riche est déterminée non seulement par les données des props et des états, mais aussi par les actions de l'utilisateur telles que les clics et les événements clavier. C'est là que la fonction Play de Storybook intervient, elle améliore à la fois la documentation et l'API des props de votre composant.
+
+## Simuler des interactions utilisateur dans les stories
+
+### Installation de l'addon
+
+La fonction Play est une nouvelle fonctionnalité de la version 6.4 de Storybook. Pour l'utiliser, vous devez avoir au moins cette version de Storybook installée. De plus, vous devrez installer deux packages supplémentaires : `@storybook/testing-library` et `@storybook/addon-interactions`.
+
+```bash
+yarn add @storybook/testing-library @storybook/addon-interactions
+```
+
+Puis, vous devrez enregistrer l'addon Interactions dans `.storybook/main.js` et redémarrer votre instance.
+
+```tsx
+// .storybook/main.js
+module.exports = {
+  // ...
+  addons: [
+    // ...
+    "@storybook/addon-interactions",
+  ]
+};
+
+```
+
+Maintenant, vous devriez voir l'onglet Interactions dans le panneau inférieur et vous pouvez commencer à créer des interactions.
+
+<Image isSmall>
+
+![GATSBY_EMPTY_ALT](../images/2023-02-storybook/interaction-addon.png)
+
+</Image>
+
+### Décrire les interactions utilisateur
+
+De la même manière que vous définissez une propriété `.args` sur une Story pour interagir avec l'addon Control, vous pouvez définir une fonction `.play` pour interagir avec le composant.
+
+```tsx
+const Default = Template.bind()
+Default.play = () => {
+	// vos interactions
+}
+```
+
+Si vous êtes familier avec `testing-library`, vous n'aurez aucun problème à utiliser la même API pour la fonction `.play`.
+
+```tsx
+import { screen, userEvent } from "@storybook/testing-library"
+
+Default.play = () => {
+	const openModalButton = screen.getByTestId('open-modal')
+	userEvent.click(openModalButton)
+	const closeModalButton = screen.getByTestId('close-modal')
+	userEvent.click(closeModalButton)
+}
+```
+
+Par défaut, les interactions et la recherche d'éléments sont exécutées depuis la racine de l'instance de Storybook, ce qui peut causer des problèmes de performance, en particulier pour les grands composants. Pour améliorer les performances, il est recommandé de restreindre la portée de l'interaction et de partir de l'élément racine du composant.
+
+```tsx
+import { within, userEvent } from "@storybook/testing-library"
+
+Default.play = ({ canvasElement }) => {
+	const canvas = within(canvasElement)
+	const openModalButton = canvas.getByTestId('open-modal')
+}
+```
+
+Si vous avez besoin d'accéder aux arguments du composant, le contexte de la fonction `.play` offre la possibilité de les intégrer à l'automatisation.
+
+```tsx
+Default.args = {
+	openModalButtonLabel: "Click me"
+}
+
+Default.play = ({ canvasElement, args }) => {
+	const canvas = within(canvasElement)
+	const openModalButton = canvas.getByText(args.openModalButtonLabel)
+}
+```
+
+### Combiner les fonctions *play*
+
+Dans l'exemple présenté dans l'introduction, nous avons imaginé un composant qui doit passer par un état intermédiaire pour atteindre l'état final. Si vous deviez développer des fichiers de scénario pour ce composant, vous créerait trois stories - une pour chaque état.
+
+```tsx
+const Initial = Template.bind({})
+const Intermediate = Template.bind({})
+const Final = Template.bind({})
+```
+
+Au lieu de copier-coller les interactions utilisateur de la fonction `.play` de la story intermédiaire vers la story finale, vous pouvez également exécuter `Intermediate.play` depuis `Final.play`, mais n'oubliez pas de transférer le contexte d'une fonction à l'autre.
+
+```tsx
+const Initial = Template.bind({})
+const Intermediate = Template.bind({})
+Intermediate.play = () => {
+	// ...
+}
+const Final = Template.bind({})
+Final.play = (context) => {
+	Intermediate.play(context)
+}
+```
+
+## Tester les interactions utilisateur
+
+Dans l'article précédent, nous avons vu comment créer des tests automatisés basés sur les stories de Storybook. Cependant, j'ai également appris qu'il est possible d'intégrer des tests d'assertion dans la fonction `play` de Storybook 6.5. Pour cela, ajoutez `@storybook/jest` à votre référentiel.
+
+```bash
+
+yarn add @storybook/jest
+```
+
+Ensuite, utilisez la fonction `expect` dans la fonction `play` pour affirmer que l'interface utilisateur est rendue comme prévu.
+
+```tsx
+import { userEvent } from "@storybook/testing-library"
+import { expect } from "@storybook/jest"
+
+Default.play = async ({canvasElement, args}) => {
+	const canvas = within(canvasElement)
+  const openModalButton = canvas.getByTestId('show-modal')
+  await userEvent.click(openModalButton)
+  expect(canvas.getByText(args.title)).toBeInTheDocument()
+}
+```
+
+L'intégration est simple, mais personnellement, si les tests ne peuvent pas être exécutés automatiquement par CI, je trouve qu'ils ne valent pas la peine d'être maintenus à long terme car ils créent du bruit et de la frustration pour l'équipe en charge de leur maintenance. [La plateforme Chromatic](https://www.chromatic.com/docs/interactions#how-to-write-interaction-tests) et le prochain [Storybook 7.0](https://storybook.js.org/day) peuvent offrir plus d'informations sur ce sujet.
+
+## Conclusion
+
+Maintenant, vous disposez de tous les outils nécessaires pour améliorer votre Storybook et rendre votre documentation plus proche de ce que l'utilisateur final est censé vivre. Si les repositories sur lesquels vous travaillez ne sont pas encore configurés pour la fonction play, j'ai créé une sandbox ([repo GitHub](https://github.com/jsoulet/storybook-sandbox), [codesandbox](https://codesandbox.io/p/github/jsoulet/storybook-sandbox/master)) pour que vous puissiez prévisualiser comment cela peut améliorer la documentation et l'expérience des développeurs.

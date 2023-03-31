@@ -16,7 +16,7 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
     >
       <img src={image} className={styles.image} alt="" />
       <div className={styles.content}>
-        <h2 className={styles.title}>{title}</h2>
+        <div className={styles.title}>{title}</div>
         <div className={styles.subtitle}>
           {price} • {category}
         </div>

@@ -11,7 +11,7 @@ chapo: "Dans ce deuxième article de la série sur Storybook, c'est l'heure de m
 ---
 L'objectif principal de Storybook est de créer un catalogue de "stories" de composants. Chaque story représente le rendu d'un composant dans un de ses états.
 
-# Component Story Format : un standard ouvert pour écrire des stories
+## Component Story Format : un standard ouvert pour écrire des stories
 
 Les implémentations récentes des stories sont basées sur un format ouvert et agnostique appelé "Component Story Format", abrégé CSF. Même si l'équipe principale de Storybook en est le principal contributeur, le fait qu'elle ne soit pas seule est encourageant. Cela signifie que nous pouvons réutiliser ce que nous avons développé au-delà de Storybook, afin d'intégrer les stories dans d'autres outils de la stack, comme Cypress ou Testing Library.
 
@@ -19,7 +19,7 @@ Cependant, malgré l'ouverture de CSF, d'autres environnements de développement
 
 Essentiellement, le CSF fonctionne comme ceci : un export par défaut pour les métadonnées, et un export pour chaque story du composant. Chaque story est une fonction qui renvoie un composant.
 
-## Args sont les nouvelles props
+### Args sont les nouvelles props
 
 Si vous venez du développement React, vous avez probablement l'habitude d'utiliser `props` pour personnaliser le comportement ou l’affichage d'un composant en fonction de données provenant de son parent.
 
@@ -104,7 +104,7 @@ WithEmojiLabel.args = {
 }
 ```
 
-## Un Template pour les gouverner tous
+### Un Template pour les gouverner tous
 
 Le CSF est déclaratif, mais écrire une fonction différente pour chaque scénario sera répétitif et difficile à maintenir à long terme. C'est pourquoi il est recommandé de commencer par une story template qui sera dupliquée et modifiée pour chaque scénario.
 
@@ -123,7 +123,7 @@ Pour des variants simples, il semblera inutile de créer et dupliquer une foncti
 
 De plus, n’oublions pas que l'équipe de développement front-end n'est pas le seul utilisateur de Storybook. Les visiteurs pourront plus facilement comprendre comment interagir avec le composant si toutes ses story se ressemblent.
 
-# Contrôler les arguments passés à la story
+## Contrôler les arguments passés à la story
 
 Storybook bénéficie d'une interface utilisateur composable qui peut être améliorée par une variété d'add-ons. L'un des plus populaires s'appelle "Controls" : il offre un panneau additionnel où les arguments passés à la story peuvent être édités à l'aide de champs de formulaire. Il facilite le processus de test en permettant à tout visiteur de vérifier comment le composant se comporte dans de multiples situations.
 
@@ -141,11 +141,11 @@ Par exemple :
 _La Story d’un bouton et son addon Control_
 </Image>
 
-## Personnaliser les champs d'argument
+### Personnaliser les champs d'argument
 
 En tant que développeur de composants, la définition automatique est très pratique, mais vous pouvez aller encore plus loin et personnaliser les champs pour optimiser l'expérience de vos utilisateurs.
 
-### Contrôler les contrôles
+#### Contrôler les contrôles
 
 Techniquement, chaque fichier de story recevra un paramètre `argTypes`, dont la valeur est inférée à partir des props du composant. L'add-on Controls utilise cette valeur pour générer le formulaire. C'est pourquoi il est possible d'éditer l'apparence du panneau Controls en modifiant les `argTypes`, au niveau du fichier ou de la story.
 
@@ -160,7 +160,7 @@ export Default = Template.bind({})
 Default.argTypes = { /* other metadata */ }
 ```
 
-### Filtrer les champs
+#### Filtrer les champs
 
 Pour aller encore plus loin dans la personnalisation, vous pouvez éditer les métadonnées de l'add-on en utilisant le paramètre `controls`. Pour une présentation complète de ce qui est offert, je vous recommande de jeter un coup d'œil à la page de [documentation](https://storybook.js.org/docs/react/essentials/controls) sur le site de Storybook.
 
@@ -186,7 +186,7 @@ Disabled.parameters = {
 	}
 ```
 
-# Créer des wrappers autour des composants
+## Créer des wrappers autour des composants
 
 Il est rare que tous vos composants soient des fonctions parfaitement pures et reçoivent toutes leurs dépendances par injection de props. Les frameworks front-end modernes bénéficient souvent de l'injection de contexte pour améliorer l'expérience du développeur. Voici quelques exemples de contextes qui pourraient être injectés :
 
@@ -199,7 +199,7 @@ Vous pouvez ajouter des wrappers de contexte autour des composants en utilisant 
 
 De cette façon, la logique de la story est séparée de la logique du wrapper, ce qui augmente la lisibilité de la documentation et sa maintenabilité. Point bonus : avoir les conteneurs de contexte déclarés dans les décorateurs les rend plus faciles à extraire dans des fichiers séparés pour une meilleure réutilisabilité à travers l’ensemble des stories de Storybook si nécessaire.
 
-# Conclusion
+## Conclusion
 
 Storybook est un catalogue de composants interactif qui peut être utilisé par des utilisateurs techniques et non techniques. Les développeurs doivent être en mesure de rechercher des composants existants et de comprendre rapidement comment ils sont censés être utilisés, tandis que les profils non techniques peuvent utiliser la sandbox pour vérifier ce qui a été développé par les ingénieurs et comment le composant peut être adapté à un nouveau contexte. Il est important que les stories soient explicites et faciles à maintenir afin de servir ces utilisateurs.
 

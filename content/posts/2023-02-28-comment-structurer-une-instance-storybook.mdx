@@ -16,7 +16,7 @@ chapo: "Storybook peut améliorer votre flow de développement d'interfaces. Mai
 
 </Image>
 
-# **Introduction**
+## **Introduction**
 
 Storybook est une application qui aide les développeurs front-end à construire des composants et des pages isolés par rapport à la codebase métier. On peut le voir comme un catalogue de « stories », qui sont une représentation des briques d'interface, manipulable tels quels directement dans le navigateur.
 
@@ -26,7 +26,7 @@ Tous les points de vue de ces articles sont basés sur mon expérience et sont o
 
 Storybook vous laisse une grande liberté sur la manière dont vous pouvez l'utiliser, son intérêt et sa mise en place peut donc être complexe à percevoir au premier abord. Si vous décidez qu'il serait bénéfique de l'inclure dans votre boîte à outils de développement, il sera fort probable que vous vous demandiez comment le configurer afin d'en tirer le maximum.
 
-# **Quels types de composants doivent être inclus dans Storybook ?**
+## **Quels types de composants doivent être inclus dans Storybook ?**
 
 tl;dr :
 
@@ -34,7 +34,7 @@ TOUS LES COMPOSANTS... ou presque !
 
 La plupart d'entre nous conviendront que les composants atomiques tels que les boutons, les champs de formulaire et les niveaux de titres doivent être documentés dans Storybook. Cependant, il est intéressant d'aller encore plus loin.
 
-## Les c**omposants métiers**
+### Les c**omposants métiers**
 
 Storybook est un excellent endroit pour présenter ses composants métiers. Dans une application web, vous créez des composants qui ne sont utilisés qu'une seule fois, pour un seul cas d'utilisation spécifique. Ces composants sont souvent des agrégations de composants plus petits et plus atomiques.
 
@@ -48,7 +48,7 @@ Une fois que les composants sont visuellement acceptables, qu'ils correspondent 
 
 Dans mon expérience, il est entendable que les composants business aient des états internes (par exemple, un menu avec un état ouvert/fermé) ou transforment les données qu'ils reçoivent de leurs arguments (par exemple, la mise en forme d'une date). Ils peuvent également s'appuyer sur un contexte global injecté par un conteneur autour de toutes les stories, tel que le thème de votre application ou le contexte i18n. Cependant, il sera préférable de limiter les dépendances externes et d'éviter le besoin d'un store de données global car la manière dont vous gérez les données dans votre application ne doit pas interférer avec la manière dont vous créez votre UI.
 
-## Les p**ages et composants complexes**
+### Les p**ages et composants complexes**
 
 Dans les frameworks frontend les plus populaires (React, Angular, Vue…), tout est un composant, des plus petits éléments d'interface aux pages complètes. Lors de l'adoption de Storybook, vous pouvez donc vous demander si ces derniers devraient avoir leurs propres stories isolées. Ma réponse sera plus ambigue : "cela dépend".
 
@@ -70,21 +70,21 @@ Par conséquent, rendre les pages compatibles avec Storybook peut être coûteux
 
 Cependant, ce n'est pas la seule façon d'aborder la question. Je connais d'autres équipes qui ont créé et maintenu avec succès des pages et des modèles dans Storybook. Il y a des articles sur ce sujet de l'[équipe de Storybook](https://storybook.js.org/docs/react/writing-stories/build-pages-with-storybook) et de [Brad Frost, l'inventeur de la taxonomie Atomic Design](https://bradfrost.com/blog/post/atomic-design-and-storybook/), que je vous invite à lire et à expérimenter en fonction de la nature de votre projet.
 
-# **Quels types de stories un composant doit-il avoir?**
+## **Quels types de stories un composant doit-il avoir?**
 
 La réponse à cette question dépend souvent des utilisateurs ciblés par votre Storybook.
 
-## **Une story de base**
+### **Une story de base**
 
 Cette première histoire doit fournir au composant les arguments minimaux, uniquement ceux qui sont nécessaires. C'est généralement la façon dont les composants seront le plus souvent rendus dans l'application.
 
 Il vous sera utile de savoir du premier coup d'oeil sur la page de documentation, à quoi votre composant ressemble et si c'est celui dont vous avez besoin.
 
-## **Un playground**
+### **Un playground**
 
 L'un des plus grands avantages de Storybook est la possibilité de modifier les arguments d'un composant sans aucune connaissance technique, et d'en prévisualiser immédiatement l'impact sur le rendu final. C'est pourquoi vous avez besoin d'au moins une story pour activer l'[addon Controls](https://storybook.js.org/docs/react/essentials/controls), afin que tous puissent jouer avec les arguments du composant et voir comment il se comporte dans différentes situations : que se passe-t-il si la carte produit a un nom très long ? que se passe-t-il si son prix est négatif au lieu d'être positif ? que se passe-t-il si un tableau a des milliers d'entrées ou aucune ?
 
-## **Une story par variant**
+### **Une story par variant**
 
 En plus des deux histoires ci-dessus, j'aime ajouter des histoires spécifiques pour présenter mes composants lorsqu'ils ont des variantes spécifiques : listes vides, champs de formulaire avec des états d'erreur, cartes de produit désactivées, etc.
 

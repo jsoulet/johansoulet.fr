@@ -69,7 +69,7 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
     >
       <motion.img src={image} className={styles.image} alt="" variants={opacityVariants}/>
       <div className={styles.content}>
-        <motion.h2 className={styles.title} variants={bounceVariants}>{title}</motion.h2>
+        <motion.div className={styles.title} variants={bounceVariants}>{title}</motion.div>
         <motion.div className={styles.subtitle} variants={bounceVariants}>
           {price} • {category}
         </motion.div>
