@@ -68,7 +68,7 @@ const Hero: FC<{}> = () => {
                 id: 'index.name',
               },
               {
-                name: <span css={tw`text-green-600`}>Johan!</span>,
+                name: <span css={tw`text-emerald-600`}>Johan!</span>,
                 prononciation: <span css={tw`italic font-normal text-lg`}>[jo.an]</span>,
               }
             )}

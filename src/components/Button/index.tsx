@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = ({
 }) => {
   const css = [
     tw`inline-block cursor-pointer uppercase mx-auto hover:shadow-lg bg-white text-gray-800 font-bold rounded-full my-2 py-4 px-8 shadow-md transition duration-300 transform hover:-translate-y-px`,
-    color === 'green' && tw`bg-green-500 hover:bg-green-600 text-white`,
+    color === 'green' && tw`bg-emerald-500 hover:bg-emerald-600 text-white`,
     isSmall && tw`py-2 px-4 my-1`,
     color === 'ghost' && tw`bg-white text-gray-800 shadow-none hover:shadow-none px-2 py-0 my-0`,
   ]

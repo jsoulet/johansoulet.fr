@@ -70,7 +70,7 @@ function AnimatedLogo() {
         variants={boxVariants}
         width="40"
         height="40"
-        css={tw`fill-current text-green-500`}
+        css={tw`fill-current text-emerald-500`}
       />
       {isHome && (
         <>

@@ -17,18 +17,18 @@ const SearchBar = ({ query, onQueryChange, onSearch }: Props) => {
   }
   return (
     <form onSubmit={handleSearch} css={tw`w-full flex flex-col gap-4`}>
-      <label css={tw`text-lg text-green-500 font-bold`} htmlFor="search">
+      <label css={tw`text-lg text-emerald-500 font-bold`} htmlFor="search">
         {formatMessage({ id: 'search.searchbar.input.label' })}
       </label>
       <div css={tw`w-full flex items-center justify-center`}>
         <input
           id="search"
-          css={tw`h-12 p-2 border-green-500 border-2 w-6/12`}
+          css={tw`h-12 p-2 border-emerald-500 border-2 w-6/12`}
           type="text"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
         ></input>
-        <button css={tw`bg-green-500 text-white p-2 h-12`} type="submit">
+        <button css={tw`bg-emerald-500 text-white p-2 h-12`} type="submit">
           {formatMessage({ id: 'search.searchbar.button.label' })}
         </button>
       </div>

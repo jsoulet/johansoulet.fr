@@ -26,7 +26,7 @@ const SearchItem = ({ title, excerpt, imageURL, date, slug }: Props) => {
       css={[
         tw`duration-300 transform hover:-translate-y-1`,
         css({
-          '&:hover h3': tw`text-green-500`,
+          '&:hover h3': tw`text-emerald-500`,
         }),
       ]}
     >
