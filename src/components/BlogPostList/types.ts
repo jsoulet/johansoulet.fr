@@ -1,4 +1,4 @@
-import { GatsbyImageFile } from "utils/types";
+import { GatsbyImageFile } from 'utils/types'
 export interface IBlogPostItem {
   id: string
   title: string

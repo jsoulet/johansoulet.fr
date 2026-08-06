@@ -25,18 +25,16 @@ const Seo: FC<SeoProps> = ({ title, image, description, slug, noIndex, canonical
   const intl = useIntl()
   const locale = intl.locale
   const { metadata }: ILocaleConfig = get(locales, locale, locales.fr)
-  const { site } = useStaticQuery<{ site: { siteMetadata: ISiteMetadata } }>(
-    graphql`
-      query SiteMetadata {
-        site {
-          siteMetadata {
-            siteUrl
-            author
-          }
+  const { site } = useStaticQuery<{ site: { siteMetadata: ISiteMetadata } }>(graphql`
+    query SiteMetadata {
+      site {
+        siteMetadata {
+          siteUrl
+          author
         }
       }
-    `
-  )
+    }
+  `)
 
   return (
     <Helmet titleTemplate={metadata.titleTemplate} defaultTitle={metadata.defaultTitle}>
@@ -60,9 +58,21 @@ const Seo: FC<SeoProps> = ({ title, image, description, slug, noIndex, canonical
         <meta key="0" name="image" content={`${site.siteMetadata.siteUrl}${image}`} />,
         <meta key="1" property="og:image" content={`${site.siteMetadata.siteUrl}${image}`}></meta>,
       ]}
-      {slug && <link rel="canonical" href={canonicalUrl || `${site.siteMetadata.siteUrl}/${locale}${slug}`} />}
+      {slug && (
+        <link
+          rel="canonical"
+          href={canonicalUrl || `${site.siteMetadata.siteUrl}/${locale}${slug}`}
+        />
+      )}
       {noIndex && <meta name="robots" content="noindex, nofollow"></meta>}
-      {process.env.GATSBY_FAIRLYTICS_KEY && <script defer id={process.env.GATSBY_FAIRLYTICS_ID} data-fairlyticskey={process.env.GATSBY_FAIRLYTICS_KEY} src="https://app.fairlytics.tech/tag/tag.js"/>}
+      {process.env.GATSBY_FAIRLYTICS_KEY && (
+        <script
+          defer
+          id={process.env.GATSBY_FAIRLYTICS_ID}
+          data-fairlyticskey={process.env.GATSBY_FAIRLYTICS_KEY}
+          src="https://app.fairlytics.tech/tag/tag.js"
+        />
+      )}
     </Helmet>
   )
 }

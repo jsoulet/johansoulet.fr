@@ -1,11 +1,13 @@
-import {GatsbyImageFile} from 'utils/types'
+import { GatsbyImageFile } from 'utils/types'
 
 export interface PageInterface {
   mdx: {
     id: string
     body: string
     excerpt: string
-    fileAbsolutePath: string
+    internal: {
+      contentFilePath: string
+    }
     fields: {
       slug: string
     }

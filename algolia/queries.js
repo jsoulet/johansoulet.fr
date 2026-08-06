@@ -1,7 +1,5 @@
 const blogPostsQuery = require('./blogPostsQuery')
-const {
-  mapblogPostToAlgoliaRecord
-} = require('./mappers')
+const { mapblogPostToAlgoliaRecord } = require('./mappers')
 
 const queries = [
   // {
@@ -10,28 +8,28 @@ const queries = [
   // },
   {
     query: blogPostsQuery,
-    queryVariables: {'locale': 'fr'},
+    queryVariables: { locale: 'fr' },
     indexName: 'blogPosts-fr',
-    transformer: ({ data }) => data.blogPosts.nodes.map(mapblogPostToAlgoliaRecord).filter(({noIndex}) => noIndex !== true),
+    transformer: ({ data }) =>
+      data.blogPosts.nodes
+        .map(mapblogPostToAlgoliaRecord)
+        .filter(({ noIndex }) => noIndex !== true),
     settings: {
-      attributesForFaceting: [
-        'lang',
-        'category',
-      ],
-    }
+      attributesForFaceting: ['lang', 'category'],
+    },
   },
   {
     query: blogPostsQuery,
-    queryVariables: {'locale': 'en'},
+    queryVariables: { locale: 'en' },
     indexName: 'blogPosts-en',
-    transformer: ({ data }) => data.blogPosts.nodes.map(mapblogPostToAlgoliaRecord).filter(({noIndex}) => noIndex !== true),
+    transformer: ({ data }) =>
+      data.blogPosts.nodes
+        .map(mapblogPostToAlgoliaRecord)
+        .filter(({ noIndex }) => noIndex !== true),
     settings: {
-      attributesForFaceting: [
-        'lang',
-        'category',
-      ],
-    }
-  }
+      attributesForFaceting: ['lang', 'category'],
+    },
+  },
 ]
 
 module.exports = queries

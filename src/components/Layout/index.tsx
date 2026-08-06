@@ -16,15 +16,14 @@ const layoutVariants = {
     transition: {
       duration: DURATION,
       delay: DURATION,
-      when: "beforeChildren",
-      staggerChildren: 0.2
+      when: 'beforeChildren',
+      staggerChildren: 0.2,
     },
   },
   exit: {
     opacity: 0,
     transition: { duration: DURATION },
-  }
-
+  },
 }
 
 const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> = ({
@@ -32,19 +31,26 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
   i18nLinks,
   hideToogleLocale,
 }) => {
-  const {formatMessage} = useIntl()
+  const { formatMessage } = useIntl()
   return (
     <>
       <Seo />
       <GlobalStyles />
       <div>
         <a
-          css={tw`transition transform left-0 bg-white border-2 border-green-600 text-green-600 absolute p-3 m-3 -translate-y-16 rounded uppercase font-bold opacity-0 focus:opacity-100 focus:translate-y-0`}
-          href="#main">
+          css={tw`transition transform left-0 bg-white border-2 border-emerald-600 text-emerald-600 absolute p-3 m-3 -translate-y-16 rounded uppercase font-bold opacity-0 focus:opacity-100 focus:translate-y-0`}
+          href="#main"
+        >
           {formatMessage({ id: 'nav.goToContent' })}
         </a>
         <Navbar i18nLinks={i18nLinks} hideToogleLocale={hideToogleLocale} />
-        <motion.main variants={layoutVariants} initial="hidden" animate="visible" exit="exit" id="main">
+        <motion.main
+          variants={layoutVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          id="main"
+        >
           {children}
         </motion.main>
         <Footer />
@@ -54,4 +60,3 @@ const Layout: FC<{ i18nLinks?: Array<Ii18nLink>; hideToogleLocale?: boolean }> =
 }
 
 export default Layout
-

@@ -6,34 +6,38 @@ import Hero from 'components/PageHero'
 import Seo from 'components/Seo'
 import CaseStudies, { mapCaseStudies, ICaseStudySource } from 'components/CaseStudies'
 
-export const pageQuery = graphql`query CaseStudies($locale: String!) {
-  studies: allMdx(
-    sort: {order: DESC, fields: [frontmatter___date]}
-    filter: {fileAbsolutePath: {regex: "/content/studies/"}, frontmatter: {lang: {eq: $locale}}}
-  ) {
-    nodes {
-      id
-      fields {
-        slug
+export const pageQuery = graphql`
+  query CaseStudies($locale: String!) {
+    studies: allMdx(
+      sort: { frontmatter: { date: DESC } }
+      filter: {
+        internal: { contentFilePath: { regex: "/content/studies/" } }
+        frontmatter: { lang: { eq: $locale } }
       }
-      frontmatter {
-        title
-        category
-        featuredImage {
-          childImageSharp {
-            gatsbyImageData(
-              height: 600
-              width: 600
-              quality: 50
-              transformOptions: {fit: COVER}
-              layout: CONSTRAINED
-            )
+    ) {
+      nodes {
+        id
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          category
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(
+                height: 600
+                width: 600
+                quality: 50
+                transformOptions: { fit: COVER }
+                layout: CONSTRAINED
+              )
+            }
           }
         }
       }
     }
   }
-}
 `
 
 const CaseStudiesPage: FC<{

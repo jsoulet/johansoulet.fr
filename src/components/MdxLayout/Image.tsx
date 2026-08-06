@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import cn from 'classnames'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { breakpoints } from 'utils/styles'
 
 interface ImageProps {
@@ -59,7 +59,7 @@ const style = css({
       [breakpoints.md]: {
         width: '50%',
       },
-    }
+    },
   },
 })
 

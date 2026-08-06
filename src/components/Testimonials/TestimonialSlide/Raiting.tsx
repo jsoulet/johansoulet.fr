@@ -16,7 +16,7 @@ const Rating: FC<{ value: number }> = ({ value }) => {
   const filledHearts = useMemo<FC[]>(() => new Array(boundedValue).fill(''), [boundedValue])
   const emptyHearts = useMemo<FC[]>(() => new Array(MAX - boundedValue).fill(''), [boundedValue])
   return (
-    <div css={tw`flex text-yellow-400 gap-1`} arla-label={`${boundedValue}/5`} >
+    <div css={tw`flex text-yellow-400 gap-1`} arla-label={`${boundedValue}/5`}>
       {filledHearts.map((e, index) => (
         <Star key={index} css={tw`h-6 w-6`} />
       ))}

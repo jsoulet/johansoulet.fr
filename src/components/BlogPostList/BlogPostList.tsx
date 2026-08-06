@@ -15,7 +15,7 @@ const BlogPostList: FC<{
   return (
     <Section title={title} head={head} bottom={bottom}>
       <div css={tw`grid gap-6 gap-y-12 grid-cols-1 md:grid-cols-3`}>
-        {posts.map(post => {
+        {posts.map((post) => {
           return (
             <BlogPostItem
               key={post.id}

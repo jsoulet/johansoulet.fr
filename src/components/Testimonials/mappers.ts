@@ -6,10 +6,10 @@ export function mapTestimonials(
   locale: string,
   avatars: GatsbyImageFile[] = []
 ): Testimonial[] {
-  return nodes.map(testimonial => {
+  return nodes.map((testimonial) => {
     let avatarImage
     if (testimonial.avatar) {
-      avatarImage = avatars.find(avatar =>
+      avatarImage = avatars.find((avatar) =>
         avatar.childImageSharp.gatsbyImageData.images.fallback?.src.includes(testimonial.avatar)
       )
     }
@@ -20,6 +20,6 @@ export function mapTestimonials(
       rating: testimonial.value,
       content: testimonial.content[locale],
       position: testimonial.position?.[locale] ?? '',
-    };
-  });
+    }
+  })
 }

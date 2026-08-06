@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const SoundOn: FC<{}> = props => {
+const SoundOn: FC<{}> = (props) => {
   return (
     <svg
       fill="none"

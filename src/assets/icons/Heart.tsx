@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const Heart: FC<{}> = props => {
+const Heart: FC<{}> = (props) => {
   return (
     <svg
       fill="none"

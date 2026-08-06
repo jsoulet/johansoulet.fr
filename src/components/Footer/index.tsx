@@ -28,12 +28,14 @@ const Footer: FC<{}> = () => {
     <footer css={[tw`text-center bg-gray-900 text-white py-24 text-sm`]}>
       <Container>
         <p css={[tw`mb-5`]}>
-          <Link css={[tw`underline`]} to={formatMessage({ id: 'footer.terms.link' })} >
+          <Link css={[tw`underline`]} to={formatMessage({ id: 'footer.terms.link' })}>
             {formatMessage({ id: 'footer.terms.label' })}
           </Link>{' '}
           - © Johan Soulet
         </p>
-        <p aria-label={formatMessage({ id: 'footer.madeWithLove.a11y' })}>{formatMessage({ id: 'footer.madeWithLove' })}</p>
+        <p aria-label={formatMessage({ id: 'footer.madeWithLove.a11y' })}>
+          {formatMessage({ id: 'footer.madeWithLove' })}
+        </p>
         <p css={[tw`flex items-center justify-center mt-5`]}>
           <SocialLink label="Github" href="https://github.com/jsoulet">
             <Github />
@@ -44,7 +46,10 @@ const Footer: FC<{}> = () => {
           <SocialLink label="Malt" href="https://www.malt.fr/profile/johansoulet">
             <Malt />
           </SocialLink>
-          <SocialLink label={formatMessage({ id: 'footer.rss.label' })} href={formatMessage({ id: 'footer.rss.link' })}>
+          <SocialLink
+            label={formatMessage({ id: 'footer.rss.label' })}
+            href={formatMessage({ id: 'footer.rss.link' })}
+          >
             <Rss />
           </SocialLink>
         </p>

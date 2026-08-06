@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const Malt: FC<{}> = props => {
+const Malt: FC<{}> = (props) => {
   return (
     <svg width="24" height="24" viewBox="0 0 92 93" {...props}>
       <g fillRule="evenodd" fill="currentColor">

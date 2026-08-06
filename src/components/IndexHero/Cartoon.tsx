@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const Cartoon: FC<{}> = props => {
+const Cartoon: FC<{}> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

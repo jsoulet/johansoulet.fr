@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const HeartSolid: FC<{}> = props => {
+const HeartSolid: FC<{}> = (props) => {
   return (
     <svg
       fill="currentColor"

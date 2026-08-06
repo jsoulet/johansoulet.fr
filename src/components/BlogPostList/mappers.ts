@@ -1,7 +1,7 @@
 import { IBlogPostItemSource, IBlogPostItem } from './types'
 
 export function mapBlogPostList(nodes: IBlogPostItemSource[]): IBlogPostItem[] {
-  return nodes.map(post => {
+  return nodes.map((post) => {
     return {
       id: post.id,
       title: post.frontmatter.title,
@@ -9,6 +9,6 @@ export function mapBlogPostList(nodes: IBlogPostItemSource[]): IBlogPostItem[] {
       date: post.frontmatter.date,
       slug: post.fields.slug,
       image: post.frontmatter.featuredImage,
-    };
-  });
+    }
+  })
 }

@@ -31,7 +31,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     deletePage(page)
     // Generate page for MDX content only for their language
     // (ie: prevent for creating a /en/... route for a post in French)
@@ -58,6 +58,7 @@ exports.createPages = async ({ graphql, actions, reporter, page }) => {
     query {
       allFile {
         nodes {
+          absolutePath
           fields {
             instanceName
           }
@@ -79,13 +80,13 @@ exports.createPages = async ({ graphql, actions, reporter, page }) => {
   }
 
   const files = result.data.allFile.nodes
-  files.forEach(file => {
+  files.forEach((file) => {
     if (!file.childMdx) {
       return
     }
     createPage({
       path: file.childMdx.fields.slug,
-      component: path.resolve(`./src/components/MdxLayout/index.tsx`),
+      component: `${path.resolve(`./src/components/MdxLayout/index.tsx`)}?__contentFilePath=${file.absolutePath}`,
       context: {
         id: file.childMdx.id,
         locale: file.childMdx.frontmatter.lang,
