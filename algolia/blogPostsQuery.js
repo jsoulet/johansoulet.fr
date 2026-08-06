@@ -1,11 +1,12 @@
 const blogPostsQuery = `query Blog($locale: String!) {
   blogPosts: allMdx(
-    sort: {order: DESC, fields: [frontmatter___date]}
-    filter: {fileAbsolutePath: {regex: "/content/posts/"}, frontmatter: {lang: {eq: $locale}}}
+    sort: {frontmatter: {date: DESC}}
+    filter: {internal: {contentFilePath: {regex: "/content/posts/"}}, frontmatter: {lang: {eq: $locale}}}
   ) {
     nodes {
       id
       excerpt(pruneLength: 200)
+      body
       internal {
         contentDigest
       }
@@ -31,7 +32,6 @@ const blogPostsQuery = `query Blog($locale: String!) {
           }
         }
       }
-      rawBody
     }
   }
 }

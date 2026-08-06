@@ -3,7 +3,7 @@ const mapblogPostToAlgoliaRecord = ({
   id,
   frontmatter: { featuredImage, noIndex, ...frontmatter },
   fields,
-  rawBody,
+  body,
   ...rest
 }) => {
   const imageURL = siteUrl + featuredImage.childImageSharp.gatsbyImageData.images.fallback.src
@@ -14,7 +14,7 @@ const mapblogPostToAlgoliaRecord = ({
     dateTimestamp,
     ...fields,
     imageURL,
-    content: rawBody,
+    content: body,
     ...rest,
   }
 }
