@@ -8,9 +8,7 @@ import { Testimonial } from '../types'
 const TestimonialSlide: FC<Testimonial> = ({ content, author, rating, avatar, position }) => {
   return (
     <div css={tw`h-full w-full flex justify-center items-center mb-10`}>
-      <div
-        css={tw`md:w-3/4 lg:w-1/2 mx-auto bg-white rounded-lg border py-10 px-8 `}
-      >
+      <div css={tw`md:w-3/4 lg:w-1/2 mx-auto bg-white rounded-lg border py-10 px-8 `}>
         <P customCss={[tw`italic mb-5`]}>{content}</P>
         <div css={tw`flex items-center`}>
           {avatar && <Avatar image={avatar} alt={author} />}

@@ -14,7 +14,7 @@ const DEFAULT_FORM_VALUES = {
 
 const encode = (data: { [key: string]: string }): string => {
   return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
     .join('&')
 }
 
@@ -29,7 +29,7 @@ const Form: FC<{}> = () => {
   const [formData, setFormData] = useState(DEFAULT_FORM_VALUES)
 
   const handleOnSubmit = useCallback(
-    event => {
+    (event) => {
       event.preventDefault()
       setFormStatus({
         ...formStatus,
@@ -62,7 +62,7 @@ const Form: FC<{}> = () => {
   )
 
   const handleOnChange = useCallback(
-    event => {
+    (event) => {
       setFormData({
         ...formData,
         [event.target.name]: event.target.value,

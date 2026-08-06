@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Link as IntlLink, useIntl } from 'gatsby-plugin-intl'
 import { Link } from 'gatsby'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import tw from 'twin.macro'
 
 import AnimatedLogo from './AnimatedLogo'
@@ -85,7 +85,9 @@ const Navbar: FC<{ i18nLinks?: Ii18nLink[]; hideToogleLocale?: boolean }> = ({
         {/* <NavLink href="/" isLogo>
           Johan Soulet
         </NavLink> */}
-        <Link to="/" title="Johan Soulet"><AnimatedLogo/></Link>
+        <Link to="/" title="Johan Soulet">
+          <AnimatedLogo />
+        </Link>
         {!hideToogleLocale && (
           <ToggleLocale i18nLinks={i18nLinks} css={[tw`flex-grow text-right px-4 py-2`]} />
         )}

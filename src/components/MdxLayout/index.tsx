@@ -1,9 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { graphql } from 'gatsby'
 import { useIntl } from 'gatsby-plugin-intl'
 import { MDXProvider } from '@mdx-js/react'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import { getSrc } from "gatsby-plugin-image";
+import { getSrc } from 'gatsby-plugin-image'
 import Layout from 'components/Layout'
 import PageHero from 'components/PageHero'
 import Article from 'components/Article'
@@ -13,50 +12,51 @@ import { PageInterface } from './types'
 import Image from './Image'
 import tw from 'twin.macro'
 
-const shortcodes = { 
+const shortcodes = {
   Image,
-  Button }
+  Button,
+}
 
-export const pageQuery = graphql`query PageQuery($id: String, $locale: String) {
-  mdx(id: {eq: $id}) {
-    id
-    body
-    excerpt
-    fileAbsolutePath
-    fields {
-      slug
-    }
-    frontmatter {
-      title
-      lang
-      chapo
-      date(formatString: "DD MMMM YYYY", locale: $locale)
-      featuredImage {
-        childImageSharp {
-          gatsbyImageData(width: 800, layout: CONSTRAINED)
-        }
+export const pageQuery = graphql`
+  query PageQuery($id: String, $locale: String) {
+    mdx(id: { eq: $id }) {
+      id
+      excerpt
+      internal {
+        contentFilePath
       }
-      i18n {
-        locale
+      fields {
         slug
       }
-      noIndex
-      canonicalUrl
-      metaimage: featuredImage {
-        childImageSharp {
-          gatsbyImageData(width: 1200, height: 630, placeholder: BLURRED, layout: FIXED)
+      frontmatter {
+        title
+        lang
+        chapo
+        date(formatString: "DD MMMM YYYY", locale: $locale)
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(width: 800, layout: CONSTRAINED)
+          }
+        }
+        i18n {
+          locale
+          slug
+        }
+        noIndex
+        canonicalUrl
+        metaimage: featuredImage {
+          childImageSharp {
+            gatsbyImageData(width: 1200, height: 630, placeholder: BLURRED, layout: FIXED)
+          }
         }
       }
     }
   }
-}
 `
 
-
-
-const MdxLayout: FC<{ data: PageInterface }> = ({ data }) => {
+const MdxLayout: FC<{ data: PageInterface; children?: ReactNode }> = ({ data, children }) => {
   const { formatMessage } = useIntl()
-  const filePath = data.mdx.fileAbsolutePath
+  const filePath = data.mdx.internal.contentFilePath
   const breadcrumbCategoryLink: Array<{
     label: string
     link?: string
@@ -91,14 +91,14 @@ const MdxLayout: FC<{ data: PageInterface }> = ({ data }) => {
       />
       <Article>
         <section>
-          {data.mdx.frontmatter.chapo && <div css={tw`text-lg font-bold mb-8 italic`}>{data.mdx.frontmatter.chapo}</div>}
-          <MDXProvider components={shortcodes}>
-            <MDXRenderer>{data.mdx.body}</MDXRenderer>
-          </MDXProvider>
+          {data.mdx.frontmatter.chapo && (
+            <div css={tw`text-lg font-bold mb-8 italic`}>{data.mdx.frontmatter.chapo}</div>
+          )}
+          <MDXProvider components={shortcodes}>{children}</MDXProvider>
         </section>
       </Article>
     </Layout>
-  );
+  )
 }
 
 export default MdxLayout

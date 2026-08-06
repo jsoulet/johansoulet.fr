@@ -12,7 +12,16 @@ interface ButtonProps {
   [key: string]: unknown
 }
 
-const Button: FC<ButtonProps> = ({ children, onClick, color, type = 'button', to, href, isSmall, ...props }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  onClick,
+  color,
+  type = 'button',
+  to,
+  href,
+  isSmall,
+  ...props
+}) => {
   const css = [
     tw`inline-block cursor-pointer uppercase mx-auto hover:shadow-lg bg-white text-gray-800 font-bold rounded-full my-2 py-4 px-8 shadow-md transition duration-300 transform hover:-translate-y-px`,
     color === 'green' && tw`bg-green-500 hover:bg-green-600 text-white`,
@@ -21,7 +30,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, color, type = 'button', to
   ]
   if (to) {
     return (
-      <Link css={css} to={to} className="button" {...props} >
+      <Link css={css} to={to} className="button" {...props}>
         {children}
       </Link>
     )
@@ -41,7 +50,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, color, type = 'button', to
     )
   }
   return (
-    <button type={type} css={css} className="button" onClick={onClick} {...props} >
+    <button type={type} css={css} className="button" onClick={onClick} {...props}>
       {children}
     </button>
   )

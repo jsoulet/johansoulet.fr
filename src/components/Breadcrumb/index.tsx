@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Link } from 'gatsby-plugin-intl'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import tw from 'twin.macro'
 
 export interface BreadcrumbLink {

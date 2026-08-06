@@ -1,14 +1,14 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 import { motion } from 'framer-motion'
 import Button from 'components/Button'
-import * as styles from "./Card.module.scss";
+import * as styles from './Card.module.scss'
 
 interface CardProps {
-  title: string;
-  desc: string;
-  category: string;
-  price: string;
-  image: string;
+  title: string
+  desc: string
+  category: string
+  price: string
+  image: string
 }
 
 const bounceVariants = {
@@ -17,24 +17,24 @@ const bounceVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.5,
       when: 'beforeChildren',
-    }
-  }
-};
+    },
+  },
+}
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: "50%" },
+  hidden: { opacity: 0, y: '50%' },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.8,
-    }
-  }
-};
+    },
+  },
+}
 
 const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
   return (
@@ -51,15 +51,12 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
           {price} • {category}
         </div>
         <div className={styles.desc}>{desc}</div>
-        <motion.div
-          className={styles.button}
-          variants={fadeUpVariants}
-        >
+        <motion.div className={styles.button} variants={fadeUpVariants}>
           <Button color="green">Book</Button>
         </motion.div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

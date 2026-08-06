@@ -1,13 +1,13 @@
-import { FC } from "react";
+import { FC } from 'react'
 import { motion } from 'framer-motion'
-import * as styles from "./Card.module.scss";
+import * as styles from './Card.module.scss'
 
 interface CardProps {
-  title: string;
-  desc: string;
-  category: string;
-  price: string;
-  image: string;
+  title: string
+  desc: string
+  category: string
+  price: string
+  image: string
 }
 
 const bounceVariants = {
@@ -16,13 +16,13 @@ const bounceVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.5,
       repeat: Infinity,
-      repeatDelay: 5
-    }
-  }
-};
+      repeatDelay: 5,
+    },
+  },
+}
 
 const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
   return (
@@ -41,7 +41,7 @@ const Card: FC<CardProps> = ({ image, title, category, price, desc }) => {
         <div className={styles.desc}>{desc}</div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

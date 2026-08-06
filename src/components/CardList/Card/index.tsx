@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import tw from 'twin.macro'
 import { H3 } from 'components/Text'
-import { css } from '@emotion/core'
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { css } from '@emotion/react'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { GatsbyImageFile } from 'utils/types'
 
 interface ServiceProps {
@@ -11,11 +11,7 @@ interface ServiceProps {
   image?: GatsbyImageFile
 }
 
-const Service: FC<ServiceProps> = ({
-  title,
-  content,
-  image,
-}) => {
+const Service: FC<ServiceProps> = ({ title, content, image }) => {
   // @ts-ignore: getImage should accept GatsbyImageFile because it has the same shape as IGatsbyImageDataParent
   const illustration = image && getImage(image)
   return (
@@ -25,19 +21,14 @@ const Service: FC<ServiceProps> = ({
       ]}
     >
       {illustration && (
-        <GatsbyImage
-          image={illustration}
-          css={[
-            tw`md:mr-4 object-contain flex-shrink-0`,
-          ]}
-          alt="" />
+        <GatsbyImage image={illustration} css={[tw`md:mr-4 object-contain flex-shrink-0`]} alt="" />
       )}
       <div css={tw`text-center md:text-left`}>
         <H3>{title}</H3>
         <p css={[tw`text-gray-600`]}>{content}</p>
       </div>
     </div>
-  );
+  )
 }
 
 export default Service

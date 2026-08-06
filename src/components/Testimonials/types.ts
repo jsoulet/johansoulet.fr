@@ -1,4 +1,4 @@
-import { IGatsbyImageData } from "gatsby-plugin-image";
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 import { GatsbyImageFile } from 'utils/types'
 
 export interface Testimonial {

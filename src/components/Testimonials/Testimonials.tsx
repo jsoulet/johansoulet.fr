@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react'
 import Section, { backgroundColors } from 'components/Section'
 import Slider from 'react-slick'
 import TestimonialSlide from './TestimonialSlide'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Testimonial } from './types'
 
 const style = css({

@@ -1,15 +1,17 @@
 import React, { FC } from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import tw from 'twin.macro'
 import locales from '../../../config/i18n/locales'
 import { useIntl, changeLocale } from 'gatsby-plugin-intl'
 import { Link } from 'gatsby'
 import { Ii18nLink } from './types'
 
-const onClickHandler = (lang: string) => (e: React.MouseEvent<HTMLAnchorElement>): void => {
-  e.preventDefault()
-  changeLocale(lang)
-}
+const onClickHandler =
+  (lang: string) =>
+  (e: React.MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault()
+    changeLocale(lang)
+  }
 
 const linkStyle = [
   tw`underline cursor-pointer`,
@@ -24,7 +26,7 @@ const ToggleLocale: FC<{ i18nLinks?: Ii18nLink[] }> = ({ i18nLinks, ...props }) 
   return (
     <span {...props}>
       {!i18nLinks &&
-        Object.keys(locales).map(lang => {
+        Object.keys(locales).map((lang) => {
           if (locale === lang) {
             return null
           }
@@ -41,7 +43,7 @@ const ToggleLocale: FC<{ i18nLinks?: Ii18nLink[] }> = ({ i18nLinks, ...props }) 
           )
         })}
       {i18nLinks &&
-        i18nLinks.map(link => {
+        i18nLinks.map((link) => {
           if (locale === link.locale) {
             return null
           }

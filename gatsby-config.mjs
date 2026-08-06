@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/camelcase */
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { createRequire } from 'module'
+import rehypeSlug from 'rehype-slug'
+
+const require = createRequire(import.meta.url)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const config = require('./config')
 const locales = require('./config/i18n/locales')
 const rss = require('./rss')
-require('dotenv').config();
+require('dotenv').config()
 
-module.exports = {
-  flags: {
-    FAST_DEV: false,
-    FAST_REFRESH: true
-  },
+export default {
   pathPrefix: config.pathPrefix,
   siteMetadata: {
     author: `@JohanSoulet`,
@@ -62,7 +65,6 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         gatsbyRemarkPlugins: [
-          'gatsby-source-instance-name-for-remark',
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -70,8 +72,6 @@ module.exports = {
               linkImagesToOriginal: false,
             },
           },
-          'gatsby-remark-slug',
-          //'gatsby-remark-autolink-headings',
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -83,9 +83,8 @@ module.exports = {
             },
           },
         ],
-        plugins: [`gatsby-remark-images`],
-        defaultLayouts: {
-          default: require.resolve('./src/components/MdxLayout/index.tsx'),
+        mdxOptions: {
+          rehypePlugins: [rehypeSlug],
         },
       },
     },
@@ -137,6 +136,7 @@ module.exports = {
       appId: process.env.GATSBY_ALGOLIA_APP_ID,
       apiKey: process.env.ALGOLIA_ADMIN_KEY,
       queries: require('./algolia/queries'),
+      continueOnFailure: true,
       },
     },      
     'gatsby-plugin-image',

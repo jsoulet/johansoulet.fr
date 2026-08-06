@@ -1,7 +1,13 @@
-const siteUrl =  `https://johansoulet.fr`
-const mapblogPostToAlgoliaRecord = ({id, frontmatter: {featuredImage, noIndex, ...frontmatter}, fields, rawBody, ...rest }) => {
+const siteUrl = `https://johansoulet.fr`
+const mapblogPostToAlgoliaRecord = ({
+  id,
+  frontmatter: { featuredImage, noIndex, ...frontmatter },
+  fields,
+  rawBody,
+  ...rest
+}) => {
   const imageURL = siteUrl + featuredImage.childImageSharp.gatsbyImageData.images.fallback.src
-  const dateTimestamp = (new Date(frontmatter.date)).getTime()
+  const dateTimestamp = new Date(frontmatter.date).getTime()
   return {
     objectID: id,
     ...frontmatter,
@@ -9,7 +15,7 @@ const mapblogPostToAlgoliaRecord = ({id, frontmatter: {featuredImage, noIndex, .
     ...fields,
     imageURL,
     content: rawBody,
-    ...rest
+    ...rest,
   }
 }
 

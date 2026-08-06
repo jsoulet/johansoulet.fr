@@ -1,3 +1,3 @@
 module.exports = {
-  mapblogPostToAlgoliaRecord: require('./mapblogPostToAlgoliaRecord')
+  mapblogPostToAlgoliaRecord: require('./mapblogPostToAlgoliaRecord'),
 }

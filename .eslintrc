@@ -3,7 +3,6 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
     "plugin:react/recommended"
   ],
   "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
@@ -13,7 +12,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["standard", "react", "cypress"],
+  "plugins": ["react"],
   "rules": {
     "@typescript-eslint/member-delimiter-style": [
       "error",
@@ -29,6 +28,7 @@
       }
     ],
     "react/prop-types": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "prefer-promise-reject-errors": 0,
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "max-len": [
